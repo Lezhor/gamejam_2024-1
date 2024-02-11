@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd3edc5c31b69a41834e667658f7b4f, type: 3}
   m_Name: EmptyTile
   m_EditorClassIdentifier: 
-  tileImage: {fileID: 0}
+  imageFloor: {fileID: 0}
+  imageWalls: {fileID: 11400000, guid: d37a68fa2849b4745ac80771c9382f17, type: 2}
   connectsTop: 0
   connectsRight: 0
   connectsBottom: 0
