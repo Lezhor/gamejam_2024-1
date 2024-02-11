@@ -7,8 +7,9 @@ using UnityEngine.Tilemaps;
 public class TileData : ScriptableObject
 {
     
-    [Header("Ressource")]
-    public TileBase tileImage;
+    [Header("Ressources")]
+    public TileBase imageFloor;
+    public TileBase imageWalls;
     
     [Header("Connections")]
     public bool connectsTop = false;
