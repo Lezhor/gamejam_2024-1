@@ -184,6 +184,11 @@ namespace GameLogic
                 return false;
             }
 
+            if (!InBounds(xCell, yCell))
+            {
+                return false;
+            }
+
             if (!_world[xCell][yCell].Data.diggable)
             {
                 return false;
