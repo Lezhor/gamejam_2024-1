@@ -29,6 +29,7 @@ namespace GameLogic
             Place(startPos.x + 1, startPos.y, Registry.we);
             Place(startPos.x - 1, startPos.y, Registry.ne);
             Place(startPos.x + 2, startPos.y + 1, Registry.se);
+            Place(startPos.x + 3, startPos.y + 1, Registry.ws);
             Place(startPos.x, startPos.y - 2, Registry.we);
             Place(startPos.x - 1, startPos.y + 2, Registry.ns);
             Place(startPos.x - 1, startPos.y + 3, Registry.se);
@@ -42,6 +43,13 @@ namespace GameLogic
             {
                 // TODO - Explore neighbour tile if connected
                 _world[x][y].SetExplored(true);
+                foreach (WorldTile tile in GetConnectedNeighbours(x, y))
+                {
+                    if (!tile.IsExplored)
+                    {
+                        ExploreTile(tile.Pos.x, tile.Pos.y);
+                    }
+                }
                 foreach (WorldTile tile in GetTilesInVisibleRadius(x, y))
                 {
                     if (!tile.IsVisible)
@@ -69,6 +77,41 @@ namespace GameLogic
                 }
             }
             
+            return list;
+        }
+
+        private List<WorldTile> GetConnectedNeighbours(int x, int y)
+        {
+            if (!InBounds(x, y)) return new List<WorldTile>();
+
+            WorldTile tile = _world[x][y];
+            List<WorldTile> list = new List<WorldTile>();
+            
+            if (InBounds(x, y + 1)
+                && tile.Data.connectsTop
+                && _world[x][y + 1].Data.connectsBottom)
+            {
+                list.Add(_world[x][y + 1]);
+            }
+            if (InBounds(x + 1, y)
+                && tile.Data.connectsRight
+                && _world[x + 1][y].Data.connectsLeft)
+            {
+                list.Add(_world[x + 1][y]);
+            }
+            if (InBounds(x, y - 1)
+                && tile.Data.connectsBottom
+                && _world[x][y - 1].Data.connectsTop)
+            {
+                list.Add(_world[x][y - 1]);
+            }
+            if (InBounds(x - 1, y)
+                && tile.Data.connectsLeft
+                && _world[x - 1][y].Data.connectsRight)
+            {
+                list.Add(_world[x - 1][y]);
+            }
+
             return list;
         }
 

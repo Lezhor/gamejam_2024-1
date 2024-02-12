@@ -25,7 +25,7 @@ public class WorldTile
     
     private GameManager _gameManager;
 
-    private Vector3Int Pos => new(_x, _y);
+    public Vector3Int Pos => new(_x, _y);
 
     public WorldTile(TileData tileData, int x, int y, GameManager gameManager) : this(tileData, x, y, gameManager, false, false)
     {
