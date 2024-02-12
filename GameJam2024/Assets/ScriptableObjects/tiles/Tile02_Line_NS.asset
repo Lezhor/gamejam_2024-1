@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4dd3edc5c31b69a41834e667658f7b4f, type: 3}
-  m_Name: Tile01_Line_WE
+  m_Name: Tile02_Line_NS
   m_EditorClassIdentifier: 
   imageInvis: {fileID: 11400000, guid: d37a68fa2849b4745ac80771c9382f17, type: 2}
   imageFloorDark: {fileID: 11400000, guid: ac0030f9f98c2a84e8fc2b87c20afbf9, type: 2}
-  imageWallsDark: {fileID: 11400000, guid: df0aac392db0a1145a990e7e4fdbee7b, type: 2}
+  imageWallsDark: {fileID: 11400000, guid: ffe4564663145ad4d9f9381716aa9748, type: 2}
   imageFloor: {fileID: 11400000, guid: ecbd533df0d844d4597ba830099d7e67, type: 2}
-  imageWalls: {fileID: 11400000, guid: df0aac392db0a1145a990e7e4fdbee7b, type: 2}
-  connectsTop: 0
-  connectsRight: 1
-  connectsBottom: 0
-  connectsLeft: 1
+  imageWalls: {fileID: 11400000, guid: ffe4564663145ad4d9f9381716aa9748, type: 2}
+  connectsTop: 1
+  connectsRight: 0
+  connectsBottom: 1
+  connectsLeft: 0
   mustConnect: 1
   destroyable: 1
