@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd3edc5c31b69a41834e667658f7b4f, type: 3}
   m_Name: Tile01_Line_WE
   m_EditorClassIdentifier: 
-  imageFloor: {fileID: 0}
+  imageInvis: {fileID: 0}
+  imageFloorDark: {fileID: 0}
+  imageWallsDark: {fileID: 0}
+  imageFloor: {fileID: 11400000, guid: ac0030f9f98c2a84e8fc2b87c20afbf9, type: 2}
   imageWalls: {fileID: 0}
   connectsTop: 0
   connectsRight: 1
