@@ -20,6 +20,10 @@ namespace GameLogic
             for (int i = 0; i < _world.Length; i++)
             {
                 _world[i] = new WorldTile[size.y];
+            }
+            SetBackgroundAndFogAroundWorld(6);
+            for (int i = 0; i < _world.Length; i++)
+            {
                 for (int k = 0; k < _world[i].Length; k++)
                 {
                     Place(i, k, Registry.emptyTile);
@@ -35,8 +39,22 @@ namespace GameLogic
             Place(startPos.x - 1, startPos.y + 2, Registry.ns);
             Place(startPos.x - 1, startPos.y + 1, Registry.nse);
             Place(startPos.x - 1, startPos.y + 3, Registry.se);
-            Place(startPos.x, startPos.y + 3, Registry.nwe);
+            Place(startPos.x, startPos.y + 3, Registry.wse);
             ExploreTile(startPos.x, startPos.y);
+        }
+
+        private void SetBackgroundAndFogAroundWorld(int distance)
+        {
+            Vector3Int startPos = new Vector3Int(-distance, -distance);
+            Vector3Int endPos = new Vector3Int(_world.Length + distance, _world[0].Length + distance);
+            for (int y = startPos.y; y < endPos.y; y++)
+            {
+                for (int x = startPos.x; x < endPos.x; x++)
+                {
+                    _gameManager.smoke.SetTile(new Vector3Int(x, y), Registry.blockedTile.imageSmoke);
+                    _gameManager.background.SetTile(new Vector3Int(x, y), Registry.blockedTile.imageWalls);
+                }
+            }
         }
 
         private void ExploreTile(int x, int y)
