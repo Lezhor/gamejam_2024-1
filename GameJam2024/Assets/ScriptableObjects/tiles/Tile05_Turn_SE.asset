@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dd3edc5c31b69a41834e667658f7b4f, type: 3}
+  m_Name: Tile05_Turn_SE
+  m_EditorClassIdentifier: 
+  imageInvis: {fileID: 11400000, guid: d37a68fa2849b4745ac80771c9382f17, type: 2}
+  imageFloorDark: {fileID: 11400000, guid: ac0030f9f98c2a84e8fc2b87c20afbf9, type: 2}
+  imageWallsDark: {fileID: 11400000, guid: bd9dd334c4677f846aa85017f8174e3e, type: 2}
+  imageFloor: {fileID: 11400000, guid: ecbd533df0d844d4597ba830099d7e67, type: 2}
+  imageWalls: {fileID: 11400000, guid: bd9dd334c4677f846aa85017f8174e3e, type: 2}
+  connectsTop: 0
+  connectsRight: 1
+  connectsBottom: 1
+  connectsLeft: 0
+  mustConnect: 1
+  destroyable: 1
