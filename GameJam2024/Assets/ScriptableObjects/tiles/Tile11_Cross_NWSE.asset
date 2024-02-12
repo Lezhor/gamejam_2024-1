@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd3edc5c31b69a41834e667658f7b4f, type: 3}
   m_Name: Tile11_Cross_NWSE
   m_EditorClassIdentifier: 
-  imageFloor: {fileID: 11400000, guid: 5092b65c205b2f84f81d2c5bd4f8cea1, type: 2}
+  imageFloor: {fileID: 11400000, guid: ecbd533df0d844d4597ba830099d7e67, type: 2}
   imageWalls: {fileID: 11400000, guid: 8f05d66859130c24c9b6dc571718241e, type: 2}
   connectsTop: 1
   connectsRight: 1
