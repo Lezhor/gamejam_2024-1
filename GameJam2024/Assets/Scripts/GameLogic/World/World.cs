@@ -1,81 +1,123 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace GameLogic
 {
     public class World
     {
-        private GameManager _gameManager;
+        private readonly GameManager _gameManager;
         private TileRegistry Registry => _gameManager.Tiles;
-        private WorldTile[][] world;
+        private readonly WorldTile[][] _world;
+        private Vector2Int _startPos;
 
-        public World(Vector2Int size, GameManager gameManager)
+        public World(Vector2Int size, Vector2Int startPos, GameManager gameManager)
         {
             _gameManager = gameManager;
 
-            world = new WorldTile[size.x][];
-            for (int i = 0; i < world.Length; i++)
+            _world = new WorldTile[size.x][];
+            for (int i = 0; i < _world.Length; i++)
             {
-                world[i] = new WorldTile[size.y];
-                for (int k = 0; k < world[i].Length; k++)
+                _world[i] = new WorldTile[size.y];
+                for (int k = 0; k < _world[i].Length; k++)
                 {
-                    place(i, k, Registry.emptyTile);
+                    Place(i, k, Registry.tile_nwse);
                 }
             }
+            
+            Place(startPos.x, startPos.y, Registry.tile_nwse);
+            ExploreTile(startPos.x, startPos.y);
+        }
+
+        private void ExploreTile(int x, int y)
+        {
+            if (InBounds(x, y))
+            {
+                // TODO - Explore neighbour tile if connected
+                _world[x][y].SetExplored(true);
+                foreach (WorldTile tile in GetTilesInVisibleRadius(x, y))
+                {
+                    if (!tile.IsVisible)
+                    {
+                        tile.SetVisible(true);
+                    }
+                }
+            }
+        }
+
+        private List<WorldTile> GetTilesInVisibleRadius(int x, int y)
+        {
+            List<WorldTile> list = new List<WorldTile>();
+            
+            for (int i = x - 2; i <= x + 2; i++)
+            {
+                for (int k = y - 2; k <= y + 2; k++)
+                {
+                    if (InBounds(i, k)
+                        && (i != x || k != y)
+                        && Math.Abs(i - x) + Math.Abs(k - y) < 4)
+                    {
+                        list.Add(_world[i][k]);
+                    }
+                }
+            }
+            
+            return list;
         }
 
 
         /**
          * Returns true if placed successfully
          */
-        public bool placeIfPossible(int xCell, int yCell, TileData tile)
+        public bool PlaceIfPossible(int xCell, int yCell, TileData tile)
         {
-            if (!canBePlaced(xCell, yCell, tile))
+            if (!CanBePlaced(xCell, yCell, tile))
                 return false;
-            place(xCell, yCell, tile);
+            Place(xCell, yCell, tile);
             return true;
         }
 
-        private void place(int x, int y, TileData tile)
+        private void Place(int x, int y, TileData tile)
         {
-            world[x][y] = new WorldTile(tile, x, y, _gameManager);
+            _world[x][y] = new WorldTile(tile, x, y, _gameManager);
         }
 
-        private bool canBePlaced(int xCell, int yCell, TileData tile)
+        private bool CanBePlaced(int xCell, int yCell, TileData tile)
         {
             if (!tile.mustConnect)
             {
                 return false;
             }
 
-            if (!world[xCell][yCell].Data.destroyable)
+            if (!_world[xCell][yCell].Data.destroyable)
             {
                 return false;
             }
 
-            if (inBounds(xCell, yCell + 1)
-                && world[xCell][yCell + 1].Data.mustConnect
-                && world[xCell][yCell + 1].Data.connectsBottom != tile.connectsTop)
+            if (InBounds(xCell, yCell + 1)
+                && _world[xCell][yCell + 1].Data.mustConnect
+                && _world[xCell][yCell + 1].Data.connectsBottom != tile.connectsTop)
             {
                 return false;
             }
 
-            if (inBounds(xCell + 1, yCell)
-                && world[xCell + 1][yCell].Data.mustConnect
-                && world[xCell + 1][yCell].Data.connectsLeft != tile.connectsRight)
+            if (InBounds(xCell + 1, yCell)
+                && _world[xCell + 1][yCell].Data.mustConnect
+                && _world[xCell + 1][yCell].Data.connectsLeft != tile.connectsRight)
             {
                 return false;
             }
 
-            if (inBounds(xCell, yCell - 1)
-                && world[xCell][yCell - 1].Data.mustConnect
-                && world[xCell][yCell - 1].Data.connectsTop != tile.connectsBottom)
+            if (InBounds(xCell, yCell - 1)
+                && _world[xCell][yCell - 1].Data.mustConnect
+                && _world[xCell][yCell - 1].Data.connectsTop != tile.connectsBottom)
             {
                 return false;
             }
 
-            if (inBounds(xCell - 1, yCell)
-                && world[xCell - 1][yCell].Data.mustConnect
-                && world[xCell - 1][yCell].Data.connectsRight != tile.connectsBottom)
+            if (InBounds(xCell - 1, yCell)
+                && _world[xCell - 1][yCell].Data.mustConnect
+                && _world[xCell - 1][yCell].Data.connectsRight != tile.connectsBottom)
             {
                 return false;
             }
@@ -83,9 +125,9 @@ namespace GameLogic
             return true;
         }
 
-        private bool inBounds(int xCell, int yCell)
+        private bool InBounds(int xCell, int yCell)
         {
-            return xCell >= 0 && xCell < world.Length && yCell >= 0 && yCell < world[xCell].Length;
+            return xCell >= 0 && xCell < _world.Length && yCell >= 0 && yCell < _world[xCell].Length;
         }
     }
 }

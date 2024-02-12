@@ -19,24 +19,26 @@ public class WorldTile
     private int _y;
 
     private bool _visible;
-    private bool _dark;
+    public bool IsVisible => _visible;
+    private bool _explored;
+    public bool IsExplored => _explored;
     
     private GameManager _gameManager;
 
     private Vector3Int Pos => new(_x, _y);
 
-    public WorldTile(TileData tileData, int x, int y, GameManager gameManager) : this(tileData, x, y, gameManager, false, true)
+    public WorldTile(TileData tileData, int x, int y, GameManager gameManager) : this(tileData, x, y, gameManager, false, false)
     {
     }
 
-    public WorldTile(TileData tileData, int x, int y, GameManager gameManager, bool visible, bool dark)
+    public WorldTile(TileData tileData, int x, int y, GameManager gameManager, bool visible, bool explored)
     {
         _tileData = tileData;
         _x = x;
         _y = y;
         _gameManager = gameManager;
         _visible = visible;
-        _dark = dark;
+        _explored = explored;
         redrawOnTilemaps();
     }
 
@@ -49,11 +51,15 @@ public class WorldTile
         }
     }
 
-    public void SetDark(bool dark)
+    public void SetExplored(bool explored)
     {
-        if (_dark != dark)
+        if (_explored != explored)
         {
-            _dark = dark;
+            _explored = explored;
+            if (_explored && !_visible)
+            {
+                _visible = true;
+            }
             redrawOnTilemaps();
         }
     }
@@ -62,8 +68,8 @@ public class WorldTile
     {
         if (_visible)
         {
-            _gameManager.background.SetTile(Pos, _dark ? _tileData.imageFloorDark : _tileData.imageFloor);
-            _gameManager.walls.SetTile(Pos, _dark ? _tileData.imageWallsDark : _tileData.imageWalls);
+            _gameManager.background.SetTile(Pos, _explored ? _tileData.imageFloor : _tileData.imageFloorDark);
+            _gameManager.walls.SetTile(Pos, _explored ? _tileData.imageWalls : _tileData.imageWallsDark);
         }
         else
         {

@@ -562,6 +562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 15, y: 9}
+  player: {fileID: 1813330661}
   background: {fileID: 789512314}
   walls: {fileID: 1606542750}
   foreground: {fileID: 1709575089}
