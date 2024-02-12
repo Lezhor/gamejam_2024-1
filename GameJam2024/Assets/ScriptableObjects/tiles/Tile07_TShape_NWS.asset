@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Tile07_TShape_NWS
   m_EditorClassIdentifier: 
   imageInvis: {fileID: 11400000, guid: d37a68fa2849b4745ac80771c9382f17, type: 2}
+  imageSmoke: {fileID: 11400000, guid: c8fc73cecd6de6d4cb2ade72d15a2562, type: 2}
   imageFloorDark: {fileID: 11400000, guid: ac0030f9f98c2a84e8fc2b87c20afbf9, type: 2}
   imageWallsDark: {fileID: 11400000, guid: 858e61e61a18e9b428fcb6cf263b0eee, type: 2}
   imageFloor: {fileID: 11400000, guid: ecbd533df0d844d4597ba830099d7e67, type: 2}
@@ -22,4 +23,5 @@ MonoBehaviour:
   connectsBottom: 1
   connectsLeft: 1
   mustConnect: 1
-  destroyable: 1
+  diggable: 0
+  bombable: 1

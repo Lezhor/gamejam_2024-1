@@ -10,6 +10,7 @@ public class TileData : ScriptableObject
 
     [Header("Ressources")] 
     public TileBase imageInvis;
+    public TileBase imageSmoke;
     public TileBase imageFloorDark;
     public TileBase imageWallsDark;
     public TileBase imageFloor;

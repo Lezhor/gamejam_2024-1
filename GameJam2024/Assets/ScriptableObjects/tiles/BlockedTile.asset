@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BlockedTile
   m_EditorClassIdentifier: 
   imageInvis: {fileID: 0}
+  imageSmoke: {fileID: 11400000, guid: c8fc73cecd6de6d4cb2ade72d15a2562, type: 2}
   imageFloorDark: {fileID: 0}
   imageWallsDark: {fileID: 0}
   imageFloor: {fileID: 0}

@@ -69,11 +69,13 @@ public class WorldTile
         if (_visible)
         {
             _gameManager.background.SetTile(Pos, _explored ? _tileData.imageFloor : _tileData.imageFloorDark);
+            _gameManager.smoke.SetTile(Pos, null);
             _gameManager.walls.SetTile(Pos, _explored ? _tileData.imageWalls : _tileData.imageWallsDark);
         }
         else
         {
             _gameManager.background.SetTile(Pos, _tileData.imageInvis);
+            _gameManager.smoke.SetTile(Pos, _tileData.imageSmoke);
             _gameManager.walls.SetTile(Pos, null);
         }
     }
