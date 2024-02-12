@@ -9,11 +9,12 @@ namespace GameLogic
         private readonly GameManager _gameManager;
         private TileRegistry Registry => _gameManager.Tiles;
         private readonly WorldTile[][] _world;
-        private Vector2Int _startPos;
+        public readonly Vector2Int StartPos;
 
         public World(Vector2Int size, Vector2Int startPos, GameManager gameManager)
         {
             _gameManager = gameManager;
+            StartPos = startPos;
 
             _world = new WorldTile[size.x][];
             for (int i = 0; i < _world.Length; i++)
@@ -116,15 +117,58 @@ namespace GameLogic
             return list;
         }
 
+        /**
+         * Checks if one of the connected neighbours is explored - If true and self is not explored it Sets itself to explored!
+         */
+        private void UpdateTileState(int x, int y)
+        {
+            bool shouldBeVisible = false;
+            foreach (WorldTile tile in GetTilesInVisibleRadius(x, y))
+            {
+                if (tile.IsExplored)
+                {
+                    shouldBeVisible = true;
+                    break;
+                }
+            }
+
+            if (shouldBeVisible && !_world[x][y].IsVisible)
+            {
+                _world[x][y].SetVisible(true);
+            }
+            
+            bool shouldBeExplored = false;
+            foreach (WorldTile tile in GetConnectedNeighbours(x, y))
+            {
+                if (tile.IsExplored)
+                {
+                    shouldBeExplored = true;
+                    break;
+                }
+            }
+
+            if (shouldBeExplored && !_world[x][y].IsExplored)
+            {
+                _world[x][y].SetExplored(true);
+            }
+        }
+
 
         /**
          * Returns true if placed successfully
          */
         public bool PlaceIfPossible(int xCell, int yCell, TileData tile)
         {
+            Debug.Log("Trying to place: " + tile + " at position ( " + xCell + " | " + yCell + " )");
             if (!CanBePlaced(xCell, yCell, tile))
+            {
+                Debug.Log("Cannot be placed");
                 return false;
+            }
+
+            Debug.Log("Can be placed");
             Place(xCell, yCell, tile);
+            UpdateTileState(xCell, yCell);
             return true;
         }
 
@@ -140,7 +184,7 @@ namespace GameLogic
                 return false;
             }
 
-            if (!_world[xCell][yCell].Data.destroyable)
+            if (!_world[xCell][yCell].Data.diggable)
             {
                 return false;
             }
@@ -168,7 +212,7 @@ namespace GameLogic
 
             if (InBounds(xCell - 1, yCell)
                 && _world[xCell - 1][yCell].Data.mustConnect
-                && _world[xCell - 1][yCell].Data.connectsRight != tile.connectsBottom)
+                && _world[xCell - 1][yCell].Data.connectsRight != tile.connectsLeft)
             {
                 return false;
             }
