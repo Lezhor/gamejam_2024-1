@@ -22,4 +22,5 @@ MonoBehaviour:
   connectsBottom: 0
   connectsLeft: 0
   mustConnect: 0
-  destroyable: 1
+  diggable: 1
+  bombable: 0

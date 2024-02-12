@@ -998,7 +998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 500
-  currentTile: {fileID: 11400000, guid: 9c9b8a66fb6be5845a54a33a489d1bd4, type: 2}
+  currentTile: {fileID: 11400000, guid: 61b72490471832c44add99faaf9e8ccc, type: 2}
 --- !u!1 &2041334796
 GameObject:
   m_ObjectHideFlags: 0

@@ -149,7 +149,7 @@ namespace GameLogic
 
             if (shouldBeExplored && !_world[x][y].IsExplored)
             {
-                _world[x][y].SetExplored(true);
+                ExploreTile(x, y);
             }
         }
 
