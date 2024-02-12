@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd3edc5c31b69a41834e667658f7b4f, type: 3}
   m_Name: BlockedTile
   m_EditorClassIdentifier: 
-  tileImage: {fileID: 0}
+  imageInvis: {fileID: 0}
+  imageFloorDark: {fileID: 0}
+  imageWallsDark: {fileID: 0}
+  imageFloor: {fileID: 0}
+  imageWalls: {fileID: 0}
   connectsTop: 0
   connectsRight: 0
   connectsBottom: 0
   connectsLeft: 0
   mustConnect: 1
-  destroyable: 0
+  diggable: 0
+  bombable: 0
