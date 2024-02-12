@@ -570,11 +570,11 @@ MonoBehaviour:
     emptyTile: {fileID: 11400000, guid: 45c1bfd9c22257b49b798f99a5052a9a, type: 2}
     blockedTile: {fileID: 11400000, guid: 53d38f06edd90f045a95d9bd89dca5a5, type: 2}
     tile_we: {fileID: 11400000, guid: 9c9b8a66fb6be5845a54a33a489d1bd4, type: 2}
-    tile_ns: {fileID: 0}
-    tile_nw: {fileID: 0}
-    tile_ws: {fileID: 0}
-    tile_se: {fileID: 0}
-    tile_ne: {fileID: 0}
+    tile_ns: {fileID: 11400000, guid: 37b784a7d79886a46a4aedf8fdd1dc79, type: 2}
+    tile_nw: {fileID: 11400000, guid: 1d104c26cb8f42d4da4c6ef5790817c0, type: 2}
+    tile_ws: {fileID: 11400000, guid: 25e3e53bfbd3e92478ddadbf3612ca54, type: 2}
+    tile_se: {fileID: 11400000, guid: cfb3a9c0d4f83984cb7e8d05aea38b89, type: 2}
+    tile_ne: {fileID: 11400000, guid: ff6e6a36a4a6ad44fb01d73c50a64976, type: 2}
     tile_nws: {fileID: 0}
     tile_wse: {fileID: 0}
     tile_nse: {fileID: 0}

@@ -21,11 +21,18 @@ namespace GameLogic
                 _world[i] = new WorldTile[size.y];
                 for (int k = 0; k < _world[i].Length; k++)
                 {
-                    Place(i, k, Registry.tile_nwse);
+                    Place(i, k, Registry.emptyTile);
                 }
             }
             
-            Place(startPos.x, startPos.y, Registry.tile_nwse);
+            Place(startPos.x, startPos.y, Registry.nwse);
+            Place(startPos.x + 1, startPos.y, Registry.we);
+            Place(startPos.x - 1, startPos.y, Registry.ne);
+            Place(startPos.x + 2, startPos.y + 1, Registry.se);
+            Place(startPos.x, startPos.y - 2, Registry.we);
+            Place(startPos.x - 1, startPos.y + 2, Registry.ns);
+            Place(startPos.x - 1, startPos.y + 3, Registry.se);
+            Place(startPos.x, startPos.y + 3, Registry.we);
             ExploreTile(startPos.x, startPos.y);
         }
 

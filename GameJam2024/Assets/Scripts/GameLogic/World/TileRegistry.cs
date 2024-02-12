@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameLogic
 {
@@ -11,19 +12,19 @@ namespace GameLogic
         public TileData blockedTile;
 
         [Header("Straights")]
-        public TileData tile_we;
-        public TileData tile_ns;
+        [FormerlySerializedAs("tile_we")] public TileData we;
+        [FormerlySerializedAs("tile_ns")] public TileData ns;
         [Header("Turns")] 
-        public TileData tile_nw;
-        public TileData tile_ws;
-        public TileData tile_se;
-        public TileData tile_ne;
+        [FormerlySerializedAs("tile_nw")] public TileData nw;
+        [FormerlySerializedAs("tile_ws")] public TileData ws;
+        [FormerlySerializedAs("tile_se")] public TileData se;
+        [FormerlySerializedAs("tile_ne")] public TileData ne;
         [Header("T-Shapes")] 
-        public TileData tile_nws;
-        public TileData tile_wse;
-        public TileData tile_nse;
-        public TileData tile_nwe;
+        [FormerlySerializedAs("tile_nws")] public TileData nws;
+        [FormerlySerializedAs("tile_wse")] public TileData wse;
+        [FormerlySerializedAs("tile_nse")] public TileData nse;
+        [FormerlySerializedAs("tile_nwe")] public TileData nwe;
         [Header("Cross-Intersection")]
-        public TileData tile_nwse;
+        [FormerlySerializedAs("tile_nwse")] public TileData nwse;
     }
 }
