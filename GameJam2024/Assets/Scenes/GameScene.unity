@@ -569,17 +569,17 @@ MonoBehaviour:
   _tiles:
     emptyTile: {fileID: 11400000, guid: 45c1bfd9c22257b49b798f99a5052a9a, type: 2}
     blockedTile: {fileID: 11400000, guid: 53d38f06edd90f045a95d9bd89dca5a5, type: 2}
-    tile_we: {fileID: 11400000, guid: 9c9b8a66fb6be5845a54a33a489d1bd4, type: 2}
-    tile_ns: {fileID: 11400000, guid: 37b784a7d79886a46a4aedf8fdd1dc79, type: 2}
-    tile_nw: {fileID: 11400000, guid: 1d104c26cb8f42d4da4c6ef5790817c0, type: 2}
-    tile_ws: {fileID: 11400000, guid: 25e3e53bfbd3e92478ddadbf3612ca54, type: 2}
-    tile_se: {fileID: 11400000, guid: cfb3a9c0d4f83984cb7e8d05aea38b89, type: 2}
-    tile_ne: {fileID: 11400000, guid: ff6e6a36a4a6ad44fb01d73c50a64976, type: 2}
-    tile_nws: {fileID: 0}
-    tile_wse: {fileID: 0}
-    tile_nse: {fileID: 0}
-    tile_nwe: {fileID: 0}
-    tile_nwse: {fileID: 11400000, guid: a8066a92cb553a74cb59d42c2d19162b, type: 2}
+    we: {fileID: 11400000, guid: 9c9b8a66fb6be5845a54a33a489d1bd4, type: 2}
+    ns: {fileID: 11400000, guid: 37b784a7d79886a46a4aedf8fdd1dc79, type: 2}
+    nw: {fileID: 11400000, guid: 1d104c26cb8f42d4da4c6ef5790817c0, type: 2}
+    ws: {fileID: 11400000, guid: 25e3e53bfbd3e92478ddadbf3612ca54, type: 2}
+    se: {fileID: 11400000, guid: cfb3a9c0d4f83984cb7e8d05aea38b89, type: 2}
+    ne: {fileID: 11400000, guid: ff6e6a36a4a6ad44fb01d73c50a64976, type: 2}
+    nws: {fileID: 11400000, guid: 61b72490471832c44add99faaf9e8ccc, type: 2}
+    wse: {fileID: 11400000, guid: 0d1fe45f119fa454d8038c7bcc0597fb, type: 2}
+    nse: {fileID: 11400000, guid: 81e4f74ce60aa474e8963b7c91fd87e2, type: 2}
+    nwe: {fileID: 11400000, guid: 041eea32fdb65dc4aafa9740fd21deeb, type: 2}
+    nwse: {fileID: 11400000, guid: a8066a92cb553a74cb59d42c2d19162b, type: 2}
 --- !u!1 &1606542747
 GameObject:
   m_ObjectHideFlags: 0

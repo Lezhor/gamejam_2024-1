@@ -22,7 +22,7 @@ public class TileData : ScriptableObject
 
     [Header("Constraints")]
     public bool mustConnect = true;
-    public bool destroyable = false;
+    public bool destroyable = true;
 
 
 }
