@@ -44,6 +44,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Smoke
+    uniqueID: 2377258829
+    locked: 0
   - name: Entities
     uniqueID: 1090614939
     locked: 0
