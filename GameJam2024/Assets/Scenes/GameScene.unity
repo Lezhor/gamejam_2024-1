@@ -452,7 +452,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 2
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -562,7 +562,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 15, y: 9}
-  player: {fileID: 1813330661}
+  _player: {fileID: 1813330661}
+  _camera: {fileID: 877541933}
   background: {fileID: 789512314}
   walls: {fileID: 1606542750}
   foreground: {fileID: 1709575089}
@@ -996,7 +997,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82662c275eba6e4409c54a9a23c8cc99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 500
+  currentTile: {fileID: 11400000, guid: 9c9b8a66fb6be5845a54a33a489d1bd4, type: 2}
 --- !u!1 &2041334796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1036,7 +1038,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1813330664}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 3
+    OrthographicSize: 2
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
