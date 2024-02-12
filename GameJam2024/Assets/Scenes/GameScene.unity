@@ -565,10 +565,20 @@ MonoBehaviour:
   background: {fileID: 789512314}
   walls: {fileID: 1606542750}
   foreground: {fileID: 1709575089}
-  emptyTile: {fileID: 11400000, guid: 45c1bfd9c22257b49b798f99a5052a9a, type: 2}
-  tile_we: {fileID: 11400000, guid: 9c9b8a66fb6be5845a54a33a489d1bd4, type: 2}
-  tile_ns: {fileID: 0}
-  tile_nwse: {fileID: 11400000, guid: a8066a92cb553a74cb59d42c2d19162b, type: 2}
+  _tiles:
+    emptyTile: {fileID: 11400000, guid: 45c1bfd9c22257b49b798f99a5052a9a, type: 2}
+    blockedTile: {fileID: 11400000, guid: 53d38f06edd90f045a95d9bd89dca5a5, type: 2}
+    tile_we: {fileID: 11400000, guid: 9c9b8a66fb6be5845a54a33a489d1bd4, type: 2}
+    tile_ns: {fileID: 0}
+    tile_nw: {fileID: 0}
+    tile_ws: {fileID: 0}
+    tile_se: {fileID: 0}
+    tile_ne: {fileID: 0}
+    tile_nws: {fileID: 0}
+    tile_wse: {fileID: 0}
+    tile_nse: {fileID: 0}
+    tile_nwe: {fileID: 0}
+    tile_nwse: {fileID: 11400000, guid: a8066a92cb553a74cb59d42c2d19162b, type: 2}
 --- !u!1 &1606542747
 GameObject:
   m_ObjectHideFlags: 0

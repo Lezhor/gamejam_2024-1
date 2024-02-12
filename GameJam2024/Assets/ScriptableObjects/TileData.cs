@@ -6,8 +6,11 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu(fileName = "New Tile Data", menuName = "World/Tile Data")]
 public class TileData : ScriptableObject
 {
-    
-    [Header("Ressources")]
+
+    [Header("Ressources")] 
+    public TileBase imageInvis;
+    public TileBase imageFloorDark;
+    public TileBase imageWallsDark;
     public TileBase imageFloor;
     public TileBase imageWalls;
     
