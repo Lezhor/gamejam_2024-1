@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd3edc5c31b69a41834e667658f7b4f, type: 3}
   m_Name: Tile11_Cross_NWSE
   m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
   imageInvis: {fileID: 11400000, guid: d37a68fa2849b4745ac80771c9382f17, type: 2}
-  imageSmoke: {fileID: 11400000, guid: c8fc73cecd6de6d4cb2ade72d15a2562, type: 2}
+  imageFogInvis: {fileID: 11400000, guid: c8fc73cecd6de6d4cb2ade72d15a2562, type: 2}
   imageFloorDark: {fileID: 11400000, guid: ac0030f9f98c2a84e8fc2b87c20afbf9, type: 2}
+  imageFogPath: {fileID: 11400000, guid: 26c882322a8fe1744bde382106de2bea, type: 2}
   imageWallsDark: {fileID: 11400000, guid: 8f05d66859130c24c9b6dc571718241e, type: 2}
-  imageFloor: {fileID: 11400000, guid: ecbd533df0d844d4597ba830099d7e67, type: 2}
+  imageFloor: {fileID: 11400000, guid: ac0030f9f98c2a84e8fc2b87c20afbf9, type: 2}
   imageWalls: {fileID: 11400000, guid: 8f05d66859130c24c9b6dc571718241e, type: 2}
   connectsTop: 1
   connectsRight: 1

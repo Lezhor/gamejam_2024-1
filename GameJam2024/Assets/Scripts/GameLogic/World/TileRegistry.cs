@@ -1,7 +1,8 @@
 ﻿using System;
-using GameLogic.world;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.Tilemaps;
+using TileData = GameLogic.world.TileData;
 
 namespace GameLogic
 {

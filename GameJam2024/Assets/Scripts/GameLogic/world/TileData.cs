@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 namespace GameLogic.world
@@ -11,8 +12,9 @@ namespace GameLogic.world
 
         [Header("Tilemap Resources")] 
         public TileBase imageInvis;
-        public TileBase imageSmoke;
+        [FormerlySerializedAs("imageSmoke")] public TileBase imageFogInvis;
         public TileBase imageFloorDark;
+        [FormerlySerializedAs("imageFogDark")] public TileBase imageFogPath;
         public TileBase imageWallsDark;
         public TileBase imageFloor;
         public TileBase imageWalls;

@@ -1,6 +1,7 @@
 using GameLogic.world;
 using GameLogic.world.generators;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 namespace GameLogic
@@ -18,7 +19,8 @@ namespace GameLogic
         public Camera Cam => _camera;
 
         [Header("Tilemaps")] public Tilemap background;
-        public Tilemap smoke;
+        [FormerlySerializedAs("smoke")] public Tilemap fog;
+        public Tilemap fogPath;
         public Tilemap walls;
         public Tilemap foreground;
 

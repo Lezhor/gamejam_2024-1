@@ -70,14 +70,22 @@ public class WorldTile
     {
         if (_visible)
         {
-            _gameManager.background.SetTile(Pos, _explored ? _tileData.imageFloor : _tileData.imageFloorDark);
-            _gameManager.smoke.SetTile(Pos, null);
-            _gameManager.walls.SetTile(Pos, _explored ? _tileData.imageWalls : _tileData.imageWallsDark);
+            _gameManager.fog.SetTile(Pos, null);
+            if (_explored)
+            {
+                _gameManager.background.SetTile(Pos, _tileData.imageFloor);
+                _gameManager.walls.SetTile(Pos, _tileData.imageWalls);
+                _gameManager.fogPath.SetTile(Pos, null);
+            } else {
+                _gameManager.background.SetTile(Pos, _tileData.imageFloorDark);
+                _gameManager.walls.SetTile(Pos, _tileData.imageWallsDark);
+                _gameManager.fogPath.SetTile(Pos, _tileData.imageFogPath);
+            }
         }
         else
         {
             _gameManager.background.SetTile(Pos, _tileData.imageInvis);
-            _gameManager.smoke.SetTile(Pos, _tileData.imageSmoke);
+            _gameManager.fog.SetTile(Pos, _tileData.imageFogInvis);
             _gameManager.walls.SetTile(Pos, null);
         }
     }

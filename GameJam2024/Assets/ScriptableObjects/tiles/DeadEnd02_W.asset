@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 793b37196b00704458368946b4132fdf, type: 3}
   imageInvis: {fileID: 11400000, guid: d37a68fa2849b4745ac80771c9382f17, type: 2}
-  imageSmoke: {fileID: 11400000, guid: c8fc73cecd6de6d4cb2ade72d15a2562, type: 2}
+  imageFogInvis: {fileID: 11400000, guid: c8fc73cecd6de6d4cb2ade72d15a2562, type: 2}
   imageFloorDark: {fileID: 11400000, guid: ac0030f9f98c2a84e8fc2b87c20afbf9, type: 2}
+  imageFogPath: {fileID: 11400000, guid: 26c882322a8fe1744bde382106de2bea, type: 2}
   imageWallsDark: {fileID: 11400000, guid: d6c6ffe8a2d1fbd4baa6312c92c6665b, type: 2}
-  imageFloor: {fileID: 11400000, guid: ecbd533df0d844d4597ba830099d7e67, type: 2}
+  imageFloor: {fileID: 11400000, guid: ac0030f9f98c2a84e8fc2b87c20afbf9, type: 2}
   imageWalls: {fileID: 11400000, guid: d6c6ffe8a2d1fbd4baa6312c92c6665b, type: 2}
   connectsTop: 0
   connectsRight: 0

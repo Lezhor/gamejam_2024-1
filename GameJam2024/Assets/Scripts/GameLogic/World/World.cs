@@ -54,7 +54,7 @@ namespace GameLogic.world
                 {
                     if (!InBounds(x, y))
                     {
-                        _gameManager.smoke.SetTile(new Vector3Int(x, y), Registry.blockedTile.imageSmoke);
+                        _gameManager.fog.SetTile(new Vector3Int(x, y), Registry.blockedTile.imageFogInvis);
                         _gameManager.background.SetTile(new Vector3Int(x, y), Registry.blockedTile.imageWalls);
                     }
                 }
