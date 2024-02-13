@@ -3,14 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using GameLogic;
 using GameLogic.Maze;
+using GameLogic.world.generators;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Settings")] public Vector2Int size = new(9, 7);
+    [Header("Settings")] 
+    public WorldGenerator worldGenerator;
 
-    [Header("Other")] [SerializeField] private GameObject _player;
+    [Header("Other")] 
+    [SerializeField] private GameObject _player;
     public GameObject Player => _player;
     [SerializeField] private Camera _camera;
     public Camera Cam => _camera;
@@ -36,8 +39,7 @@ public class GameManager : MonoBehaviour
         _instance = this;
 
         // TODO - WorldGenerator should create World
-        MazeGenerator generator = new MazeGenerator(size, this);
-        _world = generator.GenerateWorld();
+        _world = worldGenerator.GenerateWorld();
         /*
         Vector2Int startPos = new(1, Mathf.CeilToInt(size.y / 2f));
         _world = new World(size, startPos, this);

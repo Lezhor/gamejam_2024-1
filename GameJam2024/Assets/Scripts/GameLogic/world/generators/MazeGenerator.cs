@@ -1,29 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GameLogic.world.generators;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameLogic.Maze
 {
-    public class MazeGenerator
+    [CreateAssetMenu(fileName = "New Maze Generator", menuName = "World Generator/Maze Generator")]
+    public class MazeGenerator : WorldGenerator
     {
-        private readonly Node[,] _maze;
-        private readonly Vector2Int _dimensions;
-        private readonly GameManager _gameManager;
+        private Node[,] _maze;
 
-        private TileRegistry Registry => _gameManager.Tiles;
-        public Vector2Int StartPos { get; }
-
-
-        public MazeGenerator(Vector2Int dimensions, GameManager gameManager)
-        {
-            _dimensions = dimensions;
-            _maze = new Node[dimensions.x, dimensions.y];
-            _gameManager = gameManager;
-            StartPos = new Vector2Int(0, dimensions.y - 1);
-        }
+        private TileRegistry Registry => gameManager.Tiles;
+        public Vector2Int startPos;
 
         public void GenerateMaze()
         {
+            _maze = new Node[dimensions.x, dimensions.y];
+            startPos = new Vector2Int(0, dimensions.y - 1);
             for (int y = 0; y < _maze.GetLength(1); y++)
             {
                 for (int x = 0; x < _maze.GetLength(0); x++)
@@ -33,7 +27,7 @@ namespace GameLogic.Maze
             }
 
             Queue<Node> queue = new Queue<Node>();
-            queue.Enqueue(_maze[StartPos.x, StartPos.y]);
+            queue.Enqueue(_maze[startPos.x, startPos.y]);
             while (queue.Count > 0)
             {
                 Node current = queue.Dequeue();
@@ -52,7 +46,7 @@ namespace GameLogic.Maze
             }
         }
 
-        public World GenerateWorld()
+        public override World GenerateWorld()
         {
             GenerateMaze();
             Debug.Log("Generating world");
@@ -68,13 +62,13 @@ namespace GameLogic.Maze
                 for (int y = 0; y < board[x].Length; y++)
                 {
                     Node n = _maze[x, y];
-                    board[x][y] = new WorldTile(Registry.GetTile(n.Top, n.Right, n.Bottom, n.Left), x, y, _gameManager);
+                    board[x][y] = new WorldTile(Registry.GetTile(n.Top, n.Right, n.Bottom, n.Left), x, y, gameManager);
                 }
             }
 
             Debug.Log("World generated!");
 
-            return new World(board, StartPos, _gameManager);
+            return new World(board, startPos, gameManager);
         }
 
         private void Connect(Node node1, Node node2)

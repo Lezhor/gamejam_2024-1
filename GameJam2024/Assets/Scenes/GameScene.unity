@@ -730,7 +730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3227ae21b648331428e6e3958db9f5df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 15, y: 9}
+  worldGenerator: {fileID: 11400000, guid: 823f9dc76681c1d4fa068afd7efd2f47, type: 2}
   _player: {fileID: 1813330661}
   _camera: {fileID: 877541933}
   background: {fileID: 789512314}
