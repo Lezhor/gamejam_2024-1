@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36931eca66fe418e9e6300cb6ebd597d, type: 3}
   m_Name: EmptyWorldGeneratorSmall
   m_EditorClassIdentifier: 
-  dimensions: {x: 0, y: 0}
+  dimensions: {x: 9, y: 7}
