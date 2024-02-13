@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameLogic;
+using GameLogic.player;
 using GameLogic.world;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,6 +16,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField] 
     private TileData currentTile;
 
+    public TileData CurrentTile
+    {
+        get
+        {
+            return currentTile;
+        }
+
+        set
+        {
+            currentTile = value;
+            // TODO - Call Event to update UI
+        }
+    }
+
+    private TileRandomizer _tileRandomizer;
+
     private Rigidbody2D _rigidbody;
 
     private Camera _cam;
@@ -25,6 +42,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _cam = GameManager.Instance.Cam;
         _world = GameManager.Instance.World;
+        _tileRandomizer = new TileRandomizer(GameManager.Instance.Tiles);
     }
 
     private void Update()
@@ -35,13 +53,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private bool PlaceActiveTileOnCursorField()
+    private void PlaceActiveTileOnCursorField()
     {
         Vector3 mousePos = Input.mousePosition;
         Vector3 mouseWorldPos = _cam.ScreenToWorldPoint(mousePos);
         Vector2Int tilePos = new Vector2Int(Mathf.FloorToInt(mouseWorldPos.x), Mathf.FloorToInt(mouseWorldPos.y));
 
-        return _world.PlaceIfPossible(tilePos.x, tilePos.y, currentTile);
+        if (_world.PlaceIfPossible(tilePos.x, tilePos.y, CurrentTile))
+        {
+            CurrentTile = _tileRandomizer.GetRandomTile();
+        }
         
     }
 
