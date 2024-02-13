@@ -9,6 +9,7 @@ namespace GameLogic
     {
         [Header("Settings")] 
         public WorldGenerator worldGenerator;
+        public int worldBorderWidth = 10;
 
         [Header("Other")] 
         [SerializeField] private GameObject _player;

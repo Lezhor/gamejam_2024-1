@@ -11,6 +11,12 @@ namespace GameLogic
         public TileData emptyTile;
         public TileData blockedTile;
 
+        [Header("Dead Ends")] 
+        public TileData n;
+        public TileData w;
+        public TileData s;
+        public TileData e;
+
         [Header("Straights")]
         [FormerlySerializedAs("tile_we")] public TileData we;
         [FormerlySerializedAs("tile_ns")] public TileData ns;
@@ -36,6 +42,10 @@ namespace GameLogic
         {
             return str switch
             {
+                "n" => n,
+                "w" => w,
+                "s" => s,
+                "e" => e,
                 "we" => we,
                 "ns" => ns,
                 "nw" => nw,

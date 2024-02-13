@@ -21,7 +21,7 @@ namespace GameLogic.world
             {
                 _world[i] = new WorldTile[size.y];
             }
-            SetBackgroundAndFogAroundWorld(6);
+            SetBackgroundAndFogAroundWorld(gameManager.worldBorderWidth);
             for (int i = 0; i < _world.Length; i++)
             {
                 for (int k = 0; k < _world[i].Length; k++)
@@ -48,7 +48,7 @@ namespace GameLogic.world
             _world = world;
             StartPos = startPos;
             _gameManager = gameManager;
-            SetBackgroundAndFogAroundWorld(6);
+            SetBackgroundAndFogAroundWorld(gameManager.worldBorderWidth);
             ExploreTile(startPos.x, startPos.y);
             Debug.Log("World created!");
         }
