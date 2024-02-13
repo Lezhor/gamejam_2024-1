@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd3edc5c31b69a41834e667658f7b4f, type: 3}
   m_Name: EmptyTile
   m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 75be0601b7ce1b64fa49ce559660f76c, type: 3}
   imageInvis: {fileID: 11400000, guid: d37a68fa2849b4745ac80771c9382f17, type: 2}
   imageSmoke: {fileID: 11400000, guid: c8fc73cecd6de6d4cb2ade72d15a2562, type: 2}
   imageFloorDark: {fileID: 0}

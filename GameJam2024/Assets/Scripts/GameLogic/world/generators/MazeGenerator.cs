@@ -15,7 +15,6 @@ namespace GameLogic.world.generators
         public void GenerateMaze()
         {
             _maze = new Node[dimensions.x, dimensions.y];
-            startPos = new Vector2Int(0, dimensions.y - 1);
             for (int y = 0; y < _maze.GetLength(1); y++)
             {
                 for (int x = 0; x < _maze.GetLength(0); x++)
