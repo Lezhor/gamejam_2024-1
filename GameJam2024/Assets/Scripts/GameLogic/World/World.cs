@@ -30,15 +30,6 @@ namespace GameLogic.world
                 }
             }
             Place(startPos.x, startPos.y, Registry.nwse);
-            Place(startPos.x + 1, startPos.y, Registry.we);
-            Place(startPos.x - 1, startPos.y, Registry.nse);
-            Place(startPos.x + 2, startPos.y + 1, Registry.se);
-            Place(startPos.x + 3, startPos.y + 1, Registry.nws);
-            Place(startPos.x, startPos.y - 2, Registry.we);
-            Place(startPos.x - 1, startPos.y + 2, Registry.ns);
-            Place(startPos.x - 1, startPos.y + 1, Registry.nse);
-            Place(startPos.x - 1, startPos.y + 3, Registry.se);
-            Place(startPos.x, startPos.y + 3, Registry.wse);
             ExploreTile(startPos.x, startPos.y);
         }
 
