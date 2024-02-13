@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameLogic;
+using GameLogic.Maze;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -35,8 +36,12 @@ public class GameManager : MonoBehaviour
         _instance = this;
 
         // TODO - WorldGenerator should create World
+        MazeGenerator generator = new MazeGenerator(size, this);
+        _world = generator.GenerateWorld();
+        /*
         Vector2Int startPos = new(1, Mathf.CeilToInt(size.y / 2f));
         _world = new World(size, startPos, this);
+        */
     }
 
     private void Start()

@@ -26,5 +26,30 @@ namespace GameLogic
         [FormerlySerializedAs("tile_nwe")] public TileData nwe;
         [Header("Cross-Intersection")]
         [FormerlySerializedAs("tile_nwse")] public TileData nwse;
+
+        public TileData GetTile(bool top, bool right, bool bottom, bool left)
+        {
+            return GetTile((top ? "n" : "") + (left ? "w" : "") + (bottom ? "s" : "") + (right ? "e" : ""));
+        }
+
+        public TileData GetTile(string str)
+        {
+            return str switch
+            {
+                "we" => we,
+                "ns" => ns,
+                "nw" => nw,
+                "ws" => ws,
+                "se" => se,
+                "ne" => ne,
+                "nws" => nws,
+                "wse" => wse,
+                "nse" => nse,
+                "nwe" => nwe,
+                "nwse" => nwse,
+                _ => emptyTile
+            };
+        }
+        
     }
 }

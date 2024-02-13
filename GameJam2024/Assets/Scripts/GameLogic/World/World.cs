@@ -29,7 +29,6 @@ namespace GameLogic
                     Place(i, k, Registry.emptyTile);
                 }
             }
-            
             Place(startPos.x, startPos.y, Registry.nwse);
             Place(startPos.x + 1, startPos.y, Registry.we);
             Place(startPos.x - 1, startPos.y, Registry.nse);
@@ -43,6 +42,17 @@ namespace GameLogic
             ExploreTile(startPos.x, startPos.y);
         }
 
+        public World(WorldTile[][] world, Vector2Int startPos, GameManager gameManager)
+        {
+            Debug.Log("Creating world");
+            _world = world;
+            StartPos = startPos;
+            _gameManager = gameManager;
+            SetBackgroundAndFogAroundWorld(6);
+            ExploreTile(startPos.x, startPos.y);
+            Debug.Log("World created!");
+        }
+
         private void SetBackgroundAndFogAroundWorld(int distance)
         {
             Vector3Int startPos = new Vector3Int(-distance, -distance);
@@ -51,8 +61,11 @@ namespace GameLogic
             {
                 for (int x = startPos.x; x < endPos.x; x++)
                 {
-                    _gameManager.smoke.SetTile(new Vector3Int(x, y), Registry.blockedTile.imageSmoke);
-                    _gameManager.background.SetTile(new Vector3Int(x, y), Registry.blockedTile.imageWalls);
+                    if (!InBounds(x, y))
+                    {
+                        _gameManager.smoke.SetTile(new Vector3Int(x, y), Registry.blockedTile.imageSmoke);
+                        _gameManager.background.SetTile(new Vector3Int(x, y), Registry.blockedTile.imageWalls);
+                    }
                 }
             }
         }
