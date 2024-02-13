@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameLogic;
+using GameLogic.world;
 using Unity.VisualScripting;
 using UnityEngine;
 

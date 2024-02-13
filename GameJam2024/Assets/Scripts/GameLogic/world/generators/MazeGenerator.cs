@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GameLogic.world.generators;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace GameLogic.Maze
+namespace GameLogic.world.generators
 {
     [CreateAssetMenu(fileName = "New Maze Generator", menuName = "World Generator/Maze Generator")]
     public class MazeGenerator : WorldGenerator

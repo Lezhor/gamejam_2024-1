@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameLogic
+namespace GameLogic.world
 {
     public class World
     {
@@ -221,6 +221,15 @@ namespace GameLogic
             }
 
             if (!_world[xCell][yCell].Data.diggable)
+            {
+                return false;
+            }
+
+            if (!InBounds(xCell, yCell + 1) && tile.connectsTop
+                || !InBounds(xCell + 1, yCell) && tile.connectsRight
+                || !InBounds(xCell, yCell - 1) && tile.connectsBottom
+                || !InBounds(xCell - 1, yCell) && tile.connectsLeft
+                )
             {
                 return false;
             }
