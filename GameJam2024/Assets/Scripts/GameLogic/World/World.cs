@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GameLogic.world
@@ -100,6 +101,22 @@ namespace GameLogic.world
             }
             
             return list;
+        }
+
+        private List<WorldTile> GetNeighbours(int x, int y)
+        {
+
+            return new List<Vector2Int>(new[]
+                {
+                    new Vector2Int(0, 1),
+                    new Vector2Int(1, 0),
+                    new Vector2Int(0, -1),
+                    new Vector2Int(-1, 0),
+                })
+                .Select(v => v + new Vector2Int(x, y))
+                .Where(v => InBounds(v.x, v.y))
+                .Select(v => _world[v.x][v.y])
+                .ToList();
         }
 
         private List<WorldTile> GetConnectedNeighbours(int x, int y)
@@ -215,6 +232,11 @@ namespace GameLogic.world
                 || !InBounds(xCell, yCell - 1) && tile.connectsBottom
                 || !InBounds(xCell - 1, yCell) && tile.connectsLeft
                 )
+            {
+                return false;
+            }
+
+            if (!GetNeighbours(xCell, yCell).Any(tile => tile.IsExplored))
             {
                 return false;
             }
