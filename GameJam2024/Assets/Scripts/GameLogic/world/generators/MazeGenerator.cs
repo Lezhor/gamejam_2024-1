@@ -7,14 +7,15 @@ namespace GameLogic.world.generators
     [CreateAssetMenu(fileName = "New Maze Generator", menuName = "World Generator/Maze Generator")]
     public class MazeGenerator : WorldGenerator
     {
+
+        [SerializeField]
+        private Vector2Int startPos;
+
         private Node[,] _maze;
 
-        private TileRegistry Registry => gameManager.Tiles;
-        public Vector2Int startPos;
-
-        public void GenerateMaze()
+        protected override Node[,] GenerateWorldGraph(Vector2Int size)
         {
-            _maze = new Node[dimensions.x, dimensions.y];
+            _maze = new Node[size.x, size.y];
             for (int y = 0; y < _maze.GetLength(1); y++)
             {
                 for (int x = 0; x < _maze.GetLength(0); x++)
@@ -41,31 +42,18 @@ namespace GameLogic.world.generators
                     }
                 }
             }
+
+            return _maze;
         }
 
-        public override World GenerateWorld()
+        protected override Vector2Int StartPos(Vector2Int size)
         {
-            GenerateMaze();
-            Debug.Log("Generating world");
-            WorldTile[][] board = new WorldTile[_maze.GetLength(0)][];
-            for (int i = 0; i < board.Length; i++)
-            {
-                board[i] = new WorldTile[_maze.GetLength(1)];
-            }
+            return startPos;
+        }
 
-            Debug.Log("Filling tiles");
-            for (int x = 0; x < board.Length; x++)
-            {
-                for (int y = 0; y < board[x].Length; y++)
-                {
-                    Node n = _maze[x, y];
-                    board[x][y] = new WorldTile(Registry.GetTile(n.Top, n.Right, n.Bottom, n.Left), x, y, gameManager);
-                }
-            }
-
-            Debug.Log("World generated!");
-
-            return new World(board, startPos, gameManager);
+        protected override TileData GetTile(Node node)
+        {
+            return Registry.GetTile(node.Top, node.Right, node.Bottom, node.Left);
         }
 
         private void Connect(Node node1, Node node2)
@@ -135,24 +123,6 @@ namespace GameLogic.world.generators
         private bool InBounds(int xCell, int yCell)
         {
             return xCell >= 0 && xCell < _maze.GetLength(0) && yCell >= 0 && yCell < _maze.GetLength(1);
-        }
-
-        private class Node
-        {
-            public int X;
-            public int Y;
-
-            public bool Marked;
-            public bool Top;
-            public bool Right;
-            public bool Bottom;
-            public bool Left;
-
-            public Node(int x, int y)
-            {
-                X = x;
-                Y = y;
-            }
         }
     }
 }
