@@ -32,7 +32,8 @@ namespace UI
 
         public void UpdateSelectedState(bool selected)
         {
-            // TODO - Highlight if selected!
+            // TODO - Show visually that slot is selected
+            Debug.Log("Selected Slot: " + textLabel.text);
         }
 
         private void SetTransparency(Image image, float alpha)
