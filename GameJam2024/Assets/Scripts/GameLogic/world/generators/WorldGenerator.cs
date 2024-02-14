@@ -1,9 +1,21 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace GameLogic.world.generators
 {
     public abstract class WorldGenerator : ScriptableObject
     {
+
+        protected static readonly List<Vector2Int> Directions = new(new[]
+        {
+            new Vector2Int(0, 1),
+            new Vector2Int(1, 0),
+            new Vector2Int(0, -1),
+            new Vector2Int(-1, 0),
+        });
+        
         public GameManager GameManager => GameManager.Instance;
         public TileRegistry Registry => GameManager.Tiles;
         [Header("Settings")]
@@ -40,5 +52,61 @@ namespace GameLogic.world.generators
         protected abstract TileData GetTile(Node node);
 
         protected abstract Vector2Int StartPos(Vector2Int size);
+
+        /**
+         * Creates graph with size size and sets each node.
+         */
+        protected Node[,] CreateBasicGraph(Vector2Int size)
+        {
+            Node[,] graph = new Node[size.x, size.y];
+            FillNodes(graph);
+            return graph;
+        }
+
+        protected void FillNodes(Node[,] graph)
+        {
+            FillNodes(graph, (x, y) => new Node(x, y));
+        }
+
+        protected void FillNodes(Node[,] graph, Func<int, int, Node> nodeFactory)
+        {
+            for (int y = 0; y < graph.GetLength(1); y++)
+            {
+                for (int x = 0; x < graph.GetLength(0); x++)
+                {
+                    graph[x, y] = nodeFactory.Invoke(x, y);
+                }
+            }
+        }
+
+        protected void ForeachNode(Node[,] graph, Action<Node> action)
+        {
+            for (int y = 0; y < graph.GetLength(1); y++)
+            {
+                for (int x = 0; x < graph.GetLength(0); x++)
+                {
+                    action.Invoke(graph[x, y]);
+                }
+            }
+        }
+
+        protected List<Node> GetNeighbours(Node[,] graph, Vector2Int pos)
+        {
+            return Directions
+                .Select(v => pos + v)
+                .Where(v => InBounds(graph, v))
+                .Select(v => graph[v.x, v.y])
+                .ToList();
+        }
+
+        private bool InBounds(Node[,] graph, Vector2Int pos)
+        {
+            return InBounds(graph, pos.x, pos.y);
+        }
+
+        private bool InBounds(Node[,] graph, int x, int y)
+        {
+            return x >= 0 && x < graph.GetLength(0) && y >= 0 && y < graph.GetLength(1);
+        }
     }
 }
