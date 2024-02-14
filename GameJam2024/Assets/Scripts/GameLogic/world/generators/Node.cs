@@ -56,7 +56,7 @@ namespace GameLogic.world.generators
             }
             if (node2.Y == node1.Y + 1)
             {
-                return node1.Top = node2.Bottom;
+                return node1.Top == node2.Bottom;
             }
 
             return true;

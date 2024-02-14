@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dimensions: {x: 11, y: 9}
   blockedTilesPercentage: 15
-  maxBlockedTilesIn3x3Box: 3
+  maxBlockedTilesIn3x3Box: 2
+  maxBlockedTilesIn5x5Box: 4
