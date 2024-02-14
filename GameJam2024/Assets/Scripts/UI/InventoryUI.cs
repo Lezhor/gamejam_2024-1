@@ -1,5 +1,4 @@
-﻿using System;
-using GameLogic;
+﻿using GameLogic;
 using GameLogic.player;
 using GameLogic.world;
 using UnityEngine;
@@ -61,7 +60,6 @@ namespace UI
 
         private void UpdateSelectedSlot(int newSelectedSlot)
         {
-            Debug.Log("Selecting Slog: " + (newSelectedSlot + 1));
             slot1.UpdateSelectedState(newSelectedSlot == 0);
             slot2.UpdateSelectedState(newSelectedSlot == 1);
             slot3.UpdateSelectedState(newSelectedSlot == 2);
