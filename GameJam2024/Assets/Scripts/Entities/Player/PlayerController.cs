@@ -9,61 +9,63 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private float speed = 500f;
 
-    [SerializeField]
-    private float speed = 500f;
+    private PlayerInventory _playerInventory;
 
-    [SerializeField] 
-    private TileData currentTile;
+    public PlayerInventory PlayerInventory => _playerInventory;
 
-    public TileData CurrentTile
-    {
-        get
-        {
-            return currentTile;
-        }
-
-        set
-        {
-            currentTile = value;
-            // TODO - Call Event to update UI
-        }
-    }
-
-    private TileRandomizer _tileRandomizer;
 
     private Rigidbody2D _rigidbody;
 
     private Camera _cam;
     private World _world;
 
-    private void Start()
+    private void OnEnable()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _cam = GameManager.Instance.Cam;
         _world = GameManager.Instance.World;
-        _tileRandomizer = new TileRandomizer(GameManager.Instance.Tiles);
+        TileRandomizer tileRandomizer = new TileRandomizer(GameManager.Instance.Tiles);
+        _playerInventory = new PlayerInventory(tileRandomizer);
     }
 
     private void Update()
     {
+        PlaceTileIfClicked();
+        CheckForInvSlotChange();
+    }
+
+    private void PlaceTileIfClicked()
+    {
         if (Input.GetMouseButtonDown(0))
         {
-            PlaceActiveTileOnCursorField();
+            Vector3 mousePos = Input.mousePosition;
+            Vector3 mouseWorldPos = _cam.ScreenToWorldPoint(mousePos);
+            Vector2Int tilePos = new Vector2Int(Mathf.FloorToInt(mouseWorldPos.x), Mathf.FloorToInt(mouseWorldPos.y));
+
+            if (_world.PlaceIfPossible(tilePos.x, tilePos.y, _playerInventory.CurrentSlot))
+            {
+                _playerInventory.ReplaceCurrentSlot();
+            }
         }
     }
 
-    private void PlaceActiveTileOnCursorField()
+    private void CheckForInvSlotChange()
     {
-        Vector3 mousePos = Input.mousePosition;
-        Vector3 mouseWorldPos = _cam.ScreenToWorldPoint(mousePos);
-        Vector2Int tilePos = new Vector2Int(Mathf.FloorToInt(mouseWorldPos.x), Mathf.FloorToInt(mouseWorldPos.y));
-
-        if (_world.PlaceIfPossible(tilePos.x, tilePos.y, CurrentTile))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            CurrentTile = _tileRandomizer.GetRandomTile();
+            _playerInventory.CurrentSlotIndex = 0;
+        } else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            _playerInventory.CurrentSlotIndex = 1;
+        } else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            _playerInventory.CurrentSlotIndex = 2;
+        } else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            _playerInventory.CurrentSlotIndex = 3;
         }
-        
     }
 
     private void FixedUpdate()

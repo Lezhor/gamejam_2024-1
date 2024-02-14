@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 297597764}
   - component: {fileID: 297597766}
   - component: {fileID: 297597765}
+  - component: {fileID: 297597767}
   m_Layer: 5
   m_Name: InventoryHolder
   m_TagString: Untagged
@@ -271,6 +272,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 297597763}
   m_CullTransparentMesh: 1
+--- !u!114 &297597767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297597763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5c2cc644e148e4ac39683e38ea9451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slot1: {fileID: 820111432}
+  slot2: {fileID: 1617451739}
+  slot3: {fileID: 1826124255}
+  slot4: {fileID: 820427624}
 --- !u!1 &375200706
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,6 +425,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 297597764}
     m_Modifications:
+    - target: {fileID: 5122141666615881171, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 32ee3120bdd1f4d4a99ba87419ff0caf, type: 3}
     - target: {fileID: 5122141667518284524, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
       propertyPath: m_Name
       value: Slot4
@@ -877,6 +898,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5122141667518284525, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
   m_PrefabInstance: {fileID: 5122141667780356778}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &820111432 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5122141667518284514, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
+  m_PrefabInstance: {fileID: 5122141667780356778}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ac22158ea77c9b41880364b6b258012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &820427624 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5122141667518284514, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
+  m_PrefabInstance: {fileID: 512028187}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ac22158ea77c9b41880364b6b258012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &877541931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,6 +1329,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 297597764}
     m_Modifications:
+    - target: {fileID: 5122141666615881171, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 827083b18fde61242ae0c3b2a70331b1, type: 3}
     - target: {fileID: 5122141667518284524, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
       propertyPath: m_Name
       value: Slot2
@@ -1381,6 +1428,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5122141667518284525, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
   m_PrefabInstance: {fileID: 1617451737}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1617451739 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5122141667518284514, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
+  m_PrefabInstance: {fileID: 1617451737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ac22158ea77c9b41880364b6b258012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1709575086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1688,7 +1746,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1000
-  currentTile: {fileID: 11400000, guid: a8066a92cb553a74cb59d42c2d19162b, type: 2}
 --- !u!1001 &1826124253
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1696,6 +1753,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 297597764}
     m_Modifications:
+    - target: {fileID: 5122141666615881171, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 73806f181f817314a831c661d4e3e7b2, type: 3}
     - target: {fileID: 5122141667518284524, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
       propertyPath: m_Name
       value: Slot3
@@ -1791,6 +1852,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5122141667518284525, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
   m_PrefabInstance: {fileID: 1826124253}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1826124255 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5122141667518284514, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
+  m_PrefabInstance: {fileID: 1826124253}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ac22158ea77c9b41880364b6b258012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2041334796
 GameObject:
   m_ObjectHideFlags: 0

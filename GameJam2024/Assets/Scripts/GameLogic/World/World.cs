@@ -35,13 +35,11 @@ namespace GameLogic.world
 
         public World(WorldTile[][] world, Vector2Int startPos, GameManager gameManager)
         {
-            Debug.Log("Creating world");
             _world = world;
             StartPos = startPos;
             _gameManager = gameManager;
             SetBackgroundAndFogAroundWorld(gameManager.worldBorderWidth);
             ExploreTile(startPos.x, startPos.y);
-            Debug.Log("World created!");
         }
 
         private void SetBackgroundAndFogAroundWorld(int distance)
@@ -181,14 +179,10 @@ namespace GameLogic.world
          */
         public bool PlaceIfPossible(int xCell, int yCell, TileData tile)
         {
-            Debug.Log("Trying to place: " + tile + " at position ( " + xCell + " | " + yCell + " )");
             if (!CanBePlaced(xCell, yCell, tile))
             {
-                Debug.Log("Cannot be placed");
                 return false;
             }
-
-            Debug.Log("Can be placed");
             Place(xCell, yCell, tile);
             UpdateTileState(xCell, yCell);
             return true;

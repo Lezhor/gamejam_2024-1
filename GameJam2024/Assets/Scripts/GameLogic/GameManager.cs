@@ -15,6 +15,7 @@ namespace GameLogic
         [Header("Other")] 
         [SerializeField] private GameObject _player;
         public GameObject Player => _player;
+        public PlayerController PlayerScript => _player.GetComponent<PlayerController>();
         [SerializeField] private Camera _camera;
         public Camera Cam => _camera;
 
