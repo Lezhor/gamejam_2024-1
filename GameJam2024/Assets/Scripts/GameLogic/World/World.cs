@@ -12,6 +12,8 @@ namespace GameLogic.world
         private readonly WorldTile[][] _world;
         public readonly Vector2Int StartPos;
 
+        public Vector2Int Size => new Vector2Int(_world.Length, _world.Length == 0 ? 0 : _world[0].Length);
+
         public World(Vector2Int size, Vector2Int startPos, GameManager gameManager)
         {
             _gameManager = gameManager;
