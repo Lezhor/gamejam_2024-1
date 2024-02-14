@@ -62,9 +62,20 @@ public class PlayerController : MonoBehaviour
         } else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             _playerInventory.CurrentSlotIndex = 2;
-        } else if (Input.GetKeyDown(KeyCode.Alpha4))
+        } else if (_playerInventory.Slot(3) != null && Input.GetKeyDown(KeyCode.Alpha4))
         {
             _playerInventory.CurrentSlotIndex = 3;
+        }
+        else
+        {
+            float scrollDelta = Input.mouseScrollDelta.y;
+            if (scrollDelta > 0)
+            {
+                _playerInventory.DecrementSlotIndexIfPossible();
+            } else if (scrollDelta < 0)
+            {
+                _playerInventory.IncrementSlotIndexIfPossible();
+            }
         }
     }
 

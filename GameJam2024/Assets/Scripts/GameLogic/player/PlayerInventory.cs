@@ -44,7 +44,10 @@ namespace GameLogic.player
                 }
             }
         }
-        
+
+        public void IncrementSlotIndexIfPossible() => CurrentSlotIndex = Math.Min(CurrentSlotIndex + 1, _slots[3] != null ? 3 : 2);
+        public void DecrementSlotIndexIfPossible() => CurrentSlotIndex = Math.Max(CurrentSlotIndex - 1, 0);
+
 
         private TileRandomizer _randomizer;
 
