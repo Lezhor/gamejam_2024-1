@@ -45,6 +45,7 @@ namespace UI
             slot2.UpdateSchematic(_playerInventory.Slot(1));
             slot3.UpdateSchematic(_playerInventory.Slot(2));
             slot4.UpdateSchematic(_playerInventory.Slot(3));
+            UpdateSelectedSlot(_playerInventory.CurrentSlotIndex);
         }
 
         private void OnDisable()
