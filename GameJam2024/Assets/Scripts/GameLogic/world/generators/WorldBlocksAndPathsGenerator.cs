@@ -118,7 +118,7 @@ namespace GameLogic.world.generators
                     Debug.Log("Too many attempts to place Path Batch!!!");
                     break;
                 }
-            } while (CanPlacePathHere(graph, startPos));
+            } while (CanPlacePathHere(graph, startPos, true));
 
             if (counter >= 100)
             {
@@ -137,18 +137,7 @@ namespace GameLogic.world.generators
                     2. Pick one randomly 
                     3. add to list
                  */
-                List<Vector2Int> possibleExpansions = new List<Vector2Int>();
-                foreach (Vector2Int v in batchCoords)
-                {
-                    foreach (Node node in GetNeighbours(graph, v))
-                    {
-                        Vector2Int pos = node.Pos;
-                        if (node.Value != 1 && !possibleExpansions.Contains(pos) && CanPlacePathHere(graph, pos))
-                        {
-                            possibleExpansions.Add(pos);
-                        }
-                    }
-                }
+                List<Vector2Int> possibleExpansions = GetPossibleExtensions(graph, batchCoords, true);
 
                 if (possibleExpansions.Count == 0)
                 {
@@ -171,9 +160,65 @@ namespace GameLogic.world.generators
                 }
             }
             
-            // TODO - Add some Exits lol
+            AddRandomExitsToPatch(graph, batchNodes);
 
             return batchCoords.Count;
+        }
+
+        private void AddRandomExitsToPatch(Node[,] graph, List<Node> batch)
+        {
+            // TODO - DEBUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+            // WHY IS THIS NOT WORKING
+            // kdasjflöööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööö
+            
+            int exitCount = Random.Range(Mathf.CeilToInt(batch.Count / 2f), batch.Count * 2);
+
+            List<Node> extensions = GetPossibleExtensions(graph, batch.Select(node => node.Pos).ToList(), false)
+                .Select(v => graph[v.x, v.y]).ToList();
+
+            for (int i = 0; i < exitCount; i++)
+            {
+                if (extensions.Count == 0)
+                {
+                    break;
+                }
+
+                Node next = extensions[Random.Range(0, extensions.Count)];
+                extensions.Remove(next);
+                
+                OpenConnectionTo(graph, batch, next.Pos);
+            }
+
+        }
+
+        private void OpenConnectionTo(Node[,] graph, List<Node> batch, Vector2Int pos)
+        {
+            List<Vector2Int> neighboursOfPos = Directions.Select(v => v + pos)
+                .Where(v => batch.Select(n => n.Pos).Contains(v))
+                .ToList();
+            Vector2Int chosen = neighboursOfPos[Random.Range(0, neighboursOfPos.Count)];
+            Node node = graph[chosen.x, chosen.y];
+            Node temp = new Node(pos.x, pos.y);
+            
+            Node.Connect(node, temp);
+        }
+
+        private List<Vector2Int> GetPossibleExtensions(Node[,] graph, List<Vector2Int> batch, bool checkForSurroundingPaths)
+        {
+            List<Vector2Int> possibleExpansions = new List<Vector2Int>();
+            foreach (Vector2Int v in batch)
+            {
+                foreach (Node node in GetNeighbours(graph, v))
+                {
+                    Vector2Int pos = node.Pos;
+                    if (node.Value != 1 && !possibleExpansions.Contains(pos) && CanPlacePathHere(graph, pos, checkForSurroundingPaths))
+                    {
+                        possibleExpansions.Add(pos);
+                    }
+                }
+            }
+
+            return possibleExpansions;
         }
 
         private int RandomTilesInBatchNumber()
@@ -181,11 +226,11 @@ namespace GameLogic.world.generators
             return Mathf.CeilToInt((Random.Range(0, 6) + Random.Range(0, 6) + 2) / 2f);
         }
 
-        private bool CanPlacePathHere(Node[,] graph, Vector2Int pos)
+        private bool CanPlacePathHere(Node[,] graph, Vector2Int pos, bool checkForSurroundingPaths)
         {
             return graph[pos.x, pos.y].Value == 0 
-                   && GetNodesIn3X3Box(graph, pos)
-                       .All(node => node.Value != 2);
+                   && (!checkForSurroundingPaths || 
+                      GetNodesIn3X3Box(graph, pos).All(node => node.Value != 2));
         }
 
         protected override TileData GetTile(Node node)
