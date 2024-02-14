@@ -18,7 +18,7 @@ namespace GameLogic.world.generators
         
         public GameManager GameManager => GameManager.Instance;
         public TileRegistry Registry => GameManager.Tiles;
-        [Header("Settings")]
+        [Header("General Settings")]
         [SerializeField]
         private Vector2Int dimensions;
 
@@ -97,6 +97,34 @@ namespace GameLogic.world.generators
                 .Where(v => InBounds(graph, v))
                 .Select(v => graph[v.x, v.y])
                 .ToList();
+        }
+        
+        protected List<Node> GetNodesIn3X3Box(Node[,] graph, Vector2Int pos)
+        {
+            return GetNodesInBox(graph, pos, 1);
+        }
+
+        protected List<Node> GetNodesIn5X5Box(Node[,] graph, Vector2Int pos)
+        {
+            return GetNodesInBox(graph, pos, 2);
+        }
+
+        protected List<Node> GetNodesInBox(Node[,] graph, Vector2Int pos, int radius)
+        {
+            List<Node> list = new List<Node>();
+
+            for (int y = pos.y - radius; y <= pos.y + radius; y++)
+            {
+                for (int x = pos.x - radius; x <= pos.x + radius; x++)
+                {
+                    if (InBounds(graph, x, y) && (x != pos.x || y != pos.y))
+                    {
+                        list.Add(graph[x, y]);
+                    }
+                }
+            }
+
+            return list;
         }
 
         private bool InBounds(Node[,] graph, Vector2Int pos)

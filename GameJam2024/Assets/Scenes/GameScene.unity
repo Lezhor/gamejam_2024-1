@@ -1167,7 +1167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3227ae21b648331428e6e3958db9f5df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldGenerator: {fileID: 11400000, guid: f5acf20d9ad08e846a345eadfdf1a564, type: 2}
+  worldGenerator: {fileID: 11400000, guid: 8302c4d5b66b5f54e9f0f89f479c9393, type: 2}
   worldBorderWidth: 10
   _player: {fileID: 1813330661}
   _camera: {fileID: 877541933}

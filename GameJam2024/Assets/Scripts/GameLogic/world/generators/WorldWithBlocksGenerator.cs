@@ -8,6 +8,7 @@ namespace GameLogic.world.generators
     public class WorldWithBlocksGenerator : WorldGenerator
     {
 
+        [Header("Blocked Tiles Settings")]
         [SerializeField]
         [Range(0, 100)] 
         private int blockedTilesPercentage = 15;
@@ -19,7 +20,7 @@ namespace GameLogic.world.generators
         [Range(1, 25)] 
         private int maxBlockedTilesIn5x5Box = 4;
 
-        private Vector2Int _startPos = new(0, 0);
+        protected Vector2Int _startPos = new(0, 0);
 
         private Node[,] _graph;
 
@@ -81,36 +82,8 @@ namespace GameLogic.world.generators
                 return false;
             }
 
-            return GetNodesIn3X3Box(pos).Count(node => node.Value == 1) < maxBlockedTilesIn3x3Box
-                && GetNodesIn5X5Box(pos).Count(node => node.Value == 1) < maxBlockedTilesIn5x5Box;
-        }
-
-        private List<Node> GetNodesIn3X3Box(Vector2Int pos)
-        {
-            return GetNodesInBox(pos, 1);
-        }
-
-        private List<Node> GetNodesIn5X5Box(Vector2Int pos)
-        {
-            return GetNodesInBox(pos, 2);
-        }
-
-        private List<Node> GetNodesInBox(Vector2Int pos, int radius)
-        {
-            List<Node> list = new List<Node>();
-
-            for (int y = pos.y - radius; y <= pos.y + radius; y++)
-            {
-                for (int x = pos.x - radius; x <= pos.x + radius; x++)
-                {
-                    if (InBounds(x, y) && (x != pos.x || y != pos.y))
-                    {
-                        list.Add(_graph[x, y]);
-                    }
-                }
-            }
-
-            return list;
+            return GetNodesIn3X3Box(_graph, pos).Count(node => node.Value == 1) < maxBlockedTilesIn3x3Box
+                && GetNodesIn5X5Box(_graph, pos).Count(node => node.Value == 1) < maxBlockedTilesIn5x5Box;
         }
 
         protected override TileData GetTile(Node node)
@@ -118,7 +91,7 @@ namespace GameLogic.world.generators
             return node.Value switch
             {
                 1 => Registry.blockedTile,
-                2 => Registry.nwse,
+                2 => Registry.GetTile(node.Top, node.Right, node.Bottom, node.Left),
                 _ => Registry.emptyTile
             };
         }
