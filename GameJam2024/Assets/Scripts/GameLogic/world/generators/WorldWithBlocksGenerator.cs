@@ -81,16 +81,27 @@ namespace GameLogic.world.generators
                 return false;
             }
 
-            return GetNodesIn3X3Box(pos).Count(node => node.Value == 1) < maxBlockedTilesIn3x3Box;
+            return GetNodesIn3X3Box(pos).Count(node => node.Value == 1) < maxBlockedTilesIn3x3Box
+                && GetNodesIn5X5Box(pos).Count(node => node.Value == 1) < maxBlockedTilesIn5x5Box;
         }
 
         private List<Node> GetNodesIn3X3Box(Vector2Int pos)
         {
+            return GetNodesInBox(pos, 1);
+        }
+
+        private List<Node> GetNodesIn5X5Box(Vector2Int pos)
+        {
+            return GetNodesInBox(pos, 2);
+        }
+
+        private List<Node> GetNodesInBox(Vector2Int pos, int radius)
+        {
             List<Node> list = new List<Node>();
 
-            for (int y = pos.y - 1; y <= pos.y + 1; y++)
+            for (int y = pos.y - radius; y <= pos.y + radius; y++)
             {
-                for (int x = pos.x - 1; x <= pos.x + 1; x++)
+                for (int x = pos.x - radius; x <= pos.x + radius; x++)
                 {
                     if (InBounds(x, y) && (x != pos.x || y != pos.y))
                     {
