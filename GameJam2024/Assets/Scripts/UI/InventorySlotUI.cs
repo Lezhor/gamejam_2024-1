@@ -32,10 +32,6 @@ namespace UI
 
         public void UpdateSelectedState(bool selected)
         {
-            if (selected)
-            {
-                Debug.Log("Selected Slot: " + textLabel.text);
-            }
             SetTransparency(frame, selected ? 1f : 0.6f);
             SetTransparency(schematic, selected ? 1f : 0.6f);
         }
