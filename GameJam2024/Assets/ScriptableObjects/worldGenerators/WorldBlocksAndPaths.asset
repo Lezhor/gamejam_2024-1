@@ -12,8 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05159148feba471a97b778e32d95eba0, type: 3}
   m_Name: WorldBlocksAndPaths
   m_EditorClassIdentifier: 
-  dimensions: {x: 15, y: 9}
-  blockedTilesPercentage: 15
+  dimensions: {x: 27, y: 15}
+  blockedTilesPercentage: 18
   maxBlockedTilesIn3x3Box: 2
   maxBlockedTilesIn5x5Box: 4
-  pathTilePercentage: 10
+  pathTilePercentage: 15
+  minExitsPerBatch: 2
+  minExitsPerPathBatchPercentage: 1.1
+  maxExitsPerPathBatchPercentage: 2
+  batchGenerators:
+  - importance: 1
+    minPerBatch: 1
+    maxPerBatch: 3
+    diceCount: 2
+  - importance: 3
+    minPerBatch: 2
+    maxPerBatch: 6
+    diceCount: 3
+  - importance: 3
+    minPerBatch: 4
+    maxPerBatch: 11
+    diceCount: 3

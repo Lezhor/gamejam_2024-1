@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using math;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -27,6 +28,18 @@ namespace GameLogic.world.generators
         [SerializeField]
         [Range(0, 100)]
         private int pathTilePercentage = 10;
+        [SerializeField] 
+        [Range(0, 4)]
+        private int minExitsPerBatch = 2;
+        [SerializeField]
+        [Range(0.5f, 3f)]
+        private float minExitsPerPathBatchPercentage = 1.1f;
+        [SerializeField]
+        [Range(0.5f, 3f)]
+        private float maxExitsPerPathBatchPercentage = 2f;
+        
+        [SerializeField] 
+        private List<BatchGenerator> batchGenerators;
 
         private Node[,] _graph;
 
@@ -118,7 +131,7 @@ namespace GameLogic.world.generators
                     Debug.Log("Too many attempts to place Path Batch!!!");
                     break;
                 }
-            } while (CanPlacePathHere(graph, startPos, true));
+            } while (!CanPlacePathHere(graph, startPos, true));
 
             if (counter >= 100)
             {
@@ -127,7 +140,10 @@ namespace GameLogic.world.generators
             
             batchCoords.Add(startPos);
 
-            int tilesInBatch = RandomTilesInBatchNumber();
+            BatchGenerator batchGenerator = CustomMath.PickRandomOption(batchGenerators,
+                batchGenerator => batchGenerator.importance);
+
+            int tilesInBatch = batchGenerator.GetRandomBatchCount();
 
             for (int i = 1; i < tilesInBatch; i++)
             {
@@ -167,11 +183,9 @@ namespace GameLogic.world.generators
 
         private void AddRandomExitsToPatch(Node[,] graph, List<Node> batch)
         {
-            // TODO - DEBUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-            // WHY IS THIS NOT WORKING
-            // kdasjflöööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööööö
-            
-            int exitCount = Random.Range(Mathf.CeilToInt(batch.Count / 2f), batch.Count * 2);
+            int exitCount = Math.Max(minExitsPerBatch,
+                Random.Range(Mathf.CeilToInt(batch.Count * minExitsPerPathBatchPercentage),
+                    Mathf.CeilToInt(batch.Count * maxExitsPerPathBatchPercentage)));
 
             List<Node> extensions = GetPossibleExtensions(graph, batch.Select(node => node.Pos).ToList(), false)
                 .Select(v => graph[v.x, v.y]).ToList();
@@ -211,7 +225,7 @@ namespace GameLogic.world.generators
                 foreach (Node node in GetNeighbours(graph, v))
                 {
                     Vector2Int pos = node.Pos;
-                    if (node.Value != 1 && !possibleExpansions.Contains(pos) && CanPlacePathHere(graph, pos, checkForSurroundingPaths))
+                    if (node.Value == 0 && !possibleExpansions.Contains(pos) && CanPlacePathHere(graph, pos, checkForSurroundingPaths))
                     {
                         possibleExpansions.Add(pos);
                     }
@@ -246,6 +260,31 @@ namespace GameLogic.world.generators
         protected override Vector2Int StartPos(Vector2Int size)
         {
             return _startPos;
+        }
+
+        [Serializable]
+        public class BatchGenerator
+        {
+            [Header("Settings")]
+            public float importance = 1;
+            [SerializeField]
+            int minPerBatch = 1;
+            [SerializeField]
+            int maxPerBatch = 6;
+            [SerializeField]
+            int diceCount = 2;
+
+            public int GetRandomBatchCount()
+            {
+                int value = 0;
+                for (int i = 0; i < diceCount; i++)
+                {
+                    value += Random.Range(0, maxPerBatch + 1 - minPerBatch);
+                }
+
+                return minPerBatch + Mathf.CeilToInt(value / (float) diceCount);
+            }
+
         }
     }
 }
