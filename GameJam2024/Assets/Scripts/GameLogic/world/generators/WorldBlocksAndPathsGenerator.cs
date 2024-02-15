@@ -60,7 +60,6 @@ namespace GameLogic.world.generators
                 do
                 {
                     pos = new Vector2Int(Random.Range(0, _graph.GetLength(0)), Random.Range(0, _graph.GetLength(1)));
-                    Debug.Log("Trying to place ");
                     if (counter++ >= 100)
                     {
                         Debug.Log("Too many attempts to place Blocked Tile!!!");
