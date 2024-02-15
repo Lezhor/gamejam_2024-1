@@ -11,12 +11,11 @@ using UnityEngine;
  */
 public class WorldTile
 {
-
     private TileData _tileData;
     public TileData Data => _tileData;
-    
+
     // TODO add _tileContent (What's on the tile)
-    
+
     private int _x;
     private int _y;
 
@@ -24,12 +23,13 @@ public class WorldTile
     public bool IsVisible => _visible;
     private bool _explored;
     public bool IsExplored => _explored;
-    
+
     private GameManager _gameManager;
 
     public Vector3Int Pos => new(_x, _y);
 
-    public WorldTile(TileData tileData, int x, int y, GameManager gameManager) : this(tileData, x, y, gameManager, false, false)
+    public WorldTile(TileData tileData, int x, int y, GameManager gameManager) : this(tileData, x, y, gameManager,
+        false, false)
     {
     }
 
@@ -62,13 +62,14 @@ public class WorldTile
             {
                 _visible = true;
             }
+
             redrawOnTilemaps();
         }
     }
 
     private void redrawOnTilemaps()
     {
-        if (_visible)
+        if (_visible || _gameManager.SpectatorMode)
         {
             _gameManager.fog.SetTile(Pos, null);
             if (_explored)
@@ -76,7 +77,9 @@ public class WorldTile
                 _gameManager.background.SetTile(Pos, _tileData.imageFloor);
                 _gameManager.walls.SetTile(Pos, _tileData.imageWalls);
                 _gameManager.fogPath.SetTile(Pos, null);
-            } else {
+            }
+            else
+            {
                 _gameManager.background.SetTile(Pos, _tileData.imageFloorDark);
                 _gameManager.walls.SetTile(Pos, _tileData.imageWallsDark);
                 _gameManager.fogPath.SetTile(Pos, _tileData.imageFogPath);
@@ -89,5 +92,4 @@ public class WorldTile
             _gameManager.walls.SetTile(Pos, null);
         }
     }
-
 }

@@ -11,6 +11,10 @@ namespace GameLogic
         [Header("Settings")] 
         public WorldGenerator worldGenerator;
         public int worldBorderWidth = 10;
+        [SerializeField]
+        private bool spectatorMode = false;
+
+        public bool SpectatorMode => spectatorMode;
 
         [Header("Other")] 
         [SerializeField] private GameObject _player;

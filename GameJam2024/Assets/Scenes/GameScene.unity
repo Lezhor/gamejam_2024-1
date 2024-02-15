@@ -1151,7 +1151,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldGenerator: {fileID: 11400000, guid: 8302c4d5b66b5f54e9f0f89f479c9393, type: 2}
-  worldBorderWidth: 10
+  worldBorderWidth: 3
+  spectatorMode: 0
   _player: {fileID: 1813330661}
   _camera: {fileID: 877541933}
   background: {fileID: 789512314}
