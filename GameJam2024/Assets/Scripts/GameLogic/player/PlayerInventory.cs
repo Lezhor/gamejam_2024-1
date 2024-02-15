@@ -34,13 +34,12 @@ namespace GameLogic.player
             {
                 if (value >= 0 && value <= 3)
                 {
-                    Debug.Log("Setting SlotIndex to " + value);
                     _selectedSlot = value;
                     OnActiveSlotChanged?.Invoke(value);
                 }
                 else
                 {
-                    Debug.Log("Tried to set _selectedSlot to " + value);
+                    Debug.LogWarning("Tried to set _selectedSlot to " + value);
                 }
             }
         }
