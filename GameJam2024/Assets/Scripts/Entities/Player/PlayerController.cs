@@ -1,39 +1,44 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Entities;
 using GameLogic;
 using GameLogic.player;
 using GameLogic.world;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : EntityMovement
 {
-    [SerializeField] private float speed = 500f;
-
     private PlayerInventory _playerInventory;
 
     public PlayerInventory PlayerInventory => _playerInventory;
-
-
-    private Rigidbody2D _rigidbody;
 
     private Camera _cam;
     private World _world;
 
     private void OnEnable()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
         _cam = GameManager.Instance.Cam;
         _world = GameManager.Instance.World;
         TileRandomizer tileRandomizer = new TileRandomizer(GameManager.Instance.Tiles);
         _playerInventory = new PlayerInventory(tileRandomizer);
     }
 
+    protected override void FixedUpdateAddOn()
+    {
+    }
+
     private void Update()
     {
+        CheckForWASDInput();
         PlaceTileIfClicked();
         CheckForInvSlotChange();
+    }
+
+    private void CheckForWASDInput()
+    {
+        MoveVector = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
     private void PlaceTileIfClicked()
@@ -79,14 +84,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        Move();
-    }
-
-    private void Move()
-    {
-        Vector2 input = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        _rigidbody.AddForce(input * (speed * Time.fixedDeltaTime), ForceMode2D.Force);
-    }
 }

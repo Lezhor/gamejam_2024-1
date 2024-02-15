@@ -1816,6 +1816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82662c275eba6e4409c54a9a23c8cc99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteToFlip: {fileID: 412823638}
   speed: 1000
 --- !u!1001 &1826124253
 PrefabInstance:
