@@ -14,6 +14,10 @@ namespace GameLogic.world.generators
     public class WorldBlocksAndPathsGenerator : WorldGenerator
     {
 
+        public const int MaskBlocked = 0b0001;
+        public const int MaskPath = 0b0010;
+        public const int MaskDoor = 0b0100;
+
         [Header("Blocked Tiles Settings")]
         [SerializeField]
         [Range(0, 100)] 
@@ -50,9 +54,9 @@ namespace GameLogic.world.generators
         {
             _graph = CreateBasicGraph(size);
             
-            _startPos = new Vector2Int(2, Mathf.FloorToInt(size.y / 2f));
+            _startPos = new Vector2Int(3, Mathf.FloorToInt(size.y / 2f));
             _graph[_startPos.x, _startPos.y].SetConnections(true, true, true, true);
-            _graph[_startPos.x, _startPos.y].Value = 2;
+            _graph[_startPos.x, _startPos.y].SetMask(MaskPath);
 
             int blockedTilesCount = (int)(size.x * size.y * blockedTilesPercentage / 100f);
 
@@ -72,7 +76,7 @@ namespace GameLogic.world.generators
 
                 if (counter <= 99)
                 {
-                    _graph[pos.x, pos.y].Value = 1;
+                    _graph[pos.x, pos.y].SetMask(MaskBlocked);
                 }
                 else
                 {
@@ -82,7 +86,7 @@ namespace GameLogic.world.generators
             }
 
             GetNodesIn3X3Box(_graph, _startPos)
-                .ForEach(node => node.Value = 0);
+                .ForEach(node => node.UnsetMask(MaskBlocked));
 
             int countPathTiles = (int)(size.x * size.y * pathTilePercentage / 100f);
 
@@ -104,22 +108,22 @@ namespace GameLogic.world.generators
 
             Node tempBlockedNode = new Node(pos.x, pos.y)
             {
-                Value = 1
+                Value = MaskBlocked
             };
-            if (GetNeighbours(_graph, pos).Where(node => node.Value != 0).Any(node => !Node.ConnectionsMatch(node, tempBlockedNode)))
+            if (GetNeighbours(_graph, pos).Where(node => node.IsMaskSet(MaskPath)).Any(node => !Node.ConnectionsMatch(node, tempBlockedNode)))
             {
                 return false;
             }
 
-            return GetNodesIn3X3Box(_graph, pos).Count(node => node.Value == 1) < maxBlockedTilesIn3x3Box
-                   && GetNodesIn5X5Box(_graph, pos).Count(node => node.Value == 1) < maxBlockedTilesIn5x5Box;
+            return GetNodesIn3X3Box(_graph, pos).Count(node => node.IsMaskSet(MaskBlocked)) < maxBlockedTilesIn3x3Box
+                   && GetNodesIn5X5Box(_graph, pos).Count(node => node.IsMaskSet(MaskBlocked)) < maxBlockedTilesIn5x5Box;
         }
 
         private int GeneratePathBatch(Node[,] graph)
         {
             List<Vector2Int> batchCoords = new List<Vector2Int>();
 
-            Vector2Int startPos = new(0, 0);
+            Vector2Int startPos;
 
             int counter = 0;
             do
@@ -164,13 +168,14 @@ namespace GameLogic.world.generators
                 batchCoords.Add(nextExpansion);
             }
             
-            batchCoords.ForEach(v => graph[v.x, v.y].Value = 2);
+            batchCoords.ForEach(v => graph[v.x, v.y].SetMask(MaskPath));
             List<Node> batchNodes = batchCoords.Select(v => graph[v.x, v.y]).ToList();
             
             for (int i = 0; i < batchNodes.Count; i++)
             {
                 for (int k = i + 1; k < batchNodes.Count; k++)
                 {
+                    // TODO - Connect with Tree-Search and Marking Nodes
                     Node.Connect(batchNodes[i], batchNodes[k]);
                 }
             }
@@ -248,7 +253,7 @@ namespace GameLogic.world.generators
         private bool AddDoorToPathBatchIfPossible(List<Node> batch)
         {
             List<Node> nodesWith2Or3ConnectionsAndNoDoor = batch
-                .Where(node => node.Value != 3)
+                .Where(node => !node.IsMaskSet(MaskDoor))
                 .Where(node => node.CountConnection() > 1 && node.CountConnection() < 4)
                 .ToList();
 
@@ -257,7 +262,7 @@ namespace GameLogic.world.generators
                 return false;
             }
 
-            nodesWith2Or3ConnectionsAndNoDoor[Random.Range(0, nodesWith2Or3ConnectionsAndNoDoor.Count)].Value = 3;
+            nodesWith2Or3ConnectionsAndNoDoor[Random.Range(0, nodesWith2Or3ConnectionsAndNoDoor.Count)].SetMask(MaskDoor);
             return true;
         }
 
@@ -265,26 +270,30 @@ namespace GameLogic.world.generators
         {
             return graph[pos.x, pos.y].Value == 0 
                    && (!checkForSurroundingPaths || 
-                      GetNodesIn3X3Box(graph, pos).All(node => node.Value != 2));
+                      GetNodesIn5X5Box(graph, pos).All(node => !node.IsMaskSet(MaskPath)));
         }
 
         protected override TileData GetTile(Node node)
         {
-            return node.Value switch
+            if (node.IsMaskSet(MaskBlocked))
             {
-                1 => Registry.blockedTile,
-                2 => Registry.GetTile(node.Top, node.Right, node.Bottom, node.Left),
-                3 => Registry.GetTile(node.Top, node.Right, node.Bottom, node.Left),
-                _ => Registry.emptyTile
-            };
+                return Registry.blockedTile;
+            }
+            if (node.IsMaskSet(MaskPath))
+            {
+                return Registry.GetTile(node.Top, node.Right, node.Bottom, node.Left);
+            }
+
+            return Registry.emptyTile;
         }
 
         protected override ActionTile GetAction(Node node)
         {
-            if (node.Value == 3)
+            if (node.IsMaskSet(MaskDoor))
             {
                 return ActionRegistry.doorTile;
             }
+            // TODO - Add GoldActionTile
             return null;
         }
 

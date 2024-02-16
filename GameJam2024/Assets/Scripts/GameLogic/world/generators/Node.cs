@@ -47,6 +47,21 @@ namespace GameLogic.world.generators
             return count;
         }
 
+        public void SetMask(int mask)
+        {
+            Value |= mask;
+        }
+
+        public void UnsetMask(int mask)
+        {
+            Value = (Value | mask) ^ mask;
+        }
+
+        public bool IsMaskSet(int mask)
+        {
+            return (Value & mask) > 0;
+        }
+
         public static void Connect(Node node1, Node node2)
         {
             if (Math.Abs(node1.X - node2.X) + Math.Abs(node1.Y - node2.Y) != 1)
