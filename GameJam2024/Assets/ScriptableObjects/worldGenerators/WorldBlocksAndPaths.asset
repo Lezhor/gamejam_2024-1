@@ -19,7 +19,7 @@ MonoBehaviour:
   pathTilePercentage: 15
   batchGenerators:
   - importance: 1
-    minPathsPerBatch: 1
+    minPathsPerBatch: 2
     maxPathsPerBatch: 3
     diceCount: 2
     minExitsPerBatch: 2
@@ -29,7 +29,7 @@ MonoBehaviour:
     minDoorsPerBatch: 1
     maxDoorsPerBatch: 1
   - importance: 3
-    minPathsPerBatch: 2
+    minPathsPerBatch: 3
     maxPathsPerBatch: 6
     diceCount: 3
     minExitsPerBatch: 3
@@ -38,7 +38,7 @@ MonoBehaviour:
     maxExitsPerPathBatchPercentage: 1.6
     minDoorsPerBatch: 0
     maxDoorsPerBatch: 1
-  - importance: 4
+  - importance: 2
     minPathsPerBatch: 5
     maxPathsPerBatch: 11
     diceCount: 3
@@ -48,7 +48,7 @@ MonoBehaviour:
     maxExitsPerPathBatchPercentage: 1.4
     minDoorsPerBatch: 1
     maxDoorsPerBatch: 1
-  - importance: 2
+  - importance: 4
     minPathsPerBatch: 10
     maxPathsPerBatch: 20
     diceCount: 1

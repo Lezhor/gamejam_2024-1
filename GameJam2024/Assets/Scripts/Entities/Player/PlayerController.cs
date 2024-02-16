@@ -23,6 +23,8 @@ public class PlayerController : EntityMovement
     private Camera _cam;
     private World _world;
 
+    private GameManager _gameManager;
+
     private void OnEnable()
     {
         _cam = GameManager.Instance.Cam;
@@ -65,7 +67,7 @@ public class PlayerController : EntityMovement
 
             if (distanceToTile.magnitude > 1)
             {
-                // TODO Call event!
+                _gameManager.PlaceEvents.InvokeTriedToPlaceTileToFar(tilePos);
                 return;
             }
 

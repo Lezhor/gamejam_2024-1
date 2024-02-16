@@ -1907,6 +1907,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteToFlip: {fileID: 412823638}
   speed: 1000
+  maxDigDistanceHorizontal: 1.4
+  maxDigDistanceVertical: 1.1
 --- !u!1001 &1826124253
 PrefabInstance:
   m_ObjectHideFlags: 0

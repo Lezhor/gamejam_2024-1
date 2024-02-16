@@ -44,6 +44,8 @@ namespace GameLogic
         public TileRegistry Tiles => _tiles;
         public ActionTileRegistry ActionTiles => _actionTiles;
 
+        public TilePlaceEventRegistry PlaceEvents { get; } = new();
+
         private World _world;
         public World World => _world;
 
