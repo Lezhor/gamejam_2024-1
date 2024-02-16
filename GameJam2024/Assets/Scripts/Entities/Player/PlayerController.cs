@@ -27,9 +27,10 @@ public class PlayerController : EntityMovement
 
     private void OnEnable()
     {
-        _cam = GameManager.Instance.Cam;
-        _world = GameManager.Instance.World;
-        TileRandomizer tileRandomizer = new TileRandomizer(GameManager.Instance.Tiles);
+        _gameManager = GameManager.Instance;
+        _cam = _gameManager.Cam;
+        _world = _gameManager.World;
+        TileRandomizer tileRandomizer = new TileRandomizer(_gameManager.Tiles);
         _playerInventory = new PlayerInventory(tileRandomizer);
     }
 
@@ -67,7 +68,7 @@ public class PlayerController : EntityMovement
 
             if (distanceToTile.magnitude > 1)
             {
-                _gameManager.PlaceEvents.InvokeTriedToPlaceTileToFar(tilePos);
+                _gameManager.PlaceEvents?.InvokeTriedToPlaceTileToFar(tilePos);
                 return;
             }
 
