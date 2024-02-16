@@ -86,7 +86,7 @@ public class WorldTile
         }
     }
 
-    private void redrawOnTilemaps()
+    public void redrawOnTilemaps()
     {
         if (_visible || _gameManager.SpectatorMode)
         {

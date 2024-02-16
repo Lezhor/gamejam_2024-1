@@ -1,3 +1,4 @@
+using System;
 using GameLogic.world;
 using GameLogic.world.generators;
 using GameLogic.world.tiles.actionTiles;
@@ -14,6 +15,8 @@ namespace GameLogic
         public int worldBorderWidth = 10;
         [SerializeField]
         private bool spectatorMode = false;
+
+        private bool _spectatorModeLastFrame = false;
 
         public bool SpectatorMode => spectatorMode;
 
@@ -48,6 +51,8 @@ namespace GameLogic
         {
             _instance = this;
 
+            _spectatorModeLastFrame = spectatorMode;
+
             // TODO - WorldGenerator should create World
             _world = worldGenerator.GenerateWorld();
             /*
@@ -59,6 +64,16 @@ namespace GameLogic
         private void Start()
         {
             _player.transform.position = new Vector3(_world.StartPos.x + 0.5f, _world.StartPos.y + 0.5f);
+        }
+
+        private void Update()
+        {
+            if (spectatorMode != _spectatorModeLastFrame)
+            {
+                _spectatorModeLastFrame = spectatorMode;
+                Debug.Log("Redrawing all Tiles!!!");
+                _world.RedrawAllTiles();
+            }
         }
     }
 }

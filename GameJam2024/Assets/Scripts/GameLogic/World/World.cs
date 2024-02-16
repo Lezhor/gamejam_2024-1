@@ -192,6 +192,17 @@ namespace GameLogic.world
             }
         }
 
+        public void RedrawAllTiles()
+        {
+            foreach (WorldTile[] row in _world)
+            {
+                foreach (WorldTile tile in row)
+                {
+                    tile.redrawOnTilemaps();
+                }
+            }
+        }
+
 
         /**
          * Returns true if placed successfully
