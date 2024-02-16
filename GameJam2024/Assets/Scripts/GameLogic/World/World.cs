@@ -198,7 +198,7 @@ namespace GameLogic.world
             {
                 foreach (WorldTile tile in row)
                 {
-                    tile.redrawOnTilemaps();
+                    tile.RedrawOnTilemaps();
                 }
             }
         }

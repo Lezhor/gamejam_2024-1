@@ -12,7 +12,7 @@ namespace GameLogic.world.tiles
     public class ActionTile : ScriptableObject
     {
 
-        public List<TileAction> possibleActions;
+        public List<TileActionFactory> possibleActions;
 
         public List<Variant> possibleTiles;
 

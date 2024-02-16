@@ -2,15 +2,33 @@
 
 namespace GameLogic.world.tiles.actions
 {
-    public abstract class TileAction : ScriptableObject
+    public abstract class TileAction
     {
-        // TODO - Add Actions for pickup gold, release Monster etc.
 
-        public bool Executed { get; protected set; } = false;
+        public bool Executed { get; private set; }
 
-        // OnBecomeVisible
-        // OnExplore
-        // OnPerformAction
+        protected WorldTile Tile { get; }
 
+        protected TileAction(WorldTile tile)
+        {
+            Tile = tile;
+        }
+
+        public abstract void OnBecomeVisible();
+
+        public abstract void OnBecomeExplored();
+
+        public abstract void OnPlayerEnterTile();
+
+        public abstract void OnPlayerExitTile();
+
+        public void Invoke()
+        {
+            PerformAction();
+            Executed = true;
+            Tile.RedrawOnTilemaps();
+        }
+        
+        protected abstract void PerformAction();
     }
 }

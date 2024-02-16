@@ -19,7 +19,7 @@ public class WorldTile
 
     private ActionTile _actionTile;
 
-    private TileAction TileAction { get; }
+    public TileAction TileAction { get; }
 
     public ActionTile.Variant ActionTileVariant { get; }
 
@@ -48,19 +48,19 @@ public class WorldTile
     {
         _tileData = tileData;
         _actionTile = actionTile;
-        if (actionTile != null)
-        {
-            List<ActionTile.Variant> fittingVariants = _actionTile.GetFittingVariants(_tileData);
-            ActionTileVariant = fittingVariants.Count != 0 ? fittingVariants[Random.Range(0, fittingVariants.Count)] : null;
-
-            TileAction = actionTile.possibleActions.Count != 0 ? actionTile.possibleActions[Random.Range(0, actionTile.possibleActions.Count)] : null;
-        }
         _x = x;
         _y = y;
         _gameManager = gameManager;
         _visible = visible;
         _explored = explored;
-        redrawOnTilemaps();
+        if (actionTile != null)
+        {
+            List<ActionTile.Variant> fittingVariants = _actionTile.GetFittingVariants(_tileData);
+            ActionTileVariant = fittingVariants.Count != 0 ? fittingVariants[Random.Range(0, fittingVariants.Count)] : null;
+
+            TileAction = actionTile.possibleActions.Count != 0 ? actionTile.possibleActions[Random.Range(0, actionTile.possibleActions.Count)].CreateAction(this) : null;
+        }
+        RedrawOnTilemaps();
     }
 
     public void SetVisible(bool visible)
@@ -68,7 +68,7 @@ public class WorldTile
         if (_visible != visible)
         {
             _visible = visible;
-            redrawOnTilemaps();
+            RedrawOnTilemaps();
         }
     }
 
@@ -82,11 +82,11 @@ public class WorldTile
                 _visible = true;
             }
 
-            redrawOnTilemaps();
+            RedrawOnTilemaps();
         }
     }
 
-    public void redrawOnTilemaps()
+    public void RedrawOnTilemaps()
     {
         if (_visible || _gameManager.SpectatorMode)
         {
