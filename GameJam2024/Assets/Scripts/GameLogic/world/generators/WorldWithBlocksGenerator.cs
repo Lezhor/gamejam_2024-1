@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GameLogic.world.tiles;
 using UnityEngine;
 
 namespace GameLogic.world.generators
@@ -94,6 +95,11 @@ namespace GameLogic.world.generators
                 2 => Registry.GetTile(node.Top, node.Right, node.Bottom, node.Left),
                 _ => Registry.emptyTile
             };
+        }
+
+        protected override ActionTile GetAction(Node node)
+        {
+            return null;
         }
 
         protected override Vector2Int StartPos(Vector2Int size)

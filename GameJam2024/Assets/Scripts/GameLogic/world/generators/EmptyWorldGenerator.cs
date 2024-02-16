@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameLogic.world.tiles;
+using UnityEngine;
 
 namespace GameLogic.world.generators
 {
@@ -16,6 +17,11 @@ namespace GameLogic.world.generators
         protected override TileData GetTile(Node node)
         {
             return node == null ? Registry.emptyTile : Registry.nwse;
+        }
+
+        protected override ActionTile GetAction(Node node)
+        {
+            return null;
         }
 
         protected override Vector2Int StartPos(Vector2Int size)

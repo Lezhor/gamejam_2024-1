@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameLogic.world.tiles;
 using math;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -255,7 +256,13 @@ namespace GameLogic.world.generators
                 _ => Registry.emptyTile
             };
         }
-        
+
+        protected override ActionTile GetAction(Node node)
+        {
+            // TODO
+            return null;
+        }
+
         protected override Vector2Int StartPos(Vector2Int size)
         {
             return _startPos;

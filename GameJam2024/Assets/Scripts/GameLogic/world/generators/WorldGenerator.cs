@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameLogic.world.tiles;
 using UnityEngine;
 
 namespace GameLogic.world.generators
@@ -40,7 +41,7 @@ namespace GameLogic.world.generators
             {
                 for (int y = 0; y < board[x].Length; y++)
                 {
-                    board[x][y] = new WorldTile(GetTile(graph[x, y]), x, y, GameManager);
+                    board[x][y] = new WorldTile(GetTile(graph[x, y]), GetAction(graph[x, y]), x, y, GameManager);
                 }
             }
 
@@ -50,6 +51,11 @@ namespace GameLogic.world.generators
         }
 
         protected abstract TileData GetTile(Node node);
+
+        /**
+         * Should return null for no action
+         */
+        protected abstract ActionTile GetAction(Node node);
 
         protected abstract Vector2Int StartPos(Vector2Int size);
 
