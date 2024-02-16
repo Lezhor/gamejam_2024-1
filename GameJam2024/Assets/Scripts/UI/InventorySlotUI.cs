@@ -1,4 +1,3 @@
-using System;
 using GameLogic.world;
 using TMPro;
 using UnityEngine;
@@ -8,9 +7,19 @@ namespace UI
 {
     public class InventorySlotUI : MonoBehaviour
     {
-
-        public Image schematic;
-        public Image frame;
+        [Header("Schematic")]
+        public Image schematicImage;
+        [Range(0f, 1f)]
+        public float selectedAlpha = 1f;
+        [Range(0f, 1f)]
+        public float unselectedAlpha = 0.6f;
+        
+        [Header("Frame")]
+        public Image frameImage;
+        public Sprite frameSelectedSprite;
+        public Sprite frameUnselectedSprite;
+        
+        [Header("Text")]
         public TMP_Text textLabel;
 
         public void SetLabel(int number)
@@ -22,18 +31,18 @@ namespace UI
         {
             if (tile == null)
             {
-                schematic.sprite = null;
-                SetTransparency(schematic, 0f);
+                schematicImage.sprite = null;
+                SetTransparency(schematicImage, 0f);
             } else {
-                schematic.sprite = tile.sprite;
-                SetTransparency(schematic, 1f);
+                schematicImage.sprite = tile.sprite;
+                SetTransparency(schematicImage, 1f);
             }
         }
 
         public void UpdateSelectedState(bool selected)
         {
-            SetTransparency(frame, selected ? 1f : 0.6f);
-            SetTransparency(schematic, selected ? 1f : 0.6f);
+            frameImage.sprite = selected ? frameSelectedSprite : frameUnselectedSprite;
+            SetTransparency(schematicImage, selected ? selectedAlpha : unselectedAlpha);
         }
 
         private void SetTransparency(Image image, float alpha)
