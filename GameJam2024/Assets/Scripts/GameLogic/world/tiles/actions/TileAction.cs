@@ -22,9 +22,12 @@
 
         public void Invoke()
         {
-            PerformAction();
-            Executed = true;
-            Tile.RedrawOnTilemaps();
+            if (!Executed)
+            {
+                PerformAction();
+                Executed = true;
+                Tile.RedrawOnTilemaps();
+            }
         }
         
         protected abstract void PerformAction();
