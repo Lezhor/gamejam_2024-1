@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameLogic.world.generators;
 using UnityEngine;
 
 namespace GameLogic.world
@@ -66,7 +67,6 @@ namespace GameLogic.world
         {
             if (InBounds(x, y))
             {
-                // TODO - Explore neighbour tile if connected
                 _world[x][y].SetExplored(true);
                 foreach (WorldTile tile in GetConnectedNeighbours(x, y))
                 {
@@ -249,7 +249,7 @@ namespace GameLogic.world
                 return false;
             }
 
-            if (!GetNeighbours(xCell, yCell).Any(tile => tile.IsExplored))
+            if (!GetNeighbours(xCell, yCell).Any(worldTile => worldTile.IsExplored && Connected(worldTile, xCell, yCell, tile)))
             {
                 return false;
             }
@@ -283,6 +283,15 @@ namespace GameLogic.world
             }
 
             return true;
+        }
+
+        private bool Connected(WorldTile tile1, int x, int y, TileData tile2)
+        {
+            Node node1 = new Node(tile1.Pos.x, tile1.Pos.y);
+            node1.SetConnections(tile1.Data.connectsTop, tile1.Data.connectsRight, tile1.Data.connectsBottom, tile1.Data.connectsLeft);
+            Node node2 = new Node(x, y);
+            node2.SetConnections(tile2.connectsTop, tile2.connectsRight, tile2.connectsBottom, tile2.connectsLeft);
+            return Node.Connected(node1, node2);
         }
 
         private bool InBounds(int xCell, int yCell)
