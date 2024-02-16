@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4437384a32d11f84ea4a8c4e699c96e9, type: 3}
+  m_Name: Door Action Tile
+  m_EditorClassIdentifier: 
+  possibleActions: []
+  possibleTiles:
+  - tileBeforeAction: {fileID: 11400000, guid: d1eafe19a50da82469abbec41df17546, type: 2}
+    tileAfterAction: {fileID: 11400000, guid: d6168297724452e4988a58188081a066, type: 2}
+    constraintsShouldMatch: 1
+    listOfConstraints:
+    - {fileID: 11400000, guid: 9c9b8a66fb6be5845a54a33a489d1bd4, type: 2}
+    - {fileID: 11400000, guid: 25e3e53bfbd3e92478ddadbf3612ca54, type: 2}
+    - {fileID: 11400000, guid: cfb3a9c0d4f83984cb7e8d05aea38b89, type: 2}
+    - {fileID: 11400000, guid: 0d1fe45f119fa454d8038c7bcc0597fb, type: 2}
+  - tileBeforeAction: {fileID: 11400000, guid: 6bff225279aaf3947adc147f6ef5aecf, type: 2}
+    tileAfterAction: {fileID: 11400000, guid: 7a68e5adae707724d83c4d4befbba409, type: 2}
+    constraintsShouldMatch: 1
+    listOfConstraints:
+    - {fileID: 11400000, guid: 37b784a7d79886a46a4aedf8fdd1dc79, type: 2}
+    - {fileID: 11400000, guid: ff6e6a36a4a6ad44fb01d73c50a64976, type: 2}
+    - {fileID: 11400000, guid: cfb3a9c0d4f83984cb7e8d05aea38b89, type: 2}
+    - {fileID: 11400000, guid: 81e4f74ce60aa474e8963b7c91fd87e2, type: 2}
+  - tileBeforeAction: {fileID: 11400000, guid: fa699623c0597284a9e32d5358959ebb, type: 2}
+    tileAfterAction: {fileID: 11400000, guid: 240caee72c67fbc40916061520692218, type: 2}
+    constraintsShouldMatch: 1
+    listOfConstraints:
+    - {fileID: 11400000, guid: 9c9b8a66fb6be5845a54a33a489d1bd4, type: 2}
+    - {fileID: 11400000, guid: 1d104c26cb8f42d4da4c6ef5790817c0, type: 2}
+    - {fileID: 11400000, guid: ff6e6a36a4a6ad44fb01d73c50a64976, type: 2}
+    - {fileID: 11400000, guid: 041eea32fdb65dc4aafa9740fd21deeb, type: 2}
+  - tileBeforeAction: {fileID: 11400000, guid: 5781be17a3244a949b608f1f38137651, type: 2}
+    tileAfterAction: {fileID: 11400000, guid: 8dea3a5f5b15ef74994bd36f92f12925, type: 2}
+    constraintsShouldMatch: 1
+    listOfConstraints:
+    - {fileID: 11400000, guid: 37b784a7d79886a46a4aedf8fdd1dc79, type: 2}
+    - {fileID: 11400000, guid: 1d104c26cb8f42d4da4c6ef5790817c0, type: 2}
+    - {fileID: 11400000, guid: 25e3e53bfbd3e92478ddadbf3612ca54, type: 2}
+    - {fileID: 11400000, guid: 61b72490471832c44add99faaf9e8ccc, type: 2}
