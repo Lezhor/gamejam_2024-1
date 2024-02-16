@@ -14,6 +14,12 @@ public class PlayerController : EntityMovement
 
     public PlayerInventory PlayerInventory => _playerInventory;
 
+    [Header("Player Settings")]
+    [SerializeField]
+    private float maxDigDistanceHorizontal = 1.5f;
+    [SerializeField]
+    private float maxDigDistanceVertical = 1f;
+
     private Camera _cam;
     private World _world;
 
@@ -48,6 +54,20 @@ public class PlayerController : EntityMovement
             Vector3 mousePos = Input.mousePosition;
             Vector3 mouseWorldPos = _cam.ScreenToWorldPoint(mousePos);
             Vector2Int tilePos = new Vector2Int(Mathf.FloorToInt(mouseWorldPos.x), Mathf.FloorToInt(mouseWorldPos.y));
+
+            Vector3 tileWorldPos = new Vector3(tilePos.x + 0.5f, tilePos.y + 0.5f);
+
+            Vector3 distanceToTile = tileWorldPos - transform.position;
+
+            distanceToTile = new Vector3(distanceToTile.x / maxDigDistanceHorizontal,
+                distanceToTile.y / maxDigDistanceVertical);
+            
+
+            if (distanceToTile.magnitude > 1)
+            {
+                // TODO Call event!
+                return;
+            }
 
             if (_world.PlaceIfPossible(tilePos.x, tilePos.y, _playerInventory.CurrentSlot))
             {
