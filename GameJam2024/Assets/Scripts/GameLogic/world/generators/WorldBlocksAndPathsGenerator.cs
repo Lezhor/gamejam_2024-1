@@ -240,7 +240,7 @@ namespace GameLogic.world.generators
                 foreach (Node node in GetNeighbours(graph, v))
                 {
                     Vector2Int pos = node.Pos;
-                    if (node.Value == 0 && !possibleExpansions.Contains(pos) && CanPlacePathHere(graph, pos, checkForSurroundingPaths))
+                    if (node.Value == 0 && !batch.Contains(pos) && !possibleExpansions.Contains(pos) && CanPlacePathHere(graph, pos, checkForSurroundingPaths))
                     {
                         possibleExpansions.Add(pos);
                     }
@@ -270,7 +270,7 @@ namespace GameLogic.world.generators
         {
             return graph[pos.x, pos.y].Value == 0 
                    && (!checkForSurroundingPaths || 
-                      GetNodesIn5X5Box(graph, pos).All(node => !node.IsMaskSet(MaskPath)));
+                      GetNodesIn7x7Box(graph, pos).All(node => !node.IsMaskSet(MaskPath)));
         }
 
         protected override TileData GetTile(Node node)

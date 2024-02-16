@@ -116,6 +116,11 @@ namespace GameLogic.world.generators
         {
             return GetNodesInBox(graph, pos, 2);
         }
+        
+        protected List<Node> GetNodesIn7x7Box(Node[,] graph, Vector2Int pos)
+        {
+            return GetNodesInBox(graph, pos, 3);
+        }
 
         protected List<Node> GetNodesInBox(Node[,] graph, Vector2Int pos, int radius)
         {
