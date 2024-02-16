@@ -62,9 +62,43 @@ namespace GameLogic.world.generators
             return (Value & mask) > 0;
         }
 
+        public static int Distance(Node node1, Node node2)
+        {
+            return Math.Abs(node1.X - node2.X) + Math.Abs(node1.Y - node2.Y);
+        }
+
+        public static bool Connected(Node node1, Node node2)
+        {
+            if (Distance(node1, node2) != 1)
+            {
+                return false;
+            }
+            
+            if (node1.X > node2.X)
+            {
+                (node1, node2) = (node2, node1);
+            }
+            else if (node1.Y > node2.Y)
+            {
+                (node1, node2) = (node2, node1);
+            }
+            
+            if (node2.X == node1.X + 1)
+            {
+                return node1.Right && node2.Left;
+            }
+
+            if (node2.Y == node1.Y + 1)
+            {
+                return node1.Top && node2.Bottom;
+            }
+
+            return false;
+        }
+
         public static void Connect(Node node1, Node node2)
         {
-            if (Math.Abs(node1.X - node2.X) + Math.Abs(node1.Y - node2.Y) != 1)
+            if (Distance(node1, node2) != 1)
             {
                 return;
             }

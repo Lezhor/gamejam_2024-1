@@ -171,14 +171,7 @@ namespace GameLogic.world.generators
             batchCoords.ForEach(v => graph[v.x, v.y].SetMask(MaskPath));
             List<Node> batchNodes = batchCoords.Select(v => graph[v.x, v.y]).ToList();
             
-            for (int i = 0; i < batchNodes.Count; i++)
-            {
-                for (int k = i + 1; k < batchNodes.Count; k++)
-                {
-                    // TODO - Connect with Tree-Search and Marking Nodes
-                    Node.Connect(batchNodes[i], batchNodes[k]);
-                }
-            }
+            ConnectAllNodes(batchNodes);
 
             AddRandomExitsToPatch(graph, batchNodes);
 
@@ -194,6 +187,44 @@ namespace GameLogic.world.generators
             }
 
             return batchCoords.Count;
+        }
+
+        private void ConnectAllNodes(List<Node> batch)
+        {
+            /*
+            for (int i = 0; i < batchNodes.Count; i++)
+            {
+                for (int k = i + 1; k < batchNodes.Count; k++)
+                {
+                    Node.Connect(batchNodes[i], batchNodes[k]);
+                }
+            }
+            */
+
+            Queue<Node> queue = new Queue<Node>();
+            queue.Enqueue(batch[Random.Range(0, batch.Count)]);
+            
+            while (queue.Count > 0)
+            {
+                Node current = queue.Dequeue();
+                current.Marked = true;
+                List<Node> neighbours = batch
+                    .Where(node => !node.Marked)
+                    .Where(node => Node.Distance(current, node) == 1)
+                    .Where(node => !Node.Connected(current, node))
+                    .Where(node => !queue.Contains(node) || Random.Range(0, 3) == 0)
+                    .ToList();
+                neighbours.ForEach(node => Node.Connect(current, node));
+
+                neighbours = neighbours.Where(node => !queue.Contains(node)).ToList();
+                while (neighbours.Count > 0)
+                {
+                    Node node = neighbours[Random.Range(0, neighbours.Count)];
+                    neighbours.Remove(node);
+                    queue.Enqueue(node);
+                }
+            }
+
         }
 
         private void AddRandomExitsToPatch(Node[,] graph, List<Node> batch)
