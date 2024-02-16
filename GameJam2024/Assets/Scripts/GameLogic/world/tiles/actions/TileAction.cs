@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace GameLogic.world.tiles.actions
+﻿namespace GameLogic.world.tiles.actions
 {
     public abstract class TileAction
     {
@@ -14,9 +12,9 @@ namespace GameLogic.world.tiles.actions
             Tile = tile;
         }
 
-        public abstract void OnBecomeVisible();
+        public abstract void OnSetVisibility(bool state);
 
-        public abstract void OnBecomeExplored();
+        public abstract void OnSetExplored(bool state);
 
         public abstract void OnPlayerEnterTile();
 

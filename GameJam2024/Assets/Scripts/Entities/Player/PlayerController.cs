@@ -10,6 +10,13 @@ using UnityEngine;
 
 public class PlayerController : EntityMovement
 {
+    
+    public event Action<Vector2Int, Vector2Int> OnMovedToNewTile;
+    public event Action<Vector2Int> OnActionKeyPressed;
+
+    private Vector2Int _tilePosLastFrame;
+    
+    
     private PlayerInventory _playerInventory;
 
     public PlayerInventory PlayerInventory => _playerInventory;
@@ -30,6 +37,7 @@ public class PlayerController : EntityMovement
         _gameManager = GameManager.Instance;
         _cam = _gameManager.Cam;
         _world = _gameManager.World;
+        _tilePosLastFrame = GetTilePos(transform.position);
         TileRandomizer tileRandomizer = new TileRandomizer(_gameManager.Tiles);
         _playerInventory = new PlayerInventory(tileRandomizer);
     }
@@ -42,12 +50,37 @@ public class PlayerController : EntityMovement
     {
         CheckForWASDInput();
         PlaceTileIfClicked();
+        CheckIfMovedToNewTile();
+        CheckIfActionKeyPressed();
         CheckForInvSlotChange();
     }
 
     private void CheckForWASDInput()
     {
         MoveVector = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+    }
+
+    private void CheckIfMovedToNewTile()
+    {
+        Vector2Int tilePos = GetTilePos(transform.position);
+        if (!tilePos.Equals(_tilePosLastFrame))
+        {
+            OnMovedToNewTile?.Invoke(_tilePosLastFrame, tilePos);
+            _tilePosLastFrame = tilePos;
+        }
+    }
+
+    private void CheckIfActionKeyPressed()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            OnActionKeyPressed?.Invoke(GetTilePos(transform.position));
+        }
+    }
+
+    private Vector2Int GetTilePos(Vector3 pos)
+    {
+        return new Vector2Int(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y));
     }
 
     private void PlaceTileIfClicked()

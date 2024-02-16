@@ -68,6 +68,7 @@ public class WorldTile
         if (_visible != visible)
         {
             _visible = visible;
+            TileAction?.OnSetVisibility(_visible);
             RedrawOnTilemaps();
         }
     }
@@ -80,7 +81,9 @@ public class WorldTile
             if (_explored && !_visible)
             {
                 _visible = true;
+                TileAction?.OnSetVisibility(true);
             }
+            TileAction?.OnSetExplored(_explored);
 
             RedrawOnTilemaps();
         }

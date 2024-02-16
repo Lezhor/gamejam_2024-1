@@ -44,6 +44,19 @@ namespace GameLogic.world
             _gameManager = gameManager;
             SetBackgroundAndFogAroundWorld(gameManager.worldBorderWidth);
             ExploreTile(startPos.x, startPos.y);
+            gameManager.PlayerScript.OnMovedToNewTile += OnPlayerMovedToNewTile;
+            gameManager.PlayerScript.OnActionKeyPressed += OnPlayerPressedActionKey;
+        }
+
+        private void OnPlayerMovedToNewTile(Vector2Int from, Vector2Int to)
+        {
+            _world[from.x][from.y].TileAction?.OnPlayerExitTile();
+            _world[to.x][to.y].TileAction?.OnPlayerEnterTile();
+        }
+
+        private void OnPlayerPressedActionKey(Vector2Int position)
+        {
+            _world[position.x][position.y].TileAction?.Invoke();
         }
 
         private void SetBackgroundAndFogAroundWorld(int distance)
