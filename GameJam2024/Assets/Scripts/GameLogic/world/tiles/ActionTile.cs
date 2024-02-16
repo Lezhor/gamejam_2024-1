@@ -14,15 +14,15 @@ namespace GameLogic.world.tiles
 
         public List<TileAction> possibleActions;
 
-        public List<ActionTileVariant> possibleTiles;
+        public List<Variant> possibleTiles;
 
-        public List<ActionTileVariant> GetFittingVariants(TileData tile)
+        public List<Variant> GetFittingVariants(TileData tile)
         {
             return possibleTiles.Where(variant => variant.FitsTile(tile)).ToList();
         }
 
         [Serializable]
-        public class ActionTileVariant
+        public class Variant
         {
             public TileBase tileBeforeAction;
             public TileBase tileAfterAction;
@@ -32,6 +32,8 @@ namespace GameLogic.world.tiles
 
             [SerializeField]
             private List<TileData> listOfConstraints;
+
+            public TileBase GetTile(bool actionExecuted) => actionExecuted ? tileAfterAction : tileBeforeAction;
 
             public bool FitsTile(TileData tile)
             {
