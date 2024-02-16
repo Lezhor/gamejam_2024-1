@@ -35,15 +35,6 @@ namespace GameLogic.world.generators
         [SerializeField]
         [Range(0, 100)]
         private int pathTilePercentage = 10;
-        [SerializeField] 
-        [Range(0, 4)]
-        private int minExitsPerBatch = 2;
-        [SerializeField]
-        [Range(0.5f, 3f)]
-        private float minExitsPerPathBatchPercentage = 1.1f;
-        [SerializeField]
-        [Range(0.5f, 3f)]
-        private float maxExitsPerPathBatchPercentage = 2f;
         
         [SerializeField] 
         private List<BatchGenerator> batchGenerators;
@@ -173,7 +164,7 @@ namespace GameLogic.world.generators
             
             ConnectAllNodes(batchNodes);
 
-            AddRandomExitsToPatch(graph, batchNodes);
+            AddRandomExitsToPatch(graph, batchNodes, batchGenerator.GetExitsCount(batchNodes.Count));
 
             int doorCount = batchGenerator.GetRandomDoorCount();
 
@@ -227,11 +218,8 @@ namespace GameLogic.world.generators
 
         }
 
-        private void AddRandomExitsToPatch(Node[,] graph, List<Node> batch)
+        private void AddRandomExitsToPatch(Node[,] graph, List<Node> batch, int exitCount)
         {
-            int exitCount = Math.Max(minExitsPerBatch,
-                Random.Range(Mathf.CeilToInt(batch.Count * minExitsPerPathBatchPercentage),
-                    Mathf.CeilToInt(batch.Count * maxExitsPerPathBatchPercentage)));
 
             List<Node> extensions = GetPossibleExtensions(graph, batch.Select(node => node.Pos).ToList(), false)
                 .Select(v => graph[v.x, v.y]).ToList();
@@ -336,7 +324,7 @@ namespace GameLogic.world.generators
         [Serializable]
         public class BatchGenerator
         {
-            [Header("Settings")]
+            [Header("Paths")]
             public float importance = 1;
             [FormerlySerializedAs("minPerBatch")] [SerializeField]
             int minPathsPerBatch = 1;
@@ -344,6 +332,20 @@ namespace GameLogic.world.generators
             int maxPathsPerBatch = 6;
             [SerializeField]
             int diceCount = 2;
+            [Header("Exits")]
+            [SerializeField] 
+            [Range(0, 20)]
+            int minExitsPerBatch = 2;
+            [SerializeField] 
+            [Range(0, 20)]
+            int maxExitsPerBatch = 9;
+            [SerializeField]
+            [Range(0.5f, 3f)]
+            float minExitsPerPathBatchPercentage = 1.1f;
+            [SerializeField]
+            [Range(0.5f, 3f)]
+            float maxExitsPerPathBatchPercentage = 2f;
+            [Header("Action Tiles")]
             [SerializeField]
             private int minDoorsPerBatch = 0;
             [SerializeField]
@@ -358,6 +360,15 @@ namespace GameLogic.world.generators
                 }
 
                 return minPathsPerBatch + Mathf.CeilToInt(value / (float) diceCount);
+            }
+
+            public int GetExitsCount(int batchPathCount)
+            {
+                return Math.Clamp(Random.Range(
+                        Mathf.CeilToInt(batchPathCount * minExitsPerPathBatchPercentage),
+                        Mathf.CeilToInt(batchPathCount * maxExitsPerPathBatchPercentage)),
+                    minExitsPerBatch,
+                    maxExitsPerBatch);
             }
 
             public int GetRandomDoorCount()

@@ -17,25 +17,44 @@ MonoBehaviour:
   maxBlockedTilesIn3x3Box: 2
   maxBlockedTilesIn5x5Box: 4
   pathTilePercentage: 15
-  minExitsPerBatch: 2
-  minExitsPerPathBatchPercentage: 1.1
-  maxExitsPerPathBatchPercentage: 1.6
   batchGenerators:
   - importance: 1
     minPathsPerBatch: 1
     maxPathsPerBatch: 3
     diceCount: 2
-    minDoorsPerBatch: 0
-    maxDoorsPerBatch: 0
-  - importance: 2
+    minExitsPerBatch: 2
+    maxExitsPerBatch: 4
+    minExitsPerPathBatchPercentage: 1.1
+    maxExitsPerPathBatchPercentage: 1.5
+    minDoorsPerBatch: 1
+    maxDoorsPerBatch: 1
+  - importance: 3
     minPathsPerBatch: 2
     maxPathsPerBatch: 6
     diceCount: 3
+    minExitsPerBatch: 3
+    maxExitsPerBatch: 9
+    minExitsPerPathBatchPercentage: 0.8
+    maxExitsPerPathBatchPercentage: 1.6
     minDoorsPerBatch: 0
     maxDoorsPerBatch: 1
-  - importance: 5
-    minPathsPerBatch: 8
-    maxPathsPerBatch: 12
+  - importance: 4
+    minPathsPerBatch: 5
+    maxPathsPerBatch: 11
     diceCount: 3
+    minExitsPerBatch: 5
+    maxExitsPerBatch: 10
+    minExitsPerPathBatchPercentage: 0.9
+    maxExitsPerPathBatchPercentage: 1.4
+    minDoorsPerBatch: 1
+    maxDoorsPerBatch: 1
+  - importance: 2
+    minPathsPerBatch: 10
+    maxPathsPerBatch: 20
+    diceCount: 1
+    minExitsPerBatch: 8
+    maxExitsPerBatch: 13
+    minExitsPerPathBatchPercentage: 0.8
+    maxExitsPerPathBatchPercentage: 1.3
     minDoorsPerBatch: 1
     maxDoorsPerBatch: 2
