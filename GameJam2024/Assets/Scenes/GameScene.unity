@@ -1179,6 +1179,9 @@ MonoBehaviour:
     nse: {fileID: 11400000, guid: 81e4f74ce60aa474e8963b7c91fd87e2, type: 2}
     nwe: {fileID: 11400000, guid: 041eea32fdb65dc4aafa9740fd21deeb, type: 2}
     nwse: {fileID: 11400000, guid: a8066a92cb553a74cb59d42c2d19162b, type: 2}
+  _actionTiles:
+    doorTile: {fileID: 11400000, guid: a77e7af296ece8c43b08167e54b4c063, type: 2}
+    goldTile: {fileID: 0}
 --- !u!1 &1128971438
 GameObject:
   m_ObjectHideFlags: 0

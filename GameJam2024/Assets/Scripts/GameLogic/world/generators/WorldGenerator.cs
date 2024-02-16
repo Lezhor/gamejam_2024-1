@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameLogic.world.tiles;
+using GameLogic.world.tiles.actionTiles;
 using UnityEngine;
 
 namespace GameLogic.world.generators
@@ -19,6 +20,7 @@ namespace GameLogic.world.generators
         
         public GameManager GameManager => GameManager.Instance;
         public TileRegistry Registry => GameManager.Tiles;
+        public ActionTileRegistry ActionRegistry => GameManager.ActionTiles;
         [Header("General Settings")]
         [SerializeField]
         private Vector2Int dimensions;

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameLogic.world.tiles;
+using GameLogic.world.tiles.actionTiles;
 using math;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace GameLogic.world.generators
@@ -97,7 +99,6 @@ namespace GameLogic.world.generators
         {
             if (_graph[pos.x, pos.y].Value != 0)
             {
-                Debug.Log("Tile has not value 0");
                 return false;
             }
 
@@ -107,7 +108,6 @@ namespace GameLogic.world.generators
             };
             if (GetNeighbours(_graph, pos).Where(node => node.Value != 0).Any(node => !Node.ConnectionsMatch(node, tempBlockedNode)))
             {
-                Debug.Log("There are neighbours which don't match");
                 return false;
             }
 
@@ -125,7 +125,6 @@ namespace GameLogic.world.generators
             do
             {
                 startPos = new Vector2Int(Random.Range(0, graph.GetLength(0)), Random.Range(0, graph.GetLength(1)));
-                Debug.Log("Trying to place ");
                 if (counter++ >= 100)
                 {
                     Debug.Log("Too many attempts to place Path Batch!!!");
@@ -175,8 +174,19 @@ namespace GameLogic.world.generators
                     Node.Connect(batchNodes[i], batchNodes[k]);
                 }
             }
-            
+
             AddRandomExitsToPatch(graph, batchNodes);
+
+            int doorCount = batchGenerator.GetRandomDoorCount();
+
+            for (int i = 0; i < doorCount; i++)
+            {
+                if (!AddDoorToPathBatchIfPossible(batchNodes))
+                {
+                    Debug.Log("Couldn't add more doors do batch. Doors added: " + i);
+                    break;
+                }
+            }
 
             return batchCoords.Count;
         }
@@ -235,9 +245,20 @@ namespace GameLogic.world.generators
             return possibleExpansions;
         }
 
-        private int RandomTilesInBatchNumber()
+        private bool AddDoorToPathBatchIfPossible(List<Node> batch)
         {
-            return Mathf.CeilToInt((Random.Range(0, 6) + Random.Range(0, 6) + 2) / 2f);
+            List<Node> nodesWith2Or3ConnectionsAndNoDoor = batch
+                .Where(node => node.Value != 3)
+                .Where(node => node.CountConnection() > 1 && node.CountConnection() < 4)
+                .ToList();
+
+            if (nodesWith2Or3ConnectionsAndNoDoor.Count == 0)
+            {
+                return false;
+            }
+
+            nodesWith2Or3ConnectionsAndNoDoor[Random.Range(0, nodesWith2Or3ConnectionsAndNoDoor.Count)].Value = 3;
+            return true;
         }
 
         private bool CanPlacePathHere(Node[,] graph, Vector2Int pos, bool checkForSurroundingPaths)
@@ -253,13 +274,17 @@ namespace GameLogic.world.generators
             {
                 1 => Registry.blockedTile,
                 2 => Registry.GetTile(node.Top, node.Right, node.Bottom, node.Left),
+                3 => Registry.GetTile(node.Top, node.Right, node.Bottom, node.Left),
                 _ => Registry.emptyTile
             };
         }
 
         protected override ActionTile GetAction(Node node)
         {
-            // TODO
+            if (node.Value == 3)
+            {
+                return ActionRegistry.doorTile;
+            }
             return null;
         }
 
@@ -273,22 +298,31 @@ namespace GameLogic.world.generators
         {
             [Header("Settings")]
             public float importance = 1;
-            [SerializeField]
-            int minPerBatch = 1;
-            [SerializeField]
-            int maxPerBatch = 6;
+            [FormerlySerializedAs("minPerBatch")] [SerializeField]
+            int minPathsPerBatch = 1;
+            [FormerlySerializedAs("maxPerBatch")] [SerializeField]
+            int maxPathsPerBatch = 6;
             [SerializeField]
             int diceCount = 2;
+            [SerializeField]
+            private int minDoorsPerBatch = 0;
+            [SerializeField]
+            private int maxDoorsPerBatch = 1;
 
             public int GetRandomBatchCount()
             {
                 int value = 0;
                 for (int i = 0; i < diceCount; i++)
                 {
-                    value += Random.Range(0, maxPerBatch + 1 - minPerBatch);
+                    value += Random.Range(0, maxPathsPerBatch + 1 - minPathsPerBatch);
                 }
 
-                return minPerBatch + Mathf.CeilToInt(value / (float) diceCount);
+                return minPathsPerBatch + Mathf.CeilToInt(value / (float) diceCount);
+            }
+
+            public int GetRandomDoorCount()
+            {
+                return Random.Range(minDoorsPerBatch, maxDoorsPerBatch + 1);
             }
 
         }

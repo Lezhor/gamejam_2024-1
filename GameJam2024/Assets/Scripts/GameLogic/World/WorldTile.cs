@@ -91,7 +91,7 @@ public class WorldTile
         if (_visible || _gameManager.SpectatorMode)
         {
             _gameManager.fog.SetTile(Pos, null);
-            if (_explored)
+            if (_explored || _gameManager.SpectatorMode)
             {
                 _gameManager.background.SetTile(Pos, _tileData.imageFloor);
                 _gameManager.walls.SetTile(Pos, _tileData.imageWalls);

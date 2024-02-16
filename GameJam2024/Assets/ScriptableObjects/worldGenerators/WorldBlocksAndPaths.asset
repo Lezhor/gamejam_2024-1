@@ -22,14 +22,20 @@ MonoBehaviour:
   maxExitsPerPathBatchPercentage: 1.6
   batchGenerators:
   - importance: 1
-    minPerBatch: 1
-    maxPerBatch: 3
+    minPathsPerBatch: 1
+    maxPathsPerBatch: 3
     diceCount: 2
+    minDoorsPerBatch: 0
+    maxDoorsPerBatch: 0
   - importance: 2
-    minPerBatch: 2
-    maxPerBatch: 6
+    minPathsPerBatch: 2
+    maxPathsPerBatch: 6
     diceCount: 3
+    minDoorsPerBatch: 0
+    maxDoorsPerBatch: 1
   - importance: 5
-    minPerBatch: 5
-    maxPerBatch: 11
+    minPathsPerBatch: 8
+    maxPathsPerBatch: 12
     diceCount: 3
+    minDoorsPerBatch: 1
+    maxDoorsPerBatch: 2

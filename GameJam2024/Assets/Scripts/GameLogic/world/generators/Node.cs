@@ -37,6 +37,16 @@ namespace GameLogic.world.generators
             SetConnections(top, right, bottom, left);
         }
 
+        public int CountConnection()
+        {
+            int count = 0;
+            if (Top) count++;
+            if (Right) count++;
+            if (Bottom) count++;
+            if (Left) count++;
+            return count;
+        }
+
         public static void Connect(Node node1, Node node2)
         {
             if (Math.Abs(node1.X - node2.X) + Math.Abs(node1.Y - node2.Y) != 1)

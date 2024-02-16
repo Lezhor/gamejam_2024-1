@@ -1,5 +1,6 @@
 using GameLogic.world;
 using GameLogic.world.generators;
+using GameLogic.world.tiles.actionTiles;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
@@ -29,13 +30,16 @@ namespace GameLogic
         public Tilemap walls;
         public Tilemap foreground;
 
-        [Header("Resources")] [SerializeField] private TileRegistry _tiles;
+        [Header("Resources")] 
+        [SerializeField] private TileRegistry _tiles;
+        [SerializeField] private ActionTileRegistry _actionTiles;
 
 
         private static GameManager _instance;
         public static GameManager Instance => _instance;
 
         public TileRegistry Tiles => _tiles;
+        public ActionTileRegistry ActionTiles => _actionTiles;
 
         private World _world;
         public World World => _world;
