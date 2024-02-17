@@ -7,6 +7,9 @@ namespace UI
 {
     public class InventorySlotUI : MonoBehaviour
     {
+        [Header("Resizing")] 
+        [Range(1f, 2f)]
+        public float sizeIncreaseWhenSelected = 1.1f;
         [Header("Schematic")]
         public Image schematicImage;
         [Range(0f, 1f)]
@@ -43,6 +46,7 @@ namespace UI
         {
             frameImage.sprite = selected ? frameSelectedSprite : frameUnselectedSprite;
             SetTransparency(schematicImage, selected ? selectedAlpha : unselectedAlpha);
+            SetSize(selected ? sizeIncreaseWhenSelected : 1f);
         }
 
         private void SetTransparency(Image image, float alpha)
@@ -50,6 +54,11 @@ namespace UI
             Color color = image.color;
             color.a = alpha;
             image.color = color;
+        }
+
+        private void SetSize(float size)
+        {
+            transform.localScale = new Vector3(size, size, size);
         }
 
     }
