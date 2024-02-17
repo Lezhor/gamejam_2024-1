@@ -54,7 +54,7 @@ namespace GameLogic.world.tiles.actions
             }
         }
 
-        protected override bool PerformAction()
+        protected override bool PerformAction(PlayerController player)
         {
             if (_debugPerformAction)
             {

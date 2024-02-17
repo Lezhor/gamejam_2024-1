@@ -9,9 +9,11 @@ namespace GameLogic.world
     public class World
     {
         private readonly GameManager _gameManager;
+        private readonly PlayerController _player;
         private TileRegistry Registry => _gameManager.Tiles;
         private readonly WorldTile[][] _world;
         public readonly Vector2Int StartPos;
+        
 
         public Vector2Int Size => new Vector2Int(_world.Length, _world.Length == 0 ? 0 : _world[0].Length);
 
@@ -42,10 +44,11 @@ namespace GameLogic.world
             _world = world;
             StartPos = startPos;
             _gameManager = gameManager;
+            _player = _gameManager.PlayerScript;
             SetBackgroundAndFogAroundWorld(gameManager.worldBorderWidth);
             ExploreTile(startPos.x, startPos.y);
-            gameManager.PlayerScript.OnMovedToNewTile += OnPlayerMovedToNewTile;
-            gameManager.PlayerScript.OnActionKeyPressed += OnPlayerPressedActionKey;
+            _player.OnMovedToNewTile += OnPlayerMovedToNewTile;
+            _player.OnActionKeyPressed += OnPlayerPressedActionKey;
         }
 
         private void OnPlayerMovedToNewTile(Vector2Int from, Vector2Int to)
@@ -56,7 +59,7 @@ namespace GameLogic.world
 
         private void OnPlayerPressedActionKey(Vector2Int position)
         {
-            _world[position.x][position.y].TileAction?.Invoke();
+            _world[position.x][position.y].TileAction?.Invoke(_player);
         }
 
         private void SetBackgroundAndFogAroundWorld(int distance)

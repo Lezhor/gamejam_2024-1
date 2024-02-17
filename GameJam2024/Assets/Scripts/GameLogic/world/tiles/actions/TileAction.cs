@@ -20,11 +20,11 @@
 
         public abstract void OnPlayerExitTile();
 
-        public void Invoke()
+        public void Invoke(PlayerController player)
         {
             if (!Executed)
             {
-                if (PerformAction())
+                if (PerformAction(player))
                 {
                     Executed = true;
                     Tile.RedrawOnTilemaps();
@@ -32,6 +32,6 @@
             }
         }
         
-        protected abstract bool PerformAction();
+        protected abstract bool PerformAction(PlayerController player);
     }
 }
