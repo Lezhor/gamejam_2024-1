@@ -128,6 +128,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5541069240089354952, guid: 5e2ee9ff45cbbc14bae91a29c44004ce, type: 3}
   m_PrefabInstance: {fileID: 5541069240050885604}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &38601005 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5541069240089354953, guid: 5e2ee9ff45cbbc14bae91a29c44004ce, type: 3}
+  m_PrefabInstance: {fileID: 5541069240050885604}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fffae35e38e7374c9b98d17bd3fff3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &66243732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1446,7 +1457,7 @@ MonoBehaviour:
   _player: {fileID: 1813330661}
   _camera: {fileID: 877541933}
   messageManager: {fileID: 183466143}
-  audioManager: {fileID: 0}
+  audioManager: {fileID: 38601005}
   background: {fileID: 789512314}
   fog: {fileID: 711715602}
   fogPath: {fileID: 2097480294}
