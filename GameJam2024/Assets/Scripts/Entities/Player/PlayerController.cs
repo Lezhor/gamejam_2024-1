@@ -55,6 +55,13 @@ public class PlayerController : EntityController
         CheckIfMovedToNewTile();
         CheckIfActionKeyPressed();
         CheckForInvSlotChange();
+        
+        /*
+        if (Input.GetKeyDown(KeyCode.U)) _playerInventory.Gold += 20;
+        if (Input.GetKeyDown(KeyCode.I)) _playerInventory.Gold += 100;
+        if (Input.GetKeyDown(KeyCode.O)) _playerInventory.Gold += 200;
+        if (Input.GetKeyDown(KeyCode.P)) _playerInventory.Gold += 1000;
+        */
     }
 
     private void CheckForWASDInput()
