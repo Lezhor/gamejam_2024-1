@@ -2,11 +2,11 @@
 
 namespace GameLogic.world.tiles.actions
 {
-    public class GameOverAction : TileAction
+    public class GameOverAction : TileActionWithHint
     {
         private readonly bool _won;
         
-        public GameOverAction(WorldTile tile, bool won) : base(tile)
+        public GameOverAction(WorldTile tile, string hint, bool won) : base(tile, hint)
         {
             _won = won;
         }
