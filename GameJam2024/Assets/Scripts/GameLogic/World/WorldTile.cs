@@ -35,6 +35,10 @@ public class WorldTile
 
     public Vector3Int Pos => new(_x, _y);
 
+    public Vector2Int Pos2D => new(_x, _y);
+
+    public Vector2 Center => new(_x + 0.5f, _y + 0.5f);
+
     public WorldTile(TileData tileData, int x, int y, GameManager gameManager) : this(tileData, null, x, y, gameManager)
     {
     }
