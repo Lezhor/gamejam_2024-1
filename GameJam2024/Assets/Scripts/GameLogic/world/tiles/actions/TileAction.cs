@@ -24,12 +24,14 @@
         {
             if (!Executed)
             {
-                PerformAction();
-                Executed = true;
-                Tile.RedrawOnTilemaps();
+                if (PerformAction())
+                {
+                    Executed = true;
+                    Tile.RedrawOnTilemaps();
+                }
             }
         }
         
-        protected abstract void PerformAction();
+        protected abstract bool PerformAction();
     }
 }

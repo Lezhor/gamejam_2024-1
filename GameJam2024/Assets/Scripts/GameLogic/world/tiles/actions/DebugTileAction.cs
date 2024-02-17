@@ -54,12 +54,14 @@ namespace GameLogic.world.tiles.actions
             }
         }
 
-        protected override void PerformAction()
+        protected override bool PerformAction()
         {
             if (_debugPerformAction)
             {
                 Debug.Log(Tag + "Action performed!");
             }
+
+            return true;
         }
     }
 }
