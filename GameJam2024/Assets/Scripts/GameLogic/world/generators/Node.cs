@@ -1,4 +1,5 @@
 ﻿using System;
+using GameLogic.world.tiles;
 using UnityEngine;
 
 namespace GameLogic.world.generators
@@ -9,6 +10,7 @@ namespace GameLogic.world.generators
         public readonly int Y;
 
         public int Value = 0;
+        public ActionTile Action;
 
         public bool Marked;
         public bool Top;

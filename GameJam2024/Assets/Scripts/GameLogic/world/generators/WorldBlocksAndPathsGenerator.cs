@@ -13,10 +13,9 @@ namespace GameLogic.world.generators
     [CreateAssetMenu(fileName = "New World Blocks And Paths Generator", menuName = "World Generator/World Blocks And Paths Generator")]
     public class WorldBlocksAndPathsGenerator : WorldGenerator
     {
-
-        public const int MaskBlocked = 0b0001;
-        public const int MaskPath = 0b0010;
-        public const int MaskDoor = 0b0100;
+        private const int MaskBlocked = 0b0001;
+        private const int MaskPath = 0b0010;
+        private const int MaskAction = 0b0100;
 
         [Header("Blocked Tiles Settings")]
         [SerializeField]
@@ -137,7 +136,7 @@ namespace GameLogic.world.generators
             BatchGenerator batchGenerator = CustomMath.PickRandomOption(batchGenerators,
                 batchGenerator => batchGenerator.importance);
 
-            int tilesInBatch = batchGenerator.GetRandomBatchCount();
+            int tilesInBatch = batchGenerator.GetRandomPathCount();
 
             for (int i = 1; i < tilesInBatch; i++)
             {
@@ -166,14 +165,16 @@ namespace GameLogic.world.generators
 
             AddRandomExitsToPatch(graph, batchNodes, batchGenerator.GetExitsCount(batchNodes.Count));
 
-            int doorCount = batchGenerator.GetRandomDoorCount();
-
-            for (int i = 0; i < doorCount; i++)
+            foreach (BatchGenerator.ActionTileGenerator actionGenerator in batchGenerator.GetGenerators())
             {
-                if (!AddDoorToPathBatchIfPossible(batchNodes))
+                int actionTileCount = actionGenerator.GetAmount();
+                for (int i = 0; i < actionTileCount; i++)
                 {
-                    Debug.Log("Couldn't add more doors do batch. Doors added: " + i);
-                    break;
+                    if (!AddActionTilesToPatchIfPossible(batchNodes, actionGenerator))
+                    {
+                        Debug.Log("Couldn't add more actionTiles to batch. actionTiles added: " + i);
+                        break;
+                    }
                 }
             }
 
@@ -269,19 +270,24 @@ namespace GameLogic.world.generators
             return possibleExpansions;
         }
 
-        private bool AddDoorToPathBatchIfPossible(List<Node> batch)
+        private bool AddActionTilesToPatchIfPossible(List<Node> batch, BatchGenerator.ActionTileGenerator generator)
         {
-            List<Node> nodesWith2Or3ConnectionsAndNoDoor = batch
-                .Where(node => !node.IsMaskSet(MaskDoor))
-                .Where(node => node.CountConnection() > 1 && node.CountConnection() < 4)
+            List<Node> canBePlaced = batch
+                .Where(node => !node.IsMaskSet(MaskAction))
+                .Where(node => generator.ActionTile.HasFittingVariants(node))
+                .Where(node => !generator.checkNoActionTileIn3X3Box 
+                               || GetNodesIn3X3Box(_graph, node.Pos).TrueForAll(neighbour => !neighbour.IsMaskSet(MaskAction)))
                 .ToList();
 
-            if (nodesWith2Or3ConnectionsAndNoDoor.Count == 0)
+            if (canBePlaced.Count == 0)
             {
                 return false;
             }
 
-            nodesWith2Or3ConnectionsAndNoDoor[Random.Range(0, nodesWith2Or3ConnectionsAndNoDoor.Count)].SetMask(MaskDoor);
+            Node newActionNode = canBePlaced[Random.Range(0, canBePlaced.Count)];
+            newActionNode.SetMask(MaskAction);
+            newActionNode.Action = generator.ActionTile;
+            
             return true;
         }
 
@@ -308,13 +314,8 @@ namespace GameLogic.world.generators
 
         protected override ActionTile GetAction(Node node)
         {
-            if (node.IsMaskSet(MaskDoor))
-            {
-                // TODO - TEMP, REMOVE
-                return node.CountConnection() == 2 ? ActionRegistry.doorTile : ActionRegistry.goldTile;
-            }
-            // TODO - Add GoldActionTile
-            return null;
+            // TODO - Keep track of Actions in a dictionary
+            return node.IsMaskSet(MaskAction) ? node.Action : null;
         }
 
         protected override Vector2Int StartPos(Vector2Int size)
@@ -346,13 +347,11 @@ namespace GameLogic.world.generators
             [SerializeField]
             [Range(0.5f, 3f)]
             float maxExitsPerPathBatchPercentage = 2f;
-            [Header("Action Tiles")]
+            [Header("Action Tiles")] 
             [SerializeField]
-            private int minDoorsPerBatch = 0;
-            [SerializeField]
-            private int maxDoorsPerBatch = 1;
+            private List<ActionTileLootTable> actionTileLootTables;
 
-            public int GetRandomBatchCount()
+            public int GetRandomPathCount()
             {
                 int value = 0;
                 for (int i = 0; i < diceCount; i++)
@@ -372,11 +371,50 @@ namespace GameLogic.world.generators
                     maxExitsPerBatch);
             }
 
-            public int GetRandomDoorCount()
+            public List<ActionTileGenerator> GetGenerators()
             {
-                return Random.Range(minDoorsPerBatch, maxDoorsPerBatch + 1);
+                if (actionTileLootTables.Count == 0)
+                {
+                    return new List<ActionTileGenerator>();
+                }
+                return CustomMath.PickRandomOption(actionTileLootTables, 
+                        lootTable => lootTable.commonness)
+                    .ActionGenerators;
             }
 
+            [Serializable]
+            public class ActionTileLootTable
+            {
+                public float commonness = 1f;
+                [SerializeField]
+                private List<ActionTileGenerator> actionGenerators;
+
+                public List<ActionTileGenerator> ActionGenerators => actionGenerators;
+
+            }
+
+            [Serializable]
+            public class ActionTileGenerator
+            {
+                [SerializeField]
+                [Range(0, 5)]
+                private int minPerBatch = 0;
+                
+                [SerializeField]
+                [Range(0, 5)]
+                private int maxPerBatch = 1;
+
+                public bool checkNoActionTileIn3X3Box = true;
+
+                [SerializeField]
+                private ActionTile actionTile;
+                public ActionTile ActionTile => actionTile;
+
+                public int GetAmount()
+                {
+                    return Random.Range(minPerBatch, maxPerBatch + 1);
+                }
+            }
         }
     }
 }
