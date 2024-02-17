@@ -310,7 +310,8 @@ namespace GameLogic.world.generators
         {
             if (node.IsMaskSet(MaskDoor))
             {
-                return ActionRegistry.doorTile;
+                // TODO - TEMP, REMOVE
+                return node.CountConnection() == 2 ? ActionRegistry.doorTile : ActionRegistry.goldTile;
             }
             // TODO - Add GoldActionTile
             return null;

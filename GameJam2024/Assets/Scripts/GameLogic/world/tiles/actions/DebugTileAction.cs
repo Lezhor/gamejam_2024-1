@@ -61,8 +61,6 @@ namespace GameLogic.world.tiles.actions
                 Debug.Log(Tag + "Action performed!");
             }
 
-            player.PlayerInventory.Gold += 100;
-
             return true;
         }
     }

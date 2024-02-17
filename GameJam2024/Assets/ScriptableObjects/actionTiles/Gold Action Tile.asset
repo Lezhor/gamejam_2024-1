@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4437384a32d11f84ea4a8c4e699c96e9, type: 3}
   m_Name: Gold Action Tile
   m_EditorClassIdentifier: 
-  possibleActions: []
+  possibleActions:
+  - {fileID: 11400000, guid: 37059b014b7e6384c83d1cab161c3a42, type: 2}
   possibleTiles:
   - tileBeforeAction: {fileID: 11400000, guid: 5eb8dc0ac6656dd4ea2291ad59b8dd65, type: 2}
     tileAfterAction: {fileID: 0}
