@@ -2,6 +2,7 @@ using System;
 using GameLogic.world;
 using GameLogic.world.generators;
 using GameLogic.world.tiles.actionTiles;
+using UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
@@ -25,6 +26,8 @@ namespace GameLogic
         public GameObject Player => _player;
         public PlayerController PlayerScript => _player.GetComponent<PlayerController>();
         [SerializeField] private Camera _camera;
+        [SerializeField] private MessageManager messageManager;
+        public MessageManager MessageManager => messageManager;
         public Camera Cam => _camera;
 
         [Header("Tilemaps")] public Tilemap background;

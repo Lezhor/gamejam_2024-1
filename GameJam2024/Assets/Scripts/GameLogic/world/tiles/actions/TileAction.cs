@@ -24,6 +24,7 @@
         {
             if (!Executed)
             {
+                BeforeAction(player);
                 if (PerformAction(player))
                 {
                     Executed = true;
@@ -33,5 +34,9 @@
         }
         
         protected abstract bool PerformAction(PlayerController player);
+
+        protected virtual void BeforeAction(PlayerController player)
+        {
+        }
     }
 }

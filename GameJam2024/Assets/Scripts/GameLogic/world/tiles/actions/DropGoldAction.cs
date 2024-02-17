@@ -3,14 +3,14 @@ using Random = UnityEngine.Random;
 
 namespace GameLogic.world.tiles.actions
 {
-    public class DropGoldAction : TileAction
+    public class DropGoldAction : TileActionWithHint
     {
         
         private readonly int _minGold;
         private readonly int _maxGold;
         private readonly int _roundStep;
         
-        public DropGoldAction(WorldTile tile, int minGold, int maxGold, int roundStep) : base(tile)
+        public DropGoldAction(WorldTile tile, string hint, int minGold, int maxGold, int roundStep) : base(tile, hint)
         {
             _minGold = minGold;
             _maxGold = maxGold;
@@ -25,17 +25,11 @@ namespace GameLogic.world.tiles.actions
         {
         }
 
-        public override void OnPlayerEnterTile(PlayerController player)
-        {
-        }
-
-        public override void OnPlayerExitTile(PlayerController player)
-        {
-        }
-
         protected override bool PerformAction(PlayerController player)
         {
-            player.PlayerInventory.Gold += GetGold();
+            int gold = GetGold();
+            player.PlayerInventory.Gold += gold;
+            GameManager.Instance.MessageManager.InvokeMessage(Tile.Center, "+" + gold + " Gold");
             return true;
         }
 
