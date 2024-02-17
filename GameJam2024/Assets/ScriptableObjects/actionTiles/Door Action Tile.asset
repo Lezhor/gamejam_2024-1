@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4437384a32d11f84ea4a8c4e699c96e9, type: 3}
   m_Name: Door Action Tile
   m_EditorClassIdentifier: 
-  possibleActions: []
+  possibleActions:
+  - {fileID: 11400000, guid: b079ea2e26f090d4b8300326518d3ed9, type: 2}
   possibleTiles:
   - tileBeforeAction: {fileID: 11400000, guid: d1eafe19a50da82469abbec41df17546, type: 2}
     tileAfterAction: {fileID: 11400000, guid: d6168297724452e4988a58188081a066, type: 2}
