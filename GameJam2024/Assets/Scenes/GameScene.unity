@@ -1414,6 +1414,7 @@ MonoBehaviour:
   _actionTiles:
     doorTile: {fileID: 11400000, guid: a77e7af296ece8c43b08167e54b4c063, type: 2}
     goldTile: {fileID: 11400000, guid: faf35a33583b56840bfee844f0219ce4, type: 2}
+    goalTile: {fileID: 11400000, guid: ba6e9fcb00853344398f088b7609bb38, type: 2}
 --- !u!1 &1116970637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1468,7 +1469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 1367941085}
   textComponent: {fileID: 126453568}
-  offsetX: 35
+  offsetX: 40
 --- !u!114 &1116970640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1711,7 +1712,7 @@ RectTransform:
   m_GameObject: {fileID: 1367941084}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1116970638}
@@ -1719,7 +1720,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -355, y: -6}
+  m_AnchoredPosition: {x: -355, y: 8}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1367941086
@@ -1742,7 +1743,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1ac02ba45f691884fb42c80305b9eb69, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 65fab684fdeaa83449bbccd2f0fc6810, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

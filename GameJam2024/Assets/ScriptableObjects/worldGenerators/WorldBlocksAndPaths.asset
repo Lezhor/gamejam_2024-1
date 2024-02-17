@@ -16,7 +16,7 @@ MonoBehaviour:
   blockedTilesPercentage: 18
   maxBlockedTilesIn3x3Box: 2
   maxBlockedTilesIn5x5Box: 4
-  pathTilePercentage: 15
+  pathTilePercentage: 22
   batchGenerators:
   - importance: 1
     minPathsPerBatch: 2

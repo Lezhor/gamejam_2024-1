@@ -30,6 +30,9 @@ namespace GameLogic.world.generators
         private int maxBlockedTilesIn5x5Box = 4;
 
         protected Vector2Int _startPos = new(0, 0);
+
+        private Vector2Int[] _endPos;
+        
         [Header("Path Settings")] 
         [SerializeField]
         [Range(0, 100)]
@@ -47,6 +50,20 @@ namespace GameLogic.world.generators
             _startPos = new Vector2Int(3, Mathf.FloorToInt(size.y / 2f));
             _graph[_startPos.x, _startPos.y].SetConnections(true, true, true, true);
             _graph[_startPos.x, _startPos.y].SetMask(MaskPath);
+
+            _endPos = new Vector2Int[]
+            {
+                new(size.x - 1, Mathf.FloorToInt(size.y * 0.75f)),
+                new(size.x - 1, Mathf.FloorToInt(size.y * 0.5f)),
+                new(size.x - 1, Mathf.FloorToInt(size.y * 0.25f)),
+            };
+            foreach (Vector2Int pos in _endPos)
+            {
+                _graph[pos.x, pos.y].SetConnections(true, false, true, true);
+                _graph[pos.x, pos.y].SetMask(MaskPath);
+                _graph[pos.x, pos.y].SetMask(MaskAction);
+                _graph[pos.x, pos.y].Action = ActionRegistry.goalTile;
+            }
 
             int blockedTilesCount = (int)(size.x * size.y * blockedTilesPercentage / 100f);
 
