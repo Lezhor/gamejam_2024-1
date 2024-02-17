@@ -26,8 +26,35 @@ MonoBehaviour:
     maxExitsPerBatch: 4
     minExitsPerPathBatchPercentage: 1.1
     maxExitsPerPathBatchPercentage: 1.5
-    minDoorsPerBatch: 1
-    maxDoorsPerBatch: 1
+    actionTileLootTables:
+    - commonness: 3
+      actionGenerators:
+      - minPerBatch: 1
+        maxPerBatch: 1
+        checkNoActionTileIn3X3Box: 1
+        actionTile: {fileID: 11400000, guid: a77e7af296ece8c43b08167e54b4c063, type: 2}
+    - commonness: 1
+      actionGenerators:
+      - minPerBatch: 1
+        maxPerBatch: 1
+        checkNoActionTileIn3X3Box: 0
+        actionTile: {fileID: 11400000, guid: faf35a33583b56840bfee844f0219ce4, type: 2}
+    - commonness: 1
+      actionGenerators:
+      - minPerBatch: 1
+        maxPerBatch: 2
+        checkNoActionTileIn3X3Box: 0
+        actionTile: {fileID: 11400000, guid: faf35a33583b56840bfee844f0219ce4, type: 2}
+    - commonness: 1
+      actionGenerators:
+      - minPerBatch: 1
+        maxPerBatch: 1
+        checkNoActionTileIn3X3Box: 1
+        actionTile: {fileID: 11400000, guid: a77e7af296ece8c43b08167e54b4c063, type: 2}
+      - minPerBatch: 1
+        maxPerBatch: 1
+        checkNoActionTileIn3X3Box: 0
+        actionTile: {fileID: 11400000, guid: faf35a33583b56840bfee844f0219ce4, type: 2}
   - importance: 3
     minPathsPerBatch: 3
     maxPathsPerBatch: 6
@@ -36,8 +63,19 @@ MonoBehaviour:
     maxExitsPerBatch: 9
     minExitsPerPathBatchPercentage: 0.8
     maxExitsPerPathBatchPercentage: 1.6
-    minDoorsPerBatch: 0
-    maxDoorsPerBatch: 1
+    actionTileLootTables:
+    - commonness: 1
+      actionGenerators:
+      - minPerBatch: 1
+        maxPerBatch: 2
+        checkNoActionTileIn3X3Box: 0
+        actionTile: {fileID: 11400000, guid: faf35a33583b56840bfee844f0219ce4, type: 2}
+    - commonness: 1
+      actionGenerators:
+      - minPerBatch: 1
+        maxPerBatch: 1
+        checkNoActionTileIn3X3Box: 0
+        actionTile: {fileID: 11400000, guid: faf35a33583b56840bfee844f0219ce4, type: 2}
   - importance: 2
     minPathsPerBatch: 5
     maxPathsPerBatch: 11
@@ -46,15 +84,69 @@ MonoBehaviour:
     maxExitsPerBatch: 10
     minExitsPerPathBatchPercentage: 0.9
     maxExitsPerPathBatchPercentage: 1.4
-    minDoorsPerBatch: 1
-    maxDoorsPerBatch: 1
+    actionTileLootTables:
+    - commonness: 2
+      actionGenerators:
+      - minPerBatch: 1
+        maxPerBatch: 1
+        checkNoActionTileIn3X3Box: 1
+        actionTile: {fileID: 11400000, guid: a77e7af296ece8c43b08167e54b4c063, type: 2}
+      - minPerBatch: 1
+        maxPerBatch: 1
+        checkNoActionTileIn3X3Box: 1
+        actionTile: {fileID: 11400000, guid: faf35a33583b56840bfee844f0219ce4, type: 2}
+    - commonness: 3
+      actionGenerators:
+      - minPerBatch: 2
+        maxPerBatch: 3
+        checkNoActionTileIn3X3Box: 1
+        actionTile: {fileID: 11400000, guid: faf35a33583b56840bfee844f0219ce4, type: 2}
   - importance: 4
-    minPathsPerBatch: 10
+    minPathsPerBatch: 12
     maxPathsPerBatch: 20
     diceCount: 1
     minExitsPerBatch: 8
     maxExitsPerBatch: 13
     minExitsPerPathBatchPercentage: 0.8
     maxExitsPerPathBatchPercentage: 1.3
-    minDoorsPerBatch: 1
-    maxDoorsPerBatch: 2
+    actionTileLootTables:
+    - commonness: 1
+      actionGenerators:
+      - minPerBatch: 3
+        maxPerBatch: 4
+        checkNoActionTileIn3X3Box: 1
+        actionTile: {fileID: 11400000, guid: a77e7af296ece8c43b08167e54b4c063, type: 2}
+      - minPerBatch: 1
+        maxPerBatch: 1
+        checkNoActionTileIn3X3Box: 1
+        actionTile: {fileID: 11400000, guid: faf35a33583b56840bfee844f0219ce4, type: 2}
+    - commonness: 2
+      actionGenerators:
+      - minPerBatch: 2
+        maxPerBatch: 2
+        checkNoActionTileIn3X3Box: 1
+        actionTile: {fileID: 11400000, guid: a77e7af296ece8c43b08167e54b4c063, type: 2}
+      - minPerBatch: 2
+        maxPerBatch: 3
+        checkNoActionTileIn3X3Box: 1
+        actionTile: {fileID: 11400000, guid: faf35a33583b56840bfee844f0219ce4, type: 2}
+    - commonness: 2
+      actionGenerators:
+      - minPerBatch: 1
+        maxPerBatch: 2
+        checkNoActionTileIn3X3Box: 1
+        actionTile: {fileID: 11400000, guid: a77e7af296ece8c43b08167e54b4c063, type: 2}
+      - minPerBatch: 3
+        maxPerBatch: 4
+        checkNoActionTileIn3X3Box: 1
+        actionTile: {fileID: 11400000, guid: faf35a33583b56840bfee844f0219ce4, type: 2}
+    - commonness: 1
+      actionGenerators:
+      - minPerBatch: 5
+        maxPerBatch: 5
+        checkNoActionTileIn3X3Box: 0
+        actionTile: {fileID: 11400000, guid: faf35a33583b56840bfee844f0219ce4, type: 2}
+      - minPerBatch: 0
+        maxPerBatch: 1
+        checkNoActionTileIn3X3Box: 1
+        actionTile: {fileID: 11400000, guid: a77e7af296ece8c43b08167e54b4c063, type: 2}

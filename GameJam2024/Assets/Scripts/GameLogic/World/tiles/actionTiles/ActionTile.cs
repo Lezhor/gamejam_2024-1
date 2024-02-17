@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameLogic.world.generators;
 using GameLogic.world.tiles.actions;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 namespace GameLogic.world.tiles
@@ -19,6 +19,11 @@ namespace GameLogic.world.tiles
         public List<Variant> GetFittingVariants(TileData tile)
         {
             return possibleTiles.Where(variant => variant.FitsTile(tile)).ToList();
+        }
+
+        public bool HasFittingVariants(Node tile)
+        {
+            return possibleTiles.Count(variant => variant.FitsTile(tile)) > 0;
         }
 
         [Serializable]
@@ -45,8 +50,17 @@ namespace GameLogic.world.tiles
                 {
                     return listOfConstraints.TrueForAll(otherTile => !TilesMatch(tile, otherTile));
                 }
-
-                
+            }
+            public bool FitsTile(Node tile)
+            {
+                if (constraintsShouldMatch)
+                {
+                    return listOfConstraints.Any(otherTile => TilesMatch(tile, otherTile));
+                }
+                else
+                {
+                    return listOfConstraints.TrueForAll(otherTile => !TilesMatch(tile, otherTile));
+                }
             }
 
             private bool TilesMatch(TileData tile1, TileData tile2)
@@ -55,6 +69,14 @@ namespace GameLogic.world.tiles
                        && tile1.connectsLeft == tile2.connectsLeft
                        && tile1.connectsBottom == tile2.connectsBottom
                        && tile1.connectsRight == tile2.connectsRight;
+            }
+            
+            private bool TilesMatch(Node tile1, TileData tile2)
+            {
+                return tile1.Top == tile2.connectsTop
+                       && tile1.Left == tile2.connectsLeft
+                       && tile1.Bottom == tile2.connectsBottom
+                       && tile1.Right == tile2.connectsRight;
             }
         }
 
