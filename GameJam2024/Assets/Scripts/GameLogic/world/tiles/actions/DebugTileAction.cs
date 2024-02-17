@@ -38,7 +38,7 @@ namespace GameLogic.world.tiles.actions
             }
         }
 
-        public override void OnPlayerEnterTile()
+        public override void OnPlayerEnterTile(PlayerController player)
         {
             if (_debugPlayerEnter)
             {
@@ -46,7 +46,7 @@ namespace GameLogic.world.tiles.actions
             }
         }
 
-        public override void OnPlayerExitTile()
+        public override void OnPlayerExitTile(PlayerController player)
         {
             if (_debugPlayerExit)
             {

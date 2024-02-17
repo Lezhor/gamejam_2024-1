@@ -16,9 +16,9 @@
 
         public abstract void OnSetExplored(bool state);
 
-        public abstract void OnPlayerEnterTile();
+        public abstract void OnPlayerEnterTile(PlayerController player);
 
-        public abstract void OnPlayerExitTile();
+        public abstract void OnPlayerExitTile(PlayerController player);
 
         public void Invoke(PlayerController player)
         {

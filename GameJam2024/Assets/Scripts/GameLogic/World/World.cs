@@ -53,8 +53,8 @@ namespace GameLogic.world
 
         private void OnPlayerMovedToNewTile(Vector2Int from, Vector2Int to)
         {
-            _world[from.x][from.y].TileAction?.OnPlayerExitTile();
-            _world[to.x][to.y].TileAction?.OnPlayerEnterTile();
+            _world[from.x][from.y].TileAction?.OnPlayerExitTile(_player);
+            _world[to.x][to.y].TileAction?.OnPlayerEnterTile(_player);
         }
 
         private void OnPlayerPressedActionKey(Vector2Int position)
