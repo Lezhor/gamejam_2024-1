@@ -8,6 +8,21 @@ namespace GameLogic.player
     {
         public event Action<int, TileData> OnSlotContentChanged;
         public event Action<int> OnActiveSlotChanged;
+        public event Action<int, int> OnGoldValueChanged;
+        
+        
+        private int gold = 0;
+
+        public int Gold
+        {
+            get => gold;
+            set
+            {
+                int oldValue = gold;
+                gold = value;
+                OnGoldValueChanged?.Invoke(oldValue, value);
+            }
+        }
 
         private readonly TileData[] _slots = new TileData[4];
 

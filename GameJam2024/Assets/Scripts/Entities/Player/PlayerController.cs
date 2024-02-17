@@ -1,14 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Entities;
 using GameLogic;
 using GameLogic.player;
 using GameLogic.world;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerController : EntityMovement
+public class PlayerController : EntityController
 {
     
     public event Action<Vector2Int, Vector2Int> OnMovedToNewTile;
@@ -26,6 +23,8 @@ public class PlayerController : EntityMovement
     private float maxDigDistanceHorizontal = 1.5f;
     [SerializeField]
     private float maxDigDistanceVertical = 1f;
+    [SerializeField]
+    private int startGold = 300;
 
     private Camera _cam;
     private World _world;
@@ -39,7 +38,10 @@ public class PlayerController : EntityMovement
         _world = _gameManager.World;
         _tilePosLastFrame = GetTilePos(transform.position);
         TileRandomizer tileRandomizer = new TileRandomizer(_gameManager.Tiles);
-        _playerInventory = new PlayerInventory(tileRandomizer);
+        _playerInventory = new PlayerInventory(tileRandomizer)
+        {
+            Gold = startGold
+        };
     }
 
     protected override void FixedUpdateAddOn()

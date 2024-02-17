@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Entities
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public abstract class EntityMovement : MonoBehaviour
+    public abstract class EntityController : MonoBehaviour
     {
         
         [SerializeField] private Transform spriteToFlip;
