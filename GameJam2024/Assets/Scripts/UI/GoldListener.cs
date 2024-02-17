@@ -52,7 +52,7 @@ namespace UI
 
         private String FormatInt(int value)
         {
-            return value.ToString("### ### ###");
+            return value == 0 ? "0" : value.ToString("### ### ###");
         }
     }
 }
