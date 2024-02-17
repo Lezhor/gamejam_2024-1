@@ -23,6 +23,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 25e3e53bfbd3e92478ddadbf3612ca54, type: 2}
     - {fileID: 11400000, guid: cfb3a9c0d4f83984cb7e8d05aea38b89, type: 2}
     - {fileID: 11400000, guid: 0d1fe45f119fa454d8038c7bcc0597fb, type: 2}
+    - {fileID: 11400000, guid: 92af64bf84ec22c4c93b3fe68aa77189, type: 2}
   - tileBeforeAction: {fileID: 11400000, guid: 6bff225279aaf3947adc147f6ef5aecf, type: 2}
     tileAfterAction: {fileID: 11400000, guid: 7a68e5adae707724d83c4d4befbba409, type: 2}
     constraintsShouldMatch: 1
@@ -31,6 +32,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ff6e6a36a4a6ad44fb01d73c50a64976, type: 2}
     - {fileID: 11400000, guid: cfb3a9c0d4f83984cb7e8d05aea38b89, type: 2}
     - {fileID: 11400000, guid: 81e4f74ce60aa474e8963b7c91fd87e2, type: 2}
+    - {fileID: 11400000, guid: 5cd9c3515a675a4499073914ba58db75, type: 2}
   - tileBeforeAction: {fileID: 11400000, guid: fa699623c0597284a9e32d5358959ebb, type: 2}
     tileAfterAction: {fileID: 11400000, guid: 240caee72c67fbc40916061520692218, type: 2}
     constraintsShouldMatch: 1
@@ -39,6 +41,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1d104c26cb8f42d4da4c6ef5790817c0, type: 2}
     - {fileID: 11400000, guid: ff6e6a36a4a6ad44fb01d73c50a64976, type: 2}
     - {fileID: 11400000, guid: 041eea32fdb65dc4aafa9740fd21deeb, type: 2}
+    - {fileID: 11400000, guid: bec2117e12dc1af43bc005c0a1da58b4, type: 2}
   - tileBeforeAction: {fileID: 11400000, guid: 5781be17a3244a949b608f1f38137651, type: 2}
     tileAfterAction: {fileID: 11400000, guid: 8dea3a5f5b15ef74994bd36f92f12925, type: 2}
     constraintsShouldMatch: 1
@@ -47,3 +50,4 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1d104c26cb8f42d4da4c6ef5790817c0, type: 2}
     - {fileID: 11400000, guid: 25e3e53bfbd3e92478ddadbf3612ca54, type: 2}
     - {fileID: 11400000, guid: 61b72490471832c44add99faaf9e8ccc, type: 2}
+    - {fileID: 11400000, guid: 1c53985614d67f7458147e6e515e5d6d, type: 2}
