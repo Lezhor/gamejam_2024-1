@@ -19,14 +19,6 @@ namespace GameLogic.world.tiles.actions
         {
         }
 
-        public override void OnPlayerEnterTile(PlayerController player)
-        {
-        }
-
-        public override void OnPlayerExitTile(PlayerController player)
-        {
-        }
-
         protected override bool PerformAction(PlayerController player)
         {
             // TODO - End Game! - Event
