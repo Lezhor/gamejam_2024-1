@@ -13,7 +13,7 @@ namespace GameLogic.world.tiles.actions
 
         public string Tag => "DebugTile{ ( " + Tile.Pos.x + " | " + Tile.Pos.y + " ) }:  ";
 
-        public DebugTileAction(WorldTile tile, bool debugSetVisible, bool debugSetExplored, bool debugPlayerEnter, bool debugPlayerExit, bool debugPerformAction) : base(tile)
+        public DebugTileAction(WorldTile tile, string soundPlayed, bool debugSetVisible, bool debugSetExplored, bool debugPlayerEnter, bool debugPlayerExit, bool debugPerformAction) : base(tile, soundPlayed)
         {
             _debugSetVisible = debugSetVisible;
             _debugSetExplored = debugSetExplored;

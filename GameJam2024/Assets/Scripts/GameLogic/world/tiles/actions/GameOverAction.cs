@@ -6,7 +6,7 @@ namespace GameLogic.world.tiles.actions
     {
         private readonly bool _won;
         
-        public GameOverAction(WorldTile tile, string hint, bool won) : base(tile, hint)
+        public GameOverAction(WorldTile tile, string sound, string hint, bool won) : base(tile, sound, hint)
         {
             _won = won;
         }

@@ -6,7 +6,7 @@ namespace GameLogic.world.tiles.actions
     {
         private string _hint;
 
-        protected TileActionWithHint(WorldTile tile, string hint) : base(tile)
+        protected TileActionWithHint(WorldTile tile, string sound, string hint) : base(tile, sound)
         {
             _hint = hint;
         }

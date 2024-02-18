@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26885378a4f64895bdd3731b80a82c38, type: 3}
   m_Name: DropGoldGoldTileAction
   m_EditorClassIdentifier: 
+  soundToPlayOnAction: Collect Coin
   hint: Press E to collect
   minGold: 30
   maxGold: 70

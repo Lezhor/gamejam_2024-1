@@ -10,7 +10,7 @@ namespace GameLogic.world.tiles.actions
         
         public override TileAction CreateAction(WorldTile tile)
         {
-            return new GameOverAction(tile, hint, won);
+            return new GameOverAction(tile, soundToPlayOnAction, hint, won);
         }
     }
 }

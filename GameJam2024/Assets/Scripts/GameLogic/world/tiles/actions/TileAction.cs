@@ -7,9 +7,12 @@
 
         protected WorldTile Tile { get; }
 
-        protected TileAction(WorldTile tile)
+        private readonly string _soundPlayed;
+
+        protected TileAction(WorldTile tile, string soundPlayed)
         {
             Tile = tile;
+            _soundPlayed = soundPlayed;
         }
 
         public abstract void OnSetVisibility(bool state);
@@ -27,6 +30,10 @@
                 BeforeAction(player);
                 if (PerformAction(player))
                 {
+                    if (_soundPlayed != null)
+                    {
+                        GameManager.Instance.AudioManager.Play(_soundPlayed);
+                    }
                     Executed = true;
                     Tile.RedrawOnTilemaps();
                 }

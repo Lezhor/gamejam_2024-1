@@ -10,7 +10,7 @@ namespace GameLogic.world.tiles.actions
         private readonly int _maxGold;
         private readonly int _roundStep;
         
-        public DropGoldAction(WorldTile tile, string hint, int minGold, int maxGold, int roundStep) : base(tile, hint)
+        public DropGoldAction(WorldTile tile, string sound, string hint, int minGold, int maxGold, int roundStep) : base(tile, sound, hint)
         {
             _minGold = minGold;
             _maxGold = maxGold;

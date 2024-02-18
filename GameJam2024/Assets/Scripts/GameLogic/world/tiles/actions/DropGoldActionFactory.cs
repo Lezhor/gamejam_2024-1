@@ -16,7 +16,7 @@ namespace GameLogic.world.tiles.actions
 
         public override TileAction CreateAction(WorldTile tile)
         {
-            return new DropGoldAction(tile, hint, minGold, maxGold, roundStep);
+            return new DropGoldAction(tile, soundToPlayOnAction, hint, minGold, maxGold, roundStep);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace GameLogic.world.tiles.actions
         
         public override TileAction CreateAction(WorldTile tile)
         {
-            return new DebugTileAction(tile, debugSetVisible, debugSetExplored,
+            return new DebugTileAction(tile, soundToPlayOnAction, debugSetVisible, debugSetExplored,
                 debugPlayerEnter, debugPlayerExit, debugPerformAction);
         }
     }
