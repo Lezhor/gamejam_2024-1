@@ -10,56 +10,84 @@ using Random = UnityEngine.Random;
 
 namespace GameLogic.world.generators
 {
-    [CreateAssetMenu(fileName = "New World Blocks And Paths Generator", menuName = "World Generator/World Blocks And Paths Generator")]
+    [CreateAssetMenu(fileName = "New World Blocks And Paths Generator",
+        menuName = "World Generator/World Blocks And Paths Generator")]
     public class WorldBlocksAndPathsGenerator : WorldGenerator
     {
         private const int MaskBlocked = 0b0001;
         private const int MaskPath = 0b0010;
         private const int MaskAction = 0b0100;
 
-        [Header("Blocked Tiles Settings")]
-        [SerializeField]
-        [Range(0, 100)] 
+        [Header("End Tiles")] [SerializeField] private int endTilesCount;
+        [SerializeField] private bool alongOneWall = true;
+
+        [Header("Blocked Tiles Settings")] [SerializeField] [Range(0, 100)]
         private int blockedTilesPercentage = 15;
 
-        [SerializeField] 
-        [Range(1, 9)] 
-        private int maxBlockedTilesIn3x3Box = 2;
-        [SerializeField] 
-        [Range(1, 25)] 
-        private int maxBlockedTilesIn5x5Box = 4;
+        [SerializeField] [Range(1, 9)] private int maxBlockedTilesIn3x3Box = 2;
+        [SerializeField] [Range(1, 25)] private int maxBlockedTilesIn5x5Box = 4;
 
         protected Vector2Int _startPos = new(0, 0);
 
         private Vector2Int[] _endPos;
-        
-        [Header("Path Settings")] 
-        [SerializeField]
-        [Range(0, 100)]
+
+        [Header("Path Settings")] [SerializeField] [Range(0, 100)]
         private int pathTilePercentage = 10;
-        
-        [SerializeField] 
-        private List<BatchGenerator> batchGenerators;
+
+        [SerializeField] private List<BatchGenerator> batchGenerators;
 
         private Node[,] _graph;
+
+        private Vector2Int[] GenerateEndPos(Vector2Int size)
+        {
+            if (!alongOneWall && endTilesCount == 3)
+            {
+                int x = Mathf.Max(size.x / 3, size.x - size.y / 2);
+                return new[]
+                {
+                    new Vector2Int(x, size.y - 1),
+                    new Vector2Int(size.x - 1, Mathf.FloorToInt(size.y / 2f)),
+                    new Vector2Int(x, 0),
+                };
+            }
+            else
+            {
+                List<Vector2Int> result = new();
+                int step = Mathf.FloorToInt(size.y / (float)endTilesCount);
+                for (int i = step - 1; i < size.y; i += step)
+                {
+                    result.Add(new(size.x - 1, i));
+                }
+
+                return result.ToArray();
+            }
+        }
+
+        private void SetMaxConnections(Node node, Vector2Int size)
+        {
+            if (node.Y < size.y - 1)
+                node.Top = true;
+            if (node.X < size.x - 1)
+                node.Right = true;
+            if (node.Y > 0)
+                node.Bottom = true;
+            if (node.X > 0)
+                node.Left = true;
+        }
 
         protected override Node[,] GenerateWorldGraph(Vector2Int size)
         {
             _graph = CreateBasicGraph(size);
-            
+
             _startPos = new Vector2Int(3, Mathf.FloorToInt(size.y / 2f));
             _graph[_startPos.x, _startPos.y].SetConnections(true, true, true, true);
             _graph[_startPos.x, _startPos.y].SetMask(MaskPath);
 
-            _endPos = new Vector2Int[]
-            {
-                new(size.x - 1, Mathf.FloorToInt(size.y * 0.75f)),
-                new(size.x - 1, Mathf.FloorToInt(size.y * 0.5f)),
-                new(size.x - 1, Mathf.FloorToInt(size.y * 0.25f)),
-            };
+            _endPos = GenerateEndPos(size);
+
             foreach (Vector2Int pos in _endPos)
             {
-                _graph[pos.x, pos.y].SetConnections(true, false, true, true);
+                SetMaxConnections(_graph[pos.x, pos.y], size);
                 _graph[pos.x, pos.y].SetMask(MaskPath);
                 _graph[pos.x, pos.y].SetMask(MaskAction);
                 _graph[pos.x, pos.y].Action = ActionRegistry.goalTile;
@@ -105,7 +133,7 @@ namespace GameLogic.world.generators
 
             return _graph;
         }
-        
+
         private bool BlockCanBePlaced(Vector2Int pos)
         {
             if (_graph[pos.x, pos.y].Value != 0)
@@ -117,13 +145,15 @@ namespace GameLogic.world.generators
             {
                 Value = MaskBlocked
             };
-            if (GetNeighbours(_graph, pos).Where(node => node.IsMaskSet(MaskPath)).Any(node => !Node.ConnectionsMatch(node, tempBlockedNode)))
+            if (GetNeighbours(_graph, pos).Where(node => node.IsMaskSet(MaskPath))
+                .Any(node => !Node.ConnectionsMatch(node, tempBlockedNode)))
             {
                 return false;
             }
 
             return GetNodesIn3X3Box(_graph, pos).Count(node => node.IsMaskSet(MaskBlocked)) < maxBlockedTilesIn3x3Box
-                   && GetNodesIn5X5Box(_graph, pos).Count(node => node.IsMaskSet(MaskBlocked)) < maxBlockedTilesIn5x5Box;
+                   && GetNodesIn5X5Box(_graph, pos).Count(node => node.IsMaskSet(MaskBlocked)) <
+                   maxBlockedTilesIn5x5Box;
         }
 
         private int GeneratePathBatch(Node[,] graph)
@@ -147,7 +177,7 @@ namespace GameLogic.world.generators
             {
                 return int.MaxValue;
             }
-            
+
             batchCoords.Add(startPos);
 
             BatchGenerator batchGenerator = CustomMath.PickRandomOption(batchGenerators,
@@ -171,13 +201,13 @@ namespace GameLogic.world.generators
                 }
 
                 Vector2Int nextExpansion = possibleExpansions[Random.Range(0, possibleExpansions.Count)];
-                
+
                 batchCoords.Add(nextExpansion);
             }
-            
+
             batchCoords.ForEach(v => graph[v.x, v.y].SetMask(MaskPath));
             List<Node> batchNodes = batchCoords.Select(v => graph[v.x, v.y]).ToList();
-            
+
             ConnectAllNodes(batchNodes);
 
             AddRandomExitsToPatch(graph, batchNodes, batchGenerator.GetExitsCount(batchNodes.Count));
@@ -212,7 +242,7 @@ namespace GameLogic.world.generators
 
             Queue<Node> queue = new Queue<Node>();
             queue.Enqueue(batch[Random.Range(0, batch.Count)]);
-            
+
             while (queue.Count > 0)
             {
                 Node current = queue.Dequeue();
@@ -233,12 +263,10 @@ namespace GameLogic.world.generators
                     queue.Enqueue(node);
                 }
             }
-
         }
 
         private void AddRandomExitsToPatch(Node[,] graph, List<Node> batch, int exitCount)
         {
-
             List<Node> extensions = GetPossibleExtensions(graph, batch.Select(node => node.Pos).ToList(), false)
                 .Select(v => graph[v.x, v.y]).ToList();
 
@@ -251,10 +279,9 @@ namespace GameLogic.world.generators
 
                 Node next = extensions[Random.Range(0, extensions.Count)];
                 extensions.Remove(next);
-                
+
                 OpenConnectionTo(graph, batch, next.Pos);
             }
-
         }
 
         private void OpenConnectionTo(Node[,] graph, List<Node> batch, Vector2Int pos)
@@ -265,11 +292,12 @@ namespace GameLogic.world.generators
             Vector2Int chosen = neighboursOfPos[Random.Range(0, neighboursOfPos.Count)];
             Node node = graph[chosen.x, chosen.y];
             Node temp = new Node(pos.x, pos.y);
-            
+
             Node.Connect(node, temp);
         }
 
-        private List<Vector2Int> GetPossibleExtensions(Node[,] graph, List<Vector2Int> batch, bool checkForSurroundingPaths)
+        private List<Vector2Int> GetPossibleExtensions(Node[,] graph, List<Vector2Int> batch,
+            bool checkForSurroundingPaths)
         {
             List<Vector2Int> possibleExpansions = new List<Vector2Int>();
             foreach (Vector2Int v in batch)
@@ -277,7 +305,8 @@ namespace GameLogic.world.generators
                 foreach (Node node in GetNeighbours(graph, v))
                 {
                     Vector2Int pos = node.Pos;
-                    if (node.Value == 0 && !batch.Contains(pos) && !possibleExpansions.Contains(pos) && CanPlacePathHere(graph, pos, checkForSurroundingPaths))
+                    if (node.Value == 0 && !batch.Contains(pos) && !possibleExpansions.Contains(pos) &&
+                        CanPlacePathHere(graph, pos, checkForSurroundingPaths))
                     {
                         possibleExpansions.Add(pos);
                     }
@@ -292,8 +321,9 @@ namespace GameLogic.world.generators
             List<Node> canBePlaced = batch
                 .Where(node => !node.IsMaskSet(MaskAction))
                 .Where(node => generator.ActionTile.HasFittingVariants(node))
-                .Where(node => !generator.checkNoActionTileIn3X3Box 
-                               || GetNodesIn3X3Box(_graph, node.Pos).TrueForAll(neighbour => !neighbour.IsMaskSet(MaskAction)))
+                .Where(node => !generator.checkNoActionTileIn3X3Box
+                               || GetNodesIn3X3Box(_graph, node.Pos)
+                                   .TrueForAll(neighbour => !neighbour.IsMaskSet(MaskAction)))
                 .ToList();
 
             if (canBePlaced.Count == 0)
@@ -304,15 +334,15 @@ namespace GameLogic.world.generators
             Node newActionNode = canBePlaced[Random.Range(0, canBePlaced.Count)];
             newActionNode.SetMask(MaskAction);
             newActionNode.Action = generator.ActionTile;
-            
+
             return true;
         }
 
         private bool CanPlacePathHere(Node[,] graph, Vector2Int pos, bool checkForSurroundingPaths)
         {
-            return graph[pos.x, pos.y].Value == 0 
-                   && (!checkForSurroundingPaths || 
-                      GetNodesIn7x7Box(graph, pos).All(node => !node.IsMaskSet(MaskPath)));
+            return graph[pos.x, pos.y].Value == 0
+                   && (!checkForSurroundingPaths ||
+                       GetNodesIn7x7Box(graph, pos).All(node => !node.IsMaskSet(MaskPath)));
         }
 
         protected override TileData GetTile(Node node)
@@ -321,6 +351,7 @@ namespace GameLogic.world.generators
             {
                 return Registry.blockedTile;
             }
+
             if (node.IsMaskSet(MaskPath))
             {
                 return Registry.GetTile(node.Top, node.Right, node.Bottom, node.Left);
@@ -348,29 +379,24 @@ namespace GameLogic.world.generators
         [Serializable]
         public class BatchGenerator
         {
-            [Header("Paths")]
-            public float importance = 1;
+            [Header("Paths")] public float importance = 1;
+
             [FormerlySerializedAs("minPerBatch")] [SerializeField]
             int minPathsPerBatch = 1;
+
             [FormerlySerializedAs("maxPerBatch")] [SerializeField]
             int maxPathsPerBatch = 6;
-            [SerializeField]
-            int diceCount = 2;
-            [Header("Exits")]
-            [SerializeField] 
-            [Range(0, 20)]
+
+            [SerializeField] int diceCount = 2;
+
+            [Header("Exits")] [SerializeField] [Range(0, 20)]
             int minExitsPerBatch = 2;
-            [SerializeField] 
-            [Range(0, 20)]
-            int maxExitsPerBatch = 9;
-            [SerializeField]
-            [Range(0.5f, 3f)]
-            float minExitsPerPathBatchPercentage = 1.1f;
-            [SerializeField]
-            [Range(0.5f, 3f)]
-            float maxExitsPerPathBatchPercentage = 2f;
-            [Header("Action Tiles")] 
-            [SerializeField]
+
+            [SerializeField] [Range(0, 20)] int maxExitsPerBatch = 9;
+            [SerializeField] [Range(0.5f, 3f)] float minExitsPerPathBatchPercentage = 1.1f;
+            [SerializeField] [Range(0.5f, 3f)] float maxExitsPerPathBatchPercentage = 2f;
+
+            [Header("Action Tiles")] [SerializeField]
             private List<ActionTileLootTable> actionTileLootTables;
 
             public int GetRandomPathCount()
@@ -381,7 +407,7 @@ namespace GameLogic.world.generators
                     value += Random.Range(0, maxPathsPerBatch + 1 - minPathsPerBatch);
                 }
 
-                return minPathsPerBatch + Mathf.CeilToInt(value / (float) diceCount);
+                return minPathsPerBatch + Mathf.CeilToInt(value / (float)diceCount);
             }
 
             public int GetExitsCount(int batchPathCount)
@@ -399,7 +425,8 @@ namespace GameLogic.world.generators
                 {
                     return new List<ActionTileGenerator>();
                 }
-                return CustomMath.PickRandomOption(actionTileLootTables, 
+
+                return CustomMath.PickRandomOption(actionTileLootTables,
                         lootTable => lootTable.commonness)
                     .ActionGenerators;
             }
@@ -408,28 +435,21 @@ namespace GameLogic.world.generators
             public class ActionTileLootTable
             {
                 public float commonness = 1f;
-                [SerializeField]
-                private List<ActionTileGenerator> actionGenerators;
+                [SerializeField] private List<ActionTileGenerator> actionGenerators;
 
                 public List<ActionTileGenerator> ActionGenerators => actionGenerators;
-
             }
 
             [Serializable]
             public class ActionTileGenerator
             {
-                [SerializeField]
-                [Range(0, 5)]
-                private int minPerBatch = 0;
-                
-                [SerializeField]
-                [Range(0, 5)]
-                private int maxPerBatch = 1;
+                [SerializeField] [Range(0, 5)] private int minPerBatch = 0;
+
+                [SerializeField] [Range(0, 5)] private int maxPerBatch = 1;
 
                 public bool checkNoActionTileIn3X3Box = true;
 
-                [SerializeField]
-                private ActionTile actionTile;
+                [SerializeField] private ActionTile actionTile;
                 public ActionTile ActionTile => actionTile;
 
                 public int GetAmount()
