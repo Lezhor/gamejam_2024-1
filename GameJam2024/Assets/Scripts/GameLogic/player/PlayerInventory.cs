@@ -9,6 +9,8 @@ namespace GameLogic.player
         public event Action<int, TileData> OnSlotContentChanged;
         public event Action<int> OnActiveSlotChanged;
         public event Action<int, int> OnGoldValueChanged;
+
+        public event Action OnGoldRanOut;
         
         
         private int gold = 0;
@@ -21,6 +23,10 @@ namespace GameLogic.player
                 int oldValue = gold;
                 gold = value;
                 OnGoldValueChanged?.Invoke(oldValue, value);
+                if (gold <= 0)
+                {
+                    OnGoldRanOut?.Invoke();
+                }
             }
         }
 

@@ -85,6 +85,7 @@ public class PlayerController : EntityController
         {
             Gold = startGold
         };
+        _playerInventory.OnGoldRanOut += OnNoGoldLeft;
     }
 
     protected override void FixedUpdateAddOn()
@@ -220,6 +221,20 @@ public class PlayerController : EntityController
             {
                 _playerInventory.IncrementSlotIndexIfPossible();
             }
+        }
+    }
+
+    private void OnNoGoldLeft()
+    {
+        StartCoroutine(KillPlayerAfterDelay(1f));
+    }
+
+    private IEnumerator KillPlayerAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (_playerInventory.Gold <= 0)
+        {
+            _gameManager.UIManager.ShowGameOverScreen();
         }
     }
 

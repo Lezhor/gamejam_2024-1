@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using GameLogic;
 using UI.SpecialTileShop;
 using UnityEngine;
@@ -14,6 +15,9 @@ namespace UI
 
         public GameObject winScreen;
         private bool _winScreenActive = false;
+        
+        public GameObject gameOverScreen;
+        private bool _gameOverScreenActive = false;
 
         private PlayerController _player;
 
@@ -72,6 +76,30 @@ namespace UI
                 _winScreenActive = true;
                 _player.DisableInput(true, true, true, true, true);
             }
+        }
+        public void ShowGameOverScreen()
+        {
+            if (!_gameOverScreenActive)
+            {
+                _gameOverScreenActive = true;
+                GameManager.Instance.AudioManager.Play("Game Over");
+                DoAfterDelay(() =>
+                {
+                    gameOverScreen.SetActive(true);
+                    _player.DisableInput(true, true, true, true, true);
+                }, .4f);
+            }
+        }
+
+        private void DoAfterDelay(Action action, float delay)
+        {
+            StartCoroutine(DoAfterDelayIEnumerator(action, delay));
+        }
+
+        private IEnumerator DoAfterDelayIEnumerator(Action action, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            action.Invoke();
         }
     }
 }
