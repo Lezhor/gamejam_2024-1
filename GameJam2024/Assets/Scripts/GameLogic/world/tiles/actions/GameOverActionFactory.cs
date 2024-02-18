@@ -3,13 +3,14 @@
 namespace GameLogic.world.tiles.actions
 {
     [CreateAssetMenu(fileName = "New Game Over Action", menuName = "World/Actions/Game Over Action")]
-    public class GameOverActionFactory : TileActionFactory
+    public class GameOverActionFactory : TileActionFactoryWithHint
     {
+        [Header("Stats")]
         public bool won;
         
         public override TileAction CreateAction(WorldTile tile)
         {
-            return new GameOverAction(tile, won);
+            return new GameOverAction(tile, hint, won);
         }
     }
 }

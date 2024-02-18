@@ -49,7 +49,7 @@ namespace GameLogic.world.generators
 
             Debug.Log("World generated!");
 
-            return new World(board, StartPos(dimensions), GameManager);
+            return new World(board, StartPos(dimensions), EndPos(), GameManager);
         }
 
         protected abstract TileData GetTile(Node node);
@@ -60,6 +60,11 @@ namespace GameLogic.world.generators
         protected abstract ActionTile GetAction(Node node);
 
         protected abstract Vector2Int StartPos(Vector2Int size);
+
+        protected virtual Vector2Int[] EndPos()
+        {
+            return Array.Empty<Vector2Int>();
+        }
 
         /**
          * Creates graph with size size and sets each node.

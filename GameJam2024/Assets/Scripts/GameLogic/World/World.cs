@@ -13,6 +13,7 @@ namespace GameLogic.world
         private TileRegistry Registry => _gameManager.Tiles;
         private readonly WorldTile[][] _world;
         public readonly Vector2Int StartPos;
+        public readonly Vector2Int[] EndPos;
         
 
         public Vector2Int Size => new Vector2Int(_world.Length, _world.Length == 0 ? 0 : _world[0].Length);
@@ -39,14 +40,19 @@ namespace GameLogic.world
             ExploreTile(startPos.x, startPos.y);
         }
 
-        public World(WorldTile[][] world, Vector2Int startPos, GameManager gameManager)
+        public World(WorldTile[][] world, Vector2Int startPos, Vector2Int[] endPos, GameManager gameManager)
         {
             _world = world;
             StartPos = startPos;
+            EndPos = endPos;
             _gameManager = gameManager;
             _player = _gameManager.PlayerScript;
             SetBackgroundAndFogAroundWorld(gameManager.worldBorderWidth);
             ExploreTile(startPos.x, startPos.y);
+            foreach (Vector2Int pos in endPos)
+            {
+                ExploreTile(pos.x, pos.y);
+            }
             _player.OnMovedToNewTile += OnPlayerMovedToNewTile;
             _player.OnActionKeyPressed += OnPlayerPressedActionKey;
         }
@@ -239,7 +245,7 @@ namespace GameLogic.world
             _world[x][y] = new WorldTile(tile, x, y, _gameManager);
         }
 
-        private bool CanBePlaced(int xCell, int yCell, TileData tile)
+        public bool CanBePlaced(int xCell, int yCell, TileData tile)
         {
             if (!tile.mustConnect)
             {

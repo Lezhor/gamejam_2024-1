@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb7fb7614ae4454a350bc0b0beecb7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positiveColor: {r: 0, g: 1, b: 0, a: 1}
+  positiveColor: {r: 1, g: 0.84313726, b: 0, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}
   negativeColor: {r: 1, g: 0, b: 0, a: 1}
   offset: {x: 0, y: 0.2, z: 0}

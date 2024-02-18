@@ -116,6 +116,7 @@ public class PlayerController : EntityController
 
             if (_world.PlaceIfPossible(tilePos.x, tilePos.y, _playerInventory.CurrentSlot))
             {
+                _gameManager.AudioManager?.Play("Dig");
                 _playerInventory.ReplaceCurrentSlot();
             }
         }

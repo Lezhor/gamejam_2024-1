@@ -1,4 +1,5 @@
 using System;
+using audio;
 using GameLogic.world;
 using GameLogic.world.generators;
 using GameLogic.world.tiles.actionTiles;
@@ -28,6 +29,8 @@ namespace GameLogic
         [SerializeField] private Camera _camera;
         [SerializeField] private MessageManager messageManager;
         public MessageManager MessageManager => messageManager;
+        [SerializeField] private AudioManager audioManager;
+        public AudioManager AudioManager => audioManager;
         public Camera Cam => _camera;
 
         [Header("Tilemaps")] public Tilemap background;

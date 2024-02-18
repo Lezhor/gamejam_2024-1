@@ -29,7 +29,7 @@ namespace GameLogic.world.tiles.actions
         {
             int gold = GetGold();
             player.PlayerInventory.Gold += gold;
-            GameManager.Instance.MessageManager.InvokeMessage(Tile.Center, "+" + gold + " Gold");
+            GameManager.Instance.MessageManager.InvokeMessage(Tile.Center, "+" + gold + " Gold", true);
             return true;
         }
 

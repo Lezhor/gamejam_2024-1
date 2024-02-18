@@ -340,6 +340,11 @@ namespace GameLogic.world.generators
             return _startPos;
         }
 
+        protected override Vector2Int[] EndPos()
+        {
+            return _endPos;
+        }
+
         [Serializable]
         public class BatchGenerator
         {
