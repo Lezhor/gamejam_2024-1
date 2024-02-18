@@ -81,7 +81,10 @@ namespace UI.SpecialTileShop
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            OnButtonClicked?.Invoke();
+            if (CanBeClicked)
+            {
+                OnButtonClicked?.Invoke();
+            }
         }
     }
 }
