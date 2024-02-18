@@ -31,6 +31,9 @@ namespace GameLogic
         public MessageManager MessageManager => messageManager;
         [SerializeField] private AudioManager audioManager;
         public AudioManager AudioManager => audioManager;
+        [SerializeField] private UIManager uiManager;
+        public UIManager UIManager => uiManager;
+        
         [SerializeField] private GoalManager goalManager;
         public GoalManager GoalManager => goalManager;
         public Camera Cam => _camera;

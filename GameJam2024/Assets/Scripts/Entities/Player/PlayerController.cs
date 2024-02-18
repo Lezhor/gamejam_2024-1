@@ -5,6 +5,7 @@ using GameLogic;
 using GameLogic.player;
 using GameLogic.world;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerController : EntityController
 {
@@ -33,28 +34,44 @@ public class PlayerController : EntityController
     private GameManager _gameManager;
     private static readonly int Mine = Animator.StringToHash("Mine");
 
-    private bool _inputEnabled = true;
+    public bool InputMouseClickEnabled { get; private set; } = true;
+    public bool InputMouseMoveEnabled { get; private set; } = true;
+    public bool InputMoveEnabled { get; private set; }  = true;
+    public bool InputActionEnabled { get; private set; }  = true;
+    public bool InputSelectInventoryEnabled { get; private set; }  = true;
 
-    public bool InputEnabled
+    public void DisableInput(bool mouseClick, bool mouseMove, bool move, bool action, bool selectInv, float time)
     {
-        get => _inputEnabled;
-        private set => _inputEnabled = value;
+        DisableInput(mouseClick, mouseMove, move, action, selectInv);
+        DoAfterDelay(() => EnableInput(mouseClick, mouseMove, move, action, selectInv), time);
     }
 
-    public void DisableInput(float time)
+    public void DisableInput(bool mouseClick, bool mouseMove, bool move, bool action, bool selectInv)
     {
-        InputEnabled = false;
-        DoAfterDelay(EnableInput, time);
+        if (mouseClick)
+            InputMouseClickEnabled = false;
+        if (mouseMove)
+            InputMouseMoveEnabled = false;
+        if (move)
+            InputMoveEnabled = false;
+        if (selectInv)
+            InputSelectInventoryEnabled = false;
+        if (action)
+            InputActionEnabled = false;
     }
 
-    public void DisableInput()
+    public void EnableInput(bool mouseClick, bool mouseMove, bool move, bool action, bool selectInv)
     {
-        InputEnabled = false;
-    }
-
-    public void EnableInput()
-    {
-        InputEnabled = true;
+        if (mouseClick)
+            InputMouseClickEnabled = true;
+        if (mouseMove)
+            InputMouseMoveEnabled = true;
+        if (move)
+            InputMoveEnabled = true;
+        if (selectInv)
+            InputSelectInventoryEnabled = true;
+        if (action)
+            InputActionEnabled = true;
     }
 
     private void OnEnable()
@@ -92,7 +109,7 @@ public class PlayerController : EntityController
 
     private void CheckForWASDInput()
     {
-        if (_inputEnabled)
+        if (InputMoveEnabled)
         {
             MoveVector = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
@@ -114,7 +131,7 @@ public class PlayerController : EntityController
 
     private void CheckIfActionKeyPressed()
     {
-        if (_inputEnabled && Input.GetKeyDown(KeyCode.E))
+        if (InputActionEnabled && Input.GetKeyDown(KeyCode.E))
         {
             OnActionKeyPressed?.Invoke(GetTilePos(transform.position));
         }
@@ -127,7 +144,7 @@ public class PlayerController : EntityController
 
     private void PlaceTileIfClicked()
     {
-        if (_inputEnabled && Input.GetMouseButtonDown(0))
+        if (InputMouseClickEnabled && !_gameManager.UIManager.IsMouseOverUI() && Input.GetMouseButtonDown(0))
         {
             Vector3 mousePos = Input.mousePosition;
             Vector3 mouseWorldPos = _cam.ScreenToWorldPoint(mousePos);
@@ -152,10 +169,10 @@ public class PlayerController : EntityController
                 _gameManager.AudioManager?.Play("Dig", .1f);
                 Animator?.SetTrigger(Mine);
                 FlipDirection(distanceToTile.x >= 0);
-                DisableInput();
+                DisableInput(true, false, true, true, false);
                 DoAfterDelay(() =>
                 {
-                    EnableInput();
+                    EnableInput(true, false, true, true, false);
                     _world.PlaceIfPossible(tilePos.x, tilePos.y, _playerInventory.CurrentSlot);
                     _playerInventory.ReplaceCurrentSlot();
                     _playerInventory.Gold -= 10;
@@ -178,7 +195,7 @@ public class PlayerController : EntityController
 
     private void CheckForInvSlotChange()
     {
-        if (!_inputEnabled)
+        if (!InputSelectInventoryEnabled)
         {
         } else if (Input.GetKeyDown(KeyCode.Alpha1))
         {

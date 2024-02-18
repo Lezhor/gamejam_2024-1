@@ -1464,6 +1464,7 @@ MonoBehaviour:
   _camera: {fileID: 877541933}
   messageManager: {fileID: 183466143}
   audioManager: {fileID: 38601005}
+  uiManager: {fileID: 1718178992}
   goalManager: {fileID: 1878504808}
   background: {fileID: 789512314}
   fog: {fileID: 711715602}
@@ -2269,6 +2270,7 @@ GameObject:
   - component: {fileID: 1718178990}
   - component: {fileID: 1718178989}
   - component: {fileID: 1718178988}
+  - component: {fileID: 1718178992}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2360,6 +2362,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1718178992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718178987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 371088bae721eef44bd1fc9315b2c533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1813330661
 GameObject:
   m_ObjectHideFlags: 0
