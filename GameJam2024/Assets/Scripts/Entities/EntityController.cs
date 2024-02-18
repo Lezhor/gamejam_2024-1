@@ -72,6 +72,7 @@ namespace Entities
                 localScale.y,
                 localScale.z
             );
+            _right = right;
             spriteToFlip.localScale = localScale;
         }
 
