@@ -30,6 +30,13 @@ namespace GameLogic.player
 
         public TileData Slot(int index) => _slots[index];
 
+        public void SetSpecialSlot(TileData tile)
+        {
+            _slots[3] = tile;
+            OnSlotContentChanged?.Invoke(3, tile);
+            CurrentSlotIndex = 3;
+        }
+
         public TileData CurrentSlot
         {
             get => _slots[_selectedSlot];
@@ -40,7 +47,18 @@ namespace GameLogic.player
             }
         }
 
-        public void ReplaceCurrentSlot() => CurrentSlot = _randomizer.GetRandomTile();
+        public void ReplaceCurrentSlot()
+        {
+            if (_selectedSlot == 3)
+            {
+                CurrentSlot = null;
+                CurrentSlotIndex = 2;
+            }
+            else
+            {
+                CurrentSlot = _randomizer.GetRandomTile();
+            }
+        }
 
         public int CurrentSlotIndex
         {

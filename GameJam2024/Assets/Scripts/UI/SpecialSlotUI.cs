@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using GameLogic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -9,19 +11,35 @@ namespace UI
         [Header("Foreground")]
         public Image foreground;
         public Sprite foregroundSprite;
-        
+
+        private UIManager _uiManager;
+
+        private void Start()
+        {
+            _uiManager = GameManager.Instance.UIManager;
+        }
+
         protected override void Redraw()
         {
             base.Redraw();
             if (schematicImage.sprite == nullSchematicSprite)
             {
                 foreground.sprite = foregroundSprite;
+                SetTransparency(foreground, 1f);
+            }
+            else
+            {
+                foreground.sprite = null;
+                SetTransparency(foreground, 0f);
             }
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("Clicked on Special Slot!!!");
+            if (_uiManager.GameActive && schematicImage.sprite == nullSchematicSprite)
+            {
+                _uiManager.ShowSpecialSlotShop();
+            }
         }
     }
 }

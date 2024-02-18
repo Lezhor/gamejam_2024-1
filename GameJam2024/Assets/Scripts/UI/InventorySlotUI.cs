@@ -12,6 +12,7 @@ namespace UI
         [Header("Resizing")] 
         [Range(1f, 2f)]
         public float sizeIncreaseWhenSelected = 1.1f;
+        [Range(1f, 2f)]
         public float sizeIncreaseWhenMouseHover = 1.1f;
         [Header("Schematic")]
         public Image schematicImage;
@@ -47,6 +48,7 @@ namespace UI
                 schematicImage.sprite = tile.sprite;
                 SetTransparency(schematicImage, 1f);
             }
+            Redraw();
         }
 
         public void UpdateSelectedState(bool selected)
@@ -62,7 +64,7 @@ namespace UI
             SetSize((_selected ? sizeIncreaseWhenSelected : 1f) * (_mouseHovers ? sizeIncreaseWhenMouseHover : 1f));
         }
 
-        private void SetTransparency(Image image, float alpha)
+        protected void SetTransparency(Image image, float alpha)
         {
             Color color = image.color;
             color.a = alpha;
