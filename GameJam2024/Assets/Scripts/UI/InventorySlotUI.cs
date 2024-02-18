@@ -1,15 +1,17 @@
 using GameLogic.world;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace UI
 {
-    public class InventorySlotUI : MonoBehaviour
+    public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [Header("Resizing")] 
         [Range(1f, 2f)]
         public float sizeIncreaseWhenSelected = 1.1f;
+        public float sizeIncreaseWhenMouseHover = 1.1f;
         [Header("Schematic")]
         public Image schematicImage;
         [Range(0f, 1f)]
@@ -24,6 +26,9 @@ namespace UI
         
         [Header("Text")]
         public TMP_Text textLabel;
+
+        private bool _mouseHovers = false;
+        private bool _selected = false;
 
         public void SetLabel(int number)
         {
@@ -44,9 +49,15 @@ namespace UI
 
         public void UpdateSelectedState(bool selected)
         {
-            frameImage.sprite = selected ? frameSelectedSprite : frameUnselectedSprite;
-            SetTransparency(schematicImage, selected ? selectedAlpha : unselectedAlpha);
-            SetSize(selected ? sizeIncreaseWhenSelected : 1f);
+            _selected = selected;
+            Redraw();
+        }
+
+        private void Redraw()
+        {
+            frameImage.sprite = _selected ? frameSelectedSprite : frameUnselectedSprite;
+            SetTransparency(schematicImage, schematicImage.sprite == null ? 0f : (_selected ? selectedAlpha : unselectedAlpha));
+            SetSize((_selected ? sizeIncreaseWhenSelected : 1f) * (_mouseHovers ? sizeIncreaseWhenMouseHover : 1f));
         }
 
         private void SetTransparency(Image image, float alpha)
@@ -61,5 +72,16 @@ namespace UI
             transform.localScale = new Vector3(size, size, size);
         }
 
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            _mouseHovers = true;
+            Redraw();
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            _mouseHovers = false;
+            Redraw();
+        }
     }
 }
