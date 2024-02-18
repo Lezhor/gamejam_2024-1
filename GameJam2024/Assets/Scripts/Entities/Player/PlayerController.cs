@@ -169,10 +169,10 @@ public class PlayerController : EntityController
                 _gameManager.AudioManager?.Play("Dig", .1f);
                 Animator?.SetTrigger(Mine);
                 FlipDirection(distanceToTile.x >= 0);
-                DisableInput(true, false, true, true, false);
+                DisableInput(true, false, true, true, true);
                 DoAfterDelay(() =>
                 {
-                    EnableInput(true, false, true, true, false);
+                    EnableInput(true, false, true, true, true);
                     _world.PlaceIfPossible(tilePos.x, tilePos.y, _playerInventory.CurrentSlot);
                     _playerInventory.ReplaceCurrentSlot();
                     _playerInventory.Gold -= 10;

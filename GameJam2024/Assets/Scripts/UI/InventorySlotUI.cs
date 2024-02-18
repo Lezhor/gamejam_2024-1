@@ -1,3 +1,4 @@
+using System;
 using GameLogic.world;
 using TMPro;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace UI
         public float sizeIncreaseWhenMouseHover = 1.1f;
         [Header("Schematic")]
         public Image schematicImage;
+        public Sprite nullSchematicSprite;
         [Range(0f, 1f)]
         public float selectedAlpha = 1f;
         [Range(0f, 1f)]
@@ -39,7 +41,7 @@ namespace UI
         {
             if (tile == null)
             {
-                schematicImage.sprite = null;
+                schematicImage.sprite = nullSchematicSprite;
                 SetTransparency(schematicImage, 0f);
             } else {
                 schematicImage.sprite = tile.sprite;
@@ -53,7 +55,7 @@ namespace UI
             Redraw();
         }
 
-        private void Redraw()
+        protected virtual void Redraw()
         {
             frameImage.sprite = _selected ? frameSelectedSprite : frameUnselectedSprite;
             SetTransparency(schematicImage, schematicImage.sprite == null ? 0f : (_selected ? selectedAlpha : unselectedAlpha));
@@ -83,5 +85,6 @@ namespace UI
             _mouseHovers = false;
             Redraw();
         }
+
     }
 }
