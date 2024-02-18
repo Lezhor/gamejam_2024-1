@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: goal_door_closed
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 2b2c5659687906245b72ad9b4fca0a11, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 450afcec6ebd51147b99841134d7116e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
