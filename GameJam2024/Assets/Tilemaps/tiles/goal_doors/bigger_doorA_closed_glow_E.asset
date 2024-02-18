@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: goal_door_open
+  m_Name: bigger_doorA_closed_glow_E
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 5cc3a89da9b31a14981916168ffaac66, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bd9c11429ccd5bf4aa6e01f995ddd703, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

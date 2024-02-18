@@ -15,8 +15,23 @@ MonoBehaviour:
   possibleActions:
   - {fileID: 11400000, guid: 793a812380b62fb4298d8eb85a6296c7, type: 2}
   possibleTiles:
-  - tileBeforeAction: {fileID: 11400000, guid: 7657d22a20e13bb41a351e2ac3a22085, type: 2}
-    tileAfterAction: {fileID: 11400000, guid: a7fad3998616e8c4bb356c7cf2017eb7, type: 2}
+  - tileBeforeAction: {fileID: 11400000, guid: 15d6ba6cd1e1a1d4b9d58a853f3cc020, type: 2}
+    tileAfterAction: {fileID: 11400000, guid: 0e6a82c2a7d50724b8daa99afdbdcb69, type: 2}
     constraintsShouldMatch: 1
     listOfConstraints:
     - {fileID: 11400000, guid: 61b72490471832c44add99faaf9e8ccc, type: 2}
+  - tileBeforeAction: {fileID: 11400000, guid: 558773d38212c4040be04d77d6a18b01, type: 2}
+    tileAfterAction: {fileID: 11400000, guid: f7b356d9959d3c940bfa5e5dca0faf45, type: 2}
+    constraintsShouldMatch: 1
+    listOfConstraints:
+    - {fileID: 11400000, guid: 0d1fe45f119fa454d8038c7bcc0597fb, type: 2}
+  - tileBeforeAction: {fileID: 11400000, guid: 81d12e791eafc484caff5eaae16e489a, type: 2}
+    tileAfterAction: {fileID: 11400000, guid: bd38739f5e70c1c4da3d3ee13b001d5a, type: 2}
+    constraintsShouldMatch: 1
+    listOfConstraints:
+    - {fileID: 11400000, guid: 81e4f74ce60aa474e8963b7c91fd87e2, type: 2}
+  - tileBeforeAction: {fileID: 11400000, guid: 45e4b729451677b48b2299b0c80c500b, type: 2}
+    tileAfterAction: {fileID: 11400000, guid: 5e8120cca4f77c14dbe8db7646d6c151, type: 2}
+    constraintsShouldMatch: 1
+    listOfConstraints:
+    - {fileID: 11400000, guid: 041eea32fdb65dc4aafa9740fd21deeb, type: 2}

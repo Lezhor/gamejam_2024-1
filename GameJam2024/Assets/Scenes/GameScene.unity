@@ -4375,7 +4375,7 @@ MonoBehaviour:
   speed: 1000
   maxDigDistanceHorizontal: 1.4
   maxDigDistanceVertical: 1.1
-  startGold: 300
+  startGold: 200
 --- !u!1001 &1834061935
 PrefabInstance:
   m_ObjectHideFlags: 0
