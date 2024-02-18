@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Entities
 {
@@ -8,6 +9,9 @@ namespace Entities
     {
         
         [SerializeField] private Transform spriteToFlip;
+        [SerializeField] private Animator entityAnimator;
+        private bool _animating;
+        protected Animator Animator => entityAnimator;
 
         [Header("Entity Stats")]
         [SerializeField]
@@ -17,6 +21,8 @@ namespace Entities
 
         private Vector2 _movement;
 
+        private bool _moving = false;
+
         public Vector2 MoveVector
         {
             get => _movement;
@@ -24,6 +30,12 @@ namespace Entities
             set
             {
                 _movement = value;
+                if (_animating && _movement.magnitude > 0 != _moving)
+                {
+                    _moving = _movement.magnitude > 0;
+                    entityAnimator.SetBool(Moving, _moving);
+                }
+                
                 if (_right && _movement.x < 0)
                 {
                     _right = false;
@@ -44,9 +56,12 @@ namespace Entities
         [NonSerialized]
         protected Rigidbody2D _rigidbody;
 
+        private static readonly int Moving = Animator.StringToHash("Moving");
+
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
+            _animating = entityAnimator != null;
         }
 
         private void UpdateSpriteScale(bool right)
