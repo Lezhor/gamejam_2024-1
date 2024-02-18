@@ -8,10 +8,12 @@ namespace UI
 {
     public class UIManager : MonoBehaviour
     {
-
         public GameObject specialSlotShop;
         private SpecialSlotShop _specialSlotShop;
         private bool _specialSlotShopActive = false;
+
+        public GameObject winScreen;
+        private bool _winScreenActive = false;
 
         private PlayerController _player;
 
@@ -62,5 +64,14 @@ namespace UI
             }
         }
 
+        public void ShowWinScreen()
+        {
+            if (!_winScreenActive)
+            {
+                winScreen.SetActive(true);
+                _winScreenActive = true;
+                _player.DisableInput(true, true, true, true, true);
+            }
+        }
     }
 }

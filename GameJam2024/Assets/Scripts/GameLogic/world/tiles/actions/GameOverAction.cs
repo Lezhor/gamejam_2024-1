@@ -25,6 +25,7 @@ namespace GameLogic.world.tiles.actions
             if (_won)
             {
                 Debug.Log("Player won game!!!");
+                GameManager.Instance.UIManager.ShowWinScreen();
             }
             else
             {
