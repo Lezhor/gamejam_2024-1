@@ -30,6 +30,7 @@ public class PlayerController : EntityController
     private World _world;
 
     private GameManager _gameManager;
+    private static readonly int Mine = Animator.StringToHash("Mine");
 
     private void OnEnable()
     {
@@ -116,7 +117,8 @@ public class PlayerController : EntityController
 
             if (_world.PlaceIfPossible(tilePos.x, tilePos.y, _playerInventory.CurrentSlot))
             {
-                _gameManager.AudioManager?.Play("Dig");
+                _gameManager.AudioManager?.Play("Dig", .1f);
+                Animator?.SetTrigger(Mine);
                 _playerInventory.ReplaceCurrentSlot();
             }
         }

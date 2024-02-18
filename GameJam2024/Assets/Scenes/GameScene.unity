@@ -914,6 +914,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3203274099976083673, guid: e9fa3d6c0df27814c9e0378126749b87, type: 3}
   m_PrefabInstance: {fileID: 129154312}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &628542305 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5993138189356312400, guid: e9fa3d6c0df27814c9e0378126749b87, type: 3}
+  m_PrefabInstance: {fileID: 129154312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &711715599
 GameObject:
   m_ObjectHideFlags: 0
@@ -2362,10 +2367,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteToFlip: {fileID: 412823638}
+  entityAnimator: {fileID: 628542305}
   speed: 1000
   maxDigDistanceHorizontal: 1.4
   maxDigDistanceVertical: 1.1
   startGold: 300
+  tempDelayDig: 0.1
 --- !u!1 &1943394392
 GameObject:
   m_ObjectHideFlags: 0
@@ -2943,7 +2950,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5541069240089354953, guid: 5e2ee9ff45cbbc14bae91a29c44004ce, type: 3}
       propertyPath: sounds.Array.data[1].volume
-      value: 0.6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5541069240089354953, guid: 5e2ee9ff45cbbc14bae91a29c44004ce, type: 3}
       propertyPath: sounds.Array.data[0].playOnAwake
