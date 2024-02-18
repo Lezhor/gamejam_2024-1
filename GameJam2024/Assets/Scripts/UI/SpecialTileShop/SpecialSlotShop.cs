@@ -94,6 +94,7 @@ namespace UI.SpecialTileShop
             {
                 inventory.Gold -= 100;
                 inventory.SetSpecialSlot(_tiles[_selected]);
+                GameManager.Instance.AudioManager.Play("Shop Sound");
             }
             GameManager.Instance.UIManager.HideSpecialSlotShop();
         }
