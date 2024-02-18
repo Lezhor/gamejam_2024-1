@@ -49,7 +49,7 @@ namespace Entities
                     return;
                 }
 
-                UpdateSpriteScale(_right);
+                FlipDirection(_right);
             }
         }
         
@@ -64,7 +64,7 @@ namespace Entities
             _animating = entityAnimator != null;
         }
 
-        private void UpdateSpriteScale(bool right)
+        public void FlipDirection(bool right)
         {
             Vector3 localScale = spriteToFlip.localScale;
             localScale = new Vector3(

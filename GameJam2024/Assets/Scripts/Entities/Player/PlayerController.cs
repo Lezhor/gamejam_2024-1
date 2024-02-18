@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Entities;
 using GameLogic;
 using GameLogic.player;
@@ -31,6 +32,30 @@ public class PlayerController : EntityController
 
     private GameManager _gameManager;
     private static readonly int Mine = Animator.StringToHash("Mine");
+
+    private bool _inputEnabled = true;
+
+    public bool InputEnabled
+    {
+        get => _inputEnabled;
+        private set => _inputEnabled = value;
+    }
+
+    public void DisableInput(float time)
+    {
+        InputEnabled = false;
+        DoAfterDelay(EnableInput, time);
+    }
+
+    public void DisableInput()
+    {
+        InputEnabled = false;
+    }
+
+    public void EnableInput()
+    {
+        InputEnabled = true;
+    }
 
     private void OnEnable()
     {
@@ -67,7 +92,14 @@ public class PlayerController : EntityController
 
     private void CheckForWASDInput()
     {
-        MoveVector = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if (_inputEnabled)
+        {
+            MoveVector = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        }
+        else
+        {
+            MoveVector = new(0, 0);
+        }
     }
 
     private void CheckIfMovedToNewTile()
@@ -82,7 +114,7 @@ public class PlayerController : EntityController
 
     private void CheckIfActionKeyPressed()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (_inputEnabled && Input.GetKeyDown(KeyCode.E))
         {
             OnActionKeyPressed?.Invoke(GetTilePos(transform.position));
         }
@@ -95,7 +127,7 @@ public class PlayerController : EntityController
 
     private void PlaceTileIfClicked()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (_inputEnabled && Input.GetMouseButtonDown(0))
         {
             Vector3 mousePos = Input.mousePosition;
             Vector3 mouseWorldPos = _cam.ScreenToWorldPoint(mousePos);
@@ -115,18 +147,38 @@ public class PlayerController : EntityController
                 return;
             }
 
-            if (_world.PlaceIfPossible(tilePos.x, tilePos.y, _playerInventory.CurrentSlot))
+            if (_world.CanBePlaced(tilePos.x, tilePos.y, _playerInventory.CurrentSlot))
             {
                 _gameManager.AudioManager?.Play("Dig", .1f);
                 Animator?.SetTrigger(Mine);
-                _playerInventory.ReplaceCurrentSlot();
+                FlipDirection(distanceToTile.x >= 0);
+                DisableInput();
+                DoAfterDelay(() =>
+                {
+                    EnableInput();
+                    _world.PlaceIfPossible(tilePos.x, tilePos.y, _playerInventory.CurrentSlot);
+                    _playerInventory.ReplaceCurrentSlot();
+                }, .9f);
             }
         }
     }
 
+    private void DoAfterDelay(Action action, float delay)
+    {
+        StartCoroutine(DoAfterDelayIEnumerator(action, delay));
+    }
+
+    private IEnumerator DoAfterDelayIEnumerator(Action action, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        action.Invoke();
+    }
+
     private void CheckForInvSlotChange()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (!_inputEnabled)
+        {
+        } else if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _playerInventory.CurrentSlotIndex = 0;
         } else if (Input.GetKeyDown(KeyCode.Alpha2))
