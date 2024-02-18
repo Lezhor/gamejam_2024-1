@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: StartTile Tutorial
   m_EditorClassIdentifier: 
   soundToPlayOnAction: 
-  hint: Scroll through inventory with your mousewheel<br>Click to dig selected Shape<br>Shapes
-    must fit next to each other
+  hint: Scroll through inventory with your mousewheel.<br>Click to dig selected Shape.<br>Shapes
+    must fit next to each other.
