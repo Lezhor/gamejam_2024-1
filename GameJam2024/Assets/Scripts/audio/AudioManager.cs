@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace audio
@@ -41,7 +43,7 @@ namespace audio
             }
         }
 
-        public void Play(String sound)
+        public void Play(String sound, float delay)
         {
             Sound s = Array.Find(sounds, s => s.name == sound);
             if (s == null)
@@ -50,8 +52,20 @@ namespace audio
             }
             else
             {
-                s.source.Play();
+                if (delay == 0f)
+                {
+                    s.source.Play();
+                }
+                else
+                {
+                    s.source.PlayDelayed(delay);
+                }
             }
+        }
+
+        public void Play(String sound)
+        {
+            Play(sound, 0f);
         }
 
         [Serializable]

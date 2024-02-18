@@ -2372,6 +2372,7 @@ MonoBehaviour:
   maxDigDistanceHorizontal: 1.4
   maxDigDistanceVertical: 1.1
   startGold: 300
+  tempDelayDig: 0.1
 --- !u!1 &1943394392
 GameObject:
   m_ObjectHideFlags: 0
@@ -2949,7 +2950,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5541069240089354953, guid: 5e2ee9ff45cbbc14bae91a29c44004ce, type: 3}
       propertyPath: sounds.Array.data[1].volume
-      value: 0.6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5541069240089354953, guid: 5e2ee9ff45cbbc14bae91a29c44004ce, type: 3}
       propertyPath: sounds.Array.data[0].playOnAwake
