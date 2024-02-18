@@ -13,11 +13,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193626845665823316, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
       propertyPath: m_text
-      value: Press E to interact
+      value: 'Press E to interact
+
+        blub
+
+        hello'
       objectReference: {fileID: 0}
     - target: {fileID: 1193626845665823316, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
       propertyPath: m_fontStyle
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193626845665823316, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
+      propertyPath: m_lineSpacing
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193626845665823316, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 1193626845665823318, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
       propertyPath: m_Pivot.x
@@ -25,7 +37,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193626845665823318, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1193626845665823318, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
       propertyPath: m_RootOrder
@@ -49,11 +61,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193626845665823318, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1193626845665823318, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1193626845665823318, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -89,7 +101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193626845665823318, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5.22
+      value: 4.72
       objectReference: {fileID: 0}
     - target: {fileID: 1193626845665823318, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

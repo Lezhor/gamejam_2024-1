@@ -9,7 +9,6 @@ namespace GameLogic.world.generators
 {
     public abstract class WorldGenerator : ScriptableObject
     {
-
         protected static readonly List<Vector2Int> Directions = new(new[]
         {
             new Vector2Int(0, 1),
@@ -17,12 +16,12 @@ namespace GameLogic.world.generators
             new Vector2Int(0, -1),
             new Vector2Int(-1, 0),
         });
-        
+
         public GameManager GameManager => GameManager.Instance;
         public TileRegistry Registry => GameManager.Tiles;
         public ActionTileRegistry ActionRegistry => GameManager.ActionTiles;
-        [Header("General Settings")]
-        [SerializeField]
+
+        [Header("General Settings")] [SerializeField]
         private Vector2Int dimensions;
 
         protected abstract Node[,] GenerateWorldGraph(Vector2Int size);
@@ -37,6 +36,9 @@ namespace GameLogic.world.generators
             {
                 board[i] = new WorldTile[graph.GetLength(1)];
             }
+
+            Vector2Int startPos = StartPos(dimensions);
+            Debug.Log("Is Action null?: " + (graph[startPos.x, startPos.y].Action == null));
 
             Debug.Log("Filling tiles");
             for (int x = 0; x < board.Length; x++)
@@ -111,7 +113,7 @@ namespace GameLogic.world.generators
                 .Select(v => graph[v.x, v.y])
                 .ToList();
         }
-        
+
         protected List<Node> GetNodesIn3X3Box(Node[,] graph, Vector2Int pos)
         {
             return GetNodesInBox(graph, pos, 1);
@@ -121,7 +123,7 @@ namespace GameLogic.world.generators
         {
             return GetNodesInBox(graph, pos, 2);
         }
-        
+
         protected List<Node> GetNodesIn7x7Box(Node[,] graph, Vector2Int pos)
         {
             return GetNodesInBox(graph, pos, 3);

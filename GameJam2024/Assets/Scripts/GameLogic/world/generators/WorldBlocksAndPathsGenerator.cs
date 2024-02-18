@@ -82,6 +82,8 @@ namespace GameLogic.world.generators
             _startPos = new Vector2Int(3, Mathf.FloorToInt(size.y / 2f));
             _graph[_startPos.x, _startPos.y].SetConnections(true, true, true, true);
             _graph[_startPos.x, _startPos.y].SetMask(MaskPath);
+            _graph[_startPos.x, _startPos.y].SetMask(MaskAction);
+            _graph[_startPos.x, _startPos.y].Action = ActionRegistry.starterTile;
 
             _endPos = GenerateEndPos(size);
 

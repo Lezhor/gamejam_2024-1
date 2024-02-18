@@ -2865,6 +2865,7 @@ MonoBehaviour:
     doorTile: {fileID: 11400000, guid: a77e7af296ece8c43b08167e54b4c063, type: 2}
     goldTile: {fileID: 11400000, guid: faf35a33583b56840bfee844f0219ce4, type: 2}
     goalTile: {fileID: 11400000, guid: ba6e9fcb00853344398f088b7609bb38, type: 2}
+    starterTile: {fileID: 11400000, guid: 8386faba3fc811d48a181191a28a4b09, type: 2}
 --- !u!1 &1071585577
 GameObject:
   m_ObjectHideFlags: 0

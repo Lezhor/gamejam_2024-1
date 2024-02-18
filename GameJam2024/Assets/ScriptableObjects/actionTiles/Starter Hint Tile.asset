@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4437384a32d11f84ea4a8c4e699c96e9, type: 3}
+  m_Name: Starter Hint Tile
+  m_EditorClassIdentifier: 
+  possibleActions:
+  - {fileID: 11400000, guid: 94ac68980ecb38e4cab3e371b1189e2f, type: 2}
+  possibleTiles:
+  - tileBeforeAction: {fileID: 0}
+    tileAfterAction: {fileID: 0}
+    constraintsShouldMatch: 1
+    listOfConstraints:
+    - {fileID: 11400000, guid: a8066a92cb553a74cb59d42c2d19162b, type: 2}

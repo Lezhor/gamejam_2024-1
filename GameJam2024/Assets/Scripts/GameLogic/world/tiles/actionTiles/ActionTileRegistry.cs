@@ -8,5 +8,6 @@ namespace GameLogic.world.tiles.actionTiles
         public ActionTile doorTile;
         public ActionTile goldTile;
         public ActionTile goalTile;
+        public ActionTile starterTile;
     }
 }

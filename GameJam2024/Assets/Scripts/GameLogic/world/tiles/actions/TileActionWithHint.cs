@@ -13,6 +13,7 @@ namespace GameLogic.world.tiles.actions
 
         public override void OnPlayerEnterTile(PlayerController player)
         {
+            Debug.Log("Player entered");
             if (!Executed)
             {
                 GameManager.Instance.MessageManager.InvokePermanentMessage(Tile.Pos2D, _hint);
@@ -21,6 +22,7 @@ namespace GameLogic.world.tiles.actions
 
         public override void OnPlayerExitTile(PlayerController player)
         {
+            Debug.Log("Player exited");
             if (!Executed)
             {
                 GameManager.Instance.MessageManager.HidePermanentMessage(Tile.Pos2D);

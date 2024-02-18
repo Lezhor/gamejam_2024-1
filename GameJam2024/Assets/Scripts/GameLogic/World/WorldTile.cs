@@ -59,6 +59,10 @@ public class WorldTile
         _explored = explored;
         if (actionTile != null)
         {
+            if (actionTile == GameManager.Instance.ActionTiles.starterTile)
+            {
+                Debug.Log(Pos);
+            }
             List<ActionTile.Variant> fittingVariants = _actionTile.GetFittingVariants(_tileData);
             ActionTileVariant = fittingVariants.Count != 0 ? fittingVariants[Random.Range(0, fittingVariants.Count)] : null;
 
