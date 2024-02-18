@@ -52,6 +52,7 @@ namespace GameLogic.world
             foreach (Vector2Int pos in endPos)
             {
                 ExploreTile(pos.x, pos.y);
+                _gameManager.GoalManager.InstantiateForTile(_world[pos.x][pos.y]);
             }
             _player.OnMovedToNewTile += OnPlayerMovedToNewTile;
             _player.OnActionKeyPressed += OnPlayerPressedActionKey;

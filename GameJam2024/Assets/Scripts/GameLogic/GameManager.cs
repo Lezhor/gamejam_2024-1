@@ -31,6 +31,8 @@ namespace GameLogic
         public MessageManager MessageManager => messageManager;
         [SerializeField] private AudioManager audioManager;
         public AudioManager AudioManager => audioManager;
+        [SerializeField] private GoalManager goalManager;
+        public GoalManager GoalManager => goalManager;
         public Camera Cam => _camera;
 
         [Header("Tilemaps")] public Tilemap background;
