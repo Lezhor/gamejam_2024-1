@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05159148feba471a97b778e32d95eba0, type: 3}
   m_Name: WorldBlocksAndPaths
   m_EditorClassIdentifier: 
-  dimensions: {x: 29, y: 19}
+  dimensions: {x: 35, y: 25}
   endTilesCount: 3
   alongOneWall: 0
   blockedTilesPercentage: 18
   maxBlockedTilesIn3x3Box: 2
   maxBlockedTilesIn5x5Box: 4
-  pathTilePercentage: 22
+  pathTilePercentage: 20
   batchGenerators:
   - importance: 1
     minPathsPerBatch: 2
