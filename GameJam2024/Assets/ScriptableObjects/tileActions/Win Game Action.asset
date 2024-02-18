@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a43fe5213fb342ddae4431a8c2bf5e0b, type: 3}
   m_Name: Win Game Action
   m_EditorClassIdentifier: 
-  soundToPlayOnAction: Game Over
+  soundToPlayOnAction: Victory
   hint: Press E to Enter
   won: 1
