@@ -14,7 +14,7 @@ namespace UI
             if (instantiatingEnabled)
             {
                 Instantiate(goalCircle, tile.Center, Quaternion.identity);
-                //Instantiate(goalArrow, tile.Center, Quaternion.identity);
+                Instantiate(goalArrow, tile.Center, Quaternion.identity);
             }
         }
     }

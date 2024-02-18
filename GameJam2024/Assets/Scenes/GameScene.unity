@@ -2420,7 +2420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instantiatingEnabled: 1
   goalCircle: {fileID: 2262889885596702913, guid: 8f68ab3d2b605364bb25ba9861654dfd, type: 3}
-  goalArrow: {fileID: 0}
+  goalArrow: {fileID: 8820123520083156406, guid: d0643781265b6ff4a8e091aa3b45f327, type: 3}
 --- !u!1 &1943394392
 GameObject:
   m_ObjectHideFlags: 0
