@@ -77,10 +77,7 @@ namespace GameLogic
 
         private void StartTask(Vector2Int pos, TileData tile, bool positive, bool drawOutline, bool longFadeOut)
         {
-            if (_fadeOutTasks.ContainsKey(pos))
-            {
-                EndTask(pos);
-            }
+            EndTask(pos);
 
             Task task = new Task(tile, pos, Time.time, longFadeOut ? fadeOutTimeLong : fadeOutTimeShort, positive,
                 drawOutline);
@@ -89,16 +86,19 @@ namespace GameLogic
 
             float startValue = Mathf.Clamp(0, 1, fadeOutCurve.Evaluate(0));
 
-            overlayTransparent.SetTile(task.Pos3D, squareTile);
-            overlayTransparent.SetTileFlags(task.Pos3D, TileFlags.None);
-            overlayTransparent.SetColor(task.Pos3D, task.Positive ? positiveColor : negativeColor);
-            SetTransparency(overlayTransparent, task.Pos3D, startValue);
             if (drawOutline)
             {
-                overlayOutlines.SetTile(task.Pos3D, task.Tile.wallsOutline);
+                overlayOutlines.SetTile(task.Pos3D, task.Tile.imageWalls);
                 overlayOutlines.SetTileFlags(task.Pos3D, TileFlags.None);
                 overlayOutlines.SetColor(task.Pos3D, task.Positive ? positiveColor : negativeColor);
                 SetTransparency(overlayOutlines, task.Pos3D, startValue);
+            }
+            else
+            {
+                overlayTransparent.SetTile(task.Pos3D, squareTile);
+                overlayTransparent.SetTileFlags(task.Pos3D, TileFlags.None);
+                overlayTransparent.SetColor(task.Pos3D, task.Positive ? positiveColor : negativeColor);
+                SetTransparency(overlayTransparent, task.Pos3D, startValue);
             }
         }
 
@@ -109,10 +109,11 @@ namespace GameLogic
 
             float value = Mathf.Clamp(fadeOutCurve.Evaluate(t), 0, 1);
 
-            SetTransparency(overlayTransparent, task.Pos3D, value);
             if (task.DrawOutline)
             {
                 SetTransparency(overlayOutlines, task.Pos3D, value);
+            } else {
+                SetTransparency(overlayTransparent, task.Pos3D, value);
             }
         }
 
