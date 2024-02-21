@@ -36,6 +36,10 @@ namespace GameLogic
         
         [SerializeField] private GoalManager goalManager;
         public GoalManager GoalManager => goalManager;
+
+        [SerializeField] private VisualPlacementFeedback _visualPlacementFeedback;
+        public VisualPlacementFeedback VisualPlacementFeedback => _visualPlacementFeedback;
+        
         public Camera Cam => _camera;
 
         [Header("Tilemaps")] public Tilemap background;
