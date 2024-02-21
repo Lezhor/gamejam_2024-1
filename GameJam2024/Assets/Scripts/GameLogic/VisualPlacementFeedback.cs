@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+
+using TileData = GameLogic.world.TileData;
 
 namespace GameLogic
 {
@@ -17,18 +17,27 @@ namespace GameLogic
         [SerializeField] private float fadeOutTimeShort = 1f;
         [SerializeField] private float fadeOutTimeLong = 2f;
 
-        [Header("Tiles")] 
-        [SerializeField] private TileBase squareTile;
+        [Header("Tiles")] [SerializeField] private TileBase squareTile;
         [SerializeField] private Color positiveColor = Color.green;
         [SerializeField] private Color negativeColor = Color.red;
 
-        private Dictionary<Vector3Int, Task> _fadeOutTasks = new();
+        private readonly Dictionary<Vector2Int, Task> _fadeOutTasks = new();
+
+        private void OnEnable()
+        {
+            GameManager.Instance.PlaceEvents.OnPlacementFailed += OnTilePlacementFailed;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.Instance.PlaceEvents.OnPlacementFailed -= OnTilePlacementFailed;
+        }
 
         private void Update()
         {
             List<Task> finishedTasks = new();
-            
-            foreach (KeyValuePair<Vector3Int, Task> entry in _fadeOutTasks)
+
+            foreach (KeyValuePair<Vector2Int, Task> entry in _fadeOutTasks)
             {
                 Task task = entry.Value;
                 if (Time.time >= task.StartTime + task.Duration)
@@ -47,22 +56,39 @@ namespace GameLogic
             }
         }
 
-        private void StartTask(WorldTile tile, bool positive, bool drawOutline, bool longFadeOut)
+        private void OnTilePlacementFailed(Vector2Int pos, TileData tile, List<Vector2Int> reasons)
         {
-            if (_fadeOutTasks.ContainsKey(tile.Pos))
+            StartTask(pos, tile, false, true, true);
+            foreach (Vector2Int pos2 in reasons)
             {
-                EndTask(tile.Pos);
+                StartTask(pos2, false, true);
+            }
+        }
+
+        private void StartTask(Vector2Int pos, bool positive, bool longFadeOut)
+        {
+            StartTask(pos, null, positive, false, longFadeOut);
+        }
+
+        private void StartTask(Vector2Int pos, TileData tile, bool positive, bool drawOutline, bool longFadeOut)
+        {
+            if (_fadeOutTasks.ContainsKey(pos))
+            {
+                EndTask(pos);
             }
 
-            Task task = new Task(tile, Time.time, longFadeOut ? fadeOutTimeLong : fadeOutTimeShort, positive,
+            Task task = new Task(tile, pos, Time.time, longFadeOut ? fadeOutTimeLong : fadeOutTimeShort, positive,
                 drawOutline);
-            overlayTransparent.SetTile(task.Pos, squareTile);
-            overlayTransparent.SetColor(task.Pos, positive ? positiveColor : negativeColor);
-            SetTransparency(overlayTransparent, task.Pos, 1);
+
+            _fadeOutTasks.Add(task.Pos, task);
+
+            overlayTransparent.SetTile(task.Pos3D, squareTile);
+            overlayTransparent.SetColor(task.Pos3D, task.Positive ? positiveColor : negativeColor);
+            SetTransparency(overlayTransparent, task.Pos3D, 1);
             if (drawOutline)
             {
-                overlayOutlines.SetTile(task.Pos, task.Tile.Data.wallsOutline);
-                SetTransparency(overlayOutlines, task.Pos, 1);
+                overlayOutlines.SetTile(task.Pos3D, task.Tile.wallsOutline);
+                SetTransparency(overlayOutlines, task.Pos3D, 1);
             }
         }
 
@@ -73,10 +99,10 @@ namespace GameLogic
 
             float value = Mathf.Clamp(fadeOutCurve.Evaluate(t), 0, 1);
 
-            SetTransparency(overlayTransparent, task.Pos, value);
+            SetTransparency(overlayTransparent, task.Pos3D, value);
             if (task.DrawOutline)
             {
-                SetTransparency(overlayOutlines, task.Pos, value);
+                SetTransparency(overlayOutlines, task.Pos3D, value);
             }
         }
 
@@ -87,10 +113,11 @@ namespace GameLogic
             tilemap.SetColor(pos, color);
         }
 
-        private void EndTask(Vector3Int pos)
+        private void EndTask(Vector2Int pos)
         {
-            overlayTransparent.SetTile(pos, null);
-            overlayOutlines.SetTile(pos, null);
+            Vector3Int pos3D = new Vector3Int(pos.x, pos.y);
+            overlayTransparent.SetTile(pos3D, null);
+            overlayOutlines.SetTile(pos3D, null);
             _fadeOutTasks.Remove(pos);
         }
 
@@ -105,19 +132,21 @@ namespace GameLogic
             }
         }
 
-        public class Task
+        private class Task
         {
-            public readonly WorldTile Tile;
+            public readonly TileData Tile;
+            public readonly Vector2Int Pos;
             public readonly float StartTime;
             public readonly float Duration;
             public readonly bool Positive;
             public readonly bool DrawOutline;
 
-            public Vector3Int Pos => Tile.Pos;
+            public Vector3Int Pos3D => new(Pos.x, Pos.y);
 
-            public Task(WorldTile tile, float startTime, float duration, bool positive, bool drawOutline)
+            public Task(TileData tile, Vector2Int pos, float startTime, float duration, bool positive, bool drawOutline)
             {
                 Tile = tile;
+                Pos = pos;
                 StartTime = startTime;
                 Duration = duration;
                 Positive = positive;
