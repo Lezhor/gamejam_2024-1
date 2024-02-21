@@ -53,6 +53,9 @@ TagManager:
   - name: Foreground
     uniqueID: 2461990815
     locked: 0
+  - name: Overlay
+    uniqueID: 3274402717
+    locked: 0
   - name: Entities
     uniqueID: 1090614939
     locked: 0
