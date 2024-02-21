@@ -18,6 +18,7 @@ namespace GameLogic.world
         public TileBase imageWallsDark;
         public TileBase imageFloor;
         public TileBase imageWalls;
+        public TileBase wallsOutline;
     
         [Header("Connections")]
         public bool connectsTop = false;

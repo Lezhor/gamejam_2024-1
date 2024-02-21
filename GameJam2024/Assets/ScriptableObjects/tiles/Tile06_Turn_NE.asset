@@ -20,6 +20,7 @@ MonoBehaviour:
   imageWallsDark: {fileID: 11400000, guid: b2c0105aa0cf5eb40b9852dd5df3786d, type: 2}
   imageFloor: {fileID: 11400000, guid: ac0030f9f98c2a84e8fc2b87c20afbf9, type: 2}
   imageWalls: {fileID: 11400000, guid: b2c0105aa0cf5eb40b9852dd5df3786d, type: 2}
+  wallsOutline: {fileID: 11400000, guid: b5874b77918a436469add3726aecf8a4, type: 2}
   connectsTop: 1
   connectsRight: 1
   connectsBottom: 0
