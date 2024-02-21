@@ -2819,7 +2819,7 @@ Tilemap:
   m_TileColorArray: []
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.8}
   m_Origin: {x: 0, y: 0, z: 0}
   m_Size: {x: 0, y: 0, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -3496,7 +3496,7 @@ Tilemap:
   m_TileColorArray: []
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 0.29803923}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.18039216}
   m_Origin: {x: 0, y: 0, z: 0}
   m_Size: {x: 0, y: 0, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -5988,28 +5988,28 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.5219432
     - serializedVersion: 3
-      time: 0.7271277
-      value: 0.6496447
-      inSlope: -1.4402212
-      outSlope: -1.4402212
+      time: 0.6349798
+      value: 0.88269943
+      inSlope: -0.7224182
+      outSlope: -0.7224182
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.26694214
+      inWeight: 0.08109497
+      outWeight: 0.19663562
     - serializedVersion: 3
       time: 1.0000279
       value: 0.00044994242
-      inSlope: -2.3788722
-      outSlope: -2.3788722
-      tangentMode: 34
+      inSlope: -4.5907564
+      outSlope: -4.5907564
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.03576161
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  fadeOutTimeShort: 1
-  fadeOutTimeLong: 2
+  fadeOutTimeShort: 0.6
+  fadeOutTimeLong: 1.3
   squareTile: {fileID: 11400000, guid: fc8b50cd48d5a0f46823f7d521b73569, type: 2}
   positiveColor: {r: 0, g: 1, b: 0, a: 1}
   negativeColor: {r: 1, g: 0, b: 0, a: 1}
