@@ -6039,7 +6039,7 @@ MonoBehaviour:
   fadeOutTimeLong: 0.8
   squareTile: {fileID: 11400000, guid: fc8b50cd48d5a0f46823f7d521b73569, type: 2}
   positiveColor: {r: 0, g: 1, b: 0, a: 1}
-  negativeColor: {r: 1, g: 0, b: 0, a: 1}
+  negativeColor: {r: 1, g: 0.27, b: 0.27, a: 1}
 --- !u!1 &2076898099
 GameObject:
   m_ObjectHideFlags: 0
