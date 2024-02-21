@@ -5975,6 +5975,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overlayTransparent: {fileID: 1273572806}
   overlayOutlines: {fileID: 1046011462}
+  fadeOutCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.003376504
+      outSlope: -0.003376504
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.5219432
+    - serializedVersion: 3
+      time: 0.7271277
+      value: 0.6496447
+      inSlope: -1.4402212
+      outSlope: -1.4402212
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.26694214
+    - serializedVersion: 3
+      time: 1.0000279
+      value: 0.00044994242
+      inSlope: -2.3788722
+      outSlope: -2.3788722
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fadeOutTimeShort: 1
+  fadeOutTimeLong: 2
+  squareTile: {fileID: 0}
+  positiveColor: {r: 0, g: 1, b: 0, a: 1}
+  negativeColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &2076898099
 GameObject:
   m_ObjectHideFlags: 0
