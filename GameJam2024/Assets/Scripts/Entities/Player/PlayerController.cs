@@ -182,7 +182,7 @@ public class PlayerController : EntityController
                     _gameManager.MessageManager.InvokeMessage(new Vector2(tileWorldPos.x, tileWorldPos.y), "-10 Gold", false);
                 }, .9f);
             }
-            else
+            else if (!_world.IsPath(tilePos))
             {
                 _gameManager.PlaceEvents.InvokePlacementFailed(tilePos, _playerInventory.CurrentSlot, reasonsWhyCantBePlaced);
             }

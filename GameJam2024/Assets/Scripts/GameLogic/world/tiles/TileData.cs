@@ -39,5 +39,10 @@ namespace GameLogic.world
                    + (connectsBottom ? "S" : "")
                    + (connectsRight ? "E" : "");
         }
+
+        public bool HasConnections()
+        {
+            return connectsTop || connectsRight || connectsBottom || connectsLeft;
+        }
     }
 }

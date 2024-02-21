@@ -329,6 +329,11 @@ namespace GameLogic.world
             return canBePlaced;
         }
 
+        public bool IsPath(Vector2Int pos)
+        {
+            return _world[pos.x][pos.y].Data.HasConnections();
+        }
+
         private bool Connected(WorldTile tile1, int x, int y, TileData tile2)
         {
             Node node1 = new Node(tile1.Pos.x, tile1.Pos.y);
