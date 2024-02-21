@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -22,6 +23,10 @@ namespace GameLogic
         [SerializeField] private Color negativeColor = Color.red;
 
         private readonly Dictionary<Vector2Int, Task> _fadeOutTasks = new();
+
+        private void Awake()
+        {
+        }
 
         private void OnEnable()
         {
@@ -82,13 +87,18 @@ namespace GameLogic
 
             _fadeOutTasks.Add(task.Pos, task);
 
+            float startValue = Mathf.Clamp(0, 1, fadeOutCurve.Evaluate(0));
+
             overlayTransparent.SetTile(task.Pos3D, squareTile);
+            overlayTransparent.SetTileFlags(task.Pos3D, TileFlags.None);
             overlayTransparent.SetColor(task.Pos3D, task.Positive ? positiveColor : negativeColor);
-            SetTransparency(overlayTransparent, task.Pos3D, 1);
+            SetTransparency(overlayTransparent, task.Pos3D, startValue);
             if (drawOutline)
             {
                 overlayOutlines.SetTile(task.Pos3D, task.Tile.wallsOutline);
-                SetTransparency(overlayOutlines, task.Pos3D, 1);
+                overlayOutlines.SetTileFlags(task.Pos3D, TileFlags.None);
+                overlayOutlines.SetColor(task.Pos3D, task.Positive ? positiveColor : negativeColor);
+                SetTransparency(overlayOutlines, task.Pos3D, startValue);
             }
         }
 

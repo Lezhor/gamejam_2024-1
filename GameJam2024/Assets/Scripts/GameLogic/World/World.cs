@@ -232,7 +232,7 @@ namespace GameLogic.world
          */
         public bool PlaceIfPossible(int xCell, int yCell, TileData tile)
         {
-            if (!CanBePlaced(xCell, yCell, tile))
+            if (!CanBePlaced(xCell, yCell, tile, new()))
             {
                 return false;
             }
@@ -246,66 +246,87 @@ namespace GameLogic.world
             _world[x][y] = new WorldTile(tile, x, y, _gameManager);
         }
 
-        public bool CanBePlaced(int xCell, int yCell, TileData tile)
+        public bool CanBePlaced(int x, int y, TileData tile, List<Vector2Int> reasonsWhyCantBePlaced)
         {
+            bool canBePlaced = true;
+            
             if (!tile.mustConnect)
             {
                 return false;
             }
 
-            if (!InBounds(xCell, yCell))
+            if (!InBounds(x, y))
             {
                 return false;
             }
 
-            if (!_world[xCell][yCell].Data.diggable)
+            if (!_world[x][y].Data.diggable)
             {
                 return false;
             }
 
-            if (!InBounds(xCell, yCell + 1) && tile.connectsTop
-                || !InBounds(xCell + 1, yCell) && tile.connectsRight
-                || !InBounds(xCell, yCell - 1) && tile.connectsBottom
-                || !InBounds(xCell - 1, yCell) && tile.connectsLeft
-                )
+            if (!GetNeighbours(x, y).Any(worldTile => worldTile.IsExplored && Connected(worldTile, x, y, tile)))
             {
                 return false;
             }
 
-            if (!GetNeighbours(xCell, yCell).Any(worldTile => worldTile.IsExplored && Connected(worldTile, xCell, yCell, tile)))
+            if (!InBounds(x, y + 1) && tile.connectsTop)
             {
-                return false;
+                reasonsWhyCantBePlaced.Add(new Vector2Int(x, y + 1));
+                canBePlaced = false;
             }
 
-            if (InBounds(xCell, yCell + 1)
-                && _world[xCell][yCell + 1].Data.mustConnect
-                && _world[xCell][yCell + 1].Data.connectsBottom != tile.connectsTop)
+            if (!InBounds(x + 1, y) && tile.connectsRight)
             {
-                return false;
+                reasonsWhyCantBePlaced.Add(new Vector2Int(x + 1, y));
+                canBePlaced = false;
             }
 
-            if (InBounds(xCell + 1, yCell)
-                && _world[xCell + 1][yCell].Data.mustConnect
-                && _world[xCell + 1][yCell].Data.connectsLeft != tile.connectsRight)
+            if (!InBounds(x, y - 1) && tile.connectsBottom)
             {
-                return false;
+                reasonsWhyCantBePlaced.Add(new Vector2Int(x, y - 1));
+                canBePlaced = false;
             }
 
-            if (InBounds(xCell, yCell - 1)
-                && _world[xCell][yCell - 1].Data.mustConnect
-                && _world[xCell][yCell - 1].Data.connectsTop != tile.connectsBottom)
+            if (!InBounds(x - 1, y) && tile.connectsLeft)
             {
-                return false;
+                reasonsWhyCantBePlaced.Add(new Vector2Int(x - 1, y));
+                canBePlaced = false;
             }
 
-            if (InBounds(xCell - 1, yCell)
-                && _world[xCell - 1][yCell].Data.mustConnect
-                && _world[xCell - 1][yCell].Data.connectsRight != tile.connectsLeft)
+            if (InBounds(x, y + 1)
+                && _world[x][y + 1].Data.mustConnect
+                && _world[x][y + 1].Data.connectsBottom != tile.connectsTop)
             {
-                return false;
+                reasonsWhyCantBePlaced.Add(new Vector2Int(x, y + 1));
+                canBePlaced = false;
             }
 
-            return true;
+            if (InBounds(x + 1, y)
+                && _world[x + 1][y].Data.mustConnect
+                && _world[x + 1][y].Data.connectsLeft != tile.connectsRight)
+            {
+                reasonsWhyCantBePlaced.Add(new Vector2Int(x + 1, y));
+                canBePlaced = false;
+            }
+
+            if (InBounds(x, y - 1)
+                && _world[x][y - 1].Data.mustConnect
+                && _world[x][y - 1].Data.connectsTop != tile.connectsBottom)
+            {
+                reasonsWhyCantBePlaced.Add(new Vector2Int(x, y - 1));
+                canBePlaced = false;
+            }
+
+            if (InBounds(x - 1, y)
+                && _world[x - 1][y].Data.mustConnect
+                && _world[x - 1][y].Data.connectsRight != tile.connectsLeft)
+            {
+                reasonsWhyCantBePlaced.Add(new Vector2Int(x - 1, y));
+                canBePlaced = false;
+            }
+
+            return canBePlaced;
         }
 
         private bool Connected(WorldTile tile1, int x, int y, TileData tile2)

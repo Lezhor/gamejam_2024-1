@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Entities;
 using GameLogic;
 using GameLogic.player;
@@ -165,7 +166,8 @@ public class PlayerController : EntityController
                 return;
             }
 
-            if (_world.CanBePlaced(tilePos.x, tilePos.y, _playerInventory.CurrentSlot))
+            List<Vector2Int> reasonsWhyCantBePlaced = new();
+            if (_world.CanBePlaced(tilePos.x, tilePos.y, _playerInventory.CurrentSlot, reasonsWhyCantBePlaced))
             {
                 _gameManager.AudioManager?.Play("Dig", .1f);
                 Animator?.SetTrigger(Mine);
@@ -179,6 +181,10 @@ public class PlayerController : EntityController
                     _playerInventory.Gold -= 10;
                     _gameManager.MessageManager.InvokeMessage(new Vector2(tileWorldPos.x, tileWorldPos.y), "-10 Gold", false);
                 }, .9f);
+            }
+            else
+            {
+                _gameManager.PlaceEvents.InvokePlacementFailed(tilePos, _playerInventory.CurrentSlot, reasonsWhyCantBePlaced);
             }
         }
     }
