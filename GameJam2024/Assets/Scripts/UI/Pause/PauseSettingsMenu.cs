@@ -1,4 +1,5 @@
 ﻿using System;
+using audio;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,12 +14,19 @@ namespace UI.Pause
         public Slider uiScale;
 
         public Button backButton;
+
+        private AudioManager _audioManager;
         
         private PauseMenuManager _pauseMenu;
 
         private void Start()
         {
             _pauseMenu = GameLogic.GameManager.Instance.UIManager.pauseMenu.GetComponent<PauseMenuManager>();
+            _audioManager = GameLogic.GameManager.Instance.AudioManager;
+
+            masterVolume.value = _audioManager.MasterVolume;
+            musicVolume.value = _audioManager.MusicVolume;
+            sfxVolume.value = _audioManager.SoundFXVolume;
         }
 
         public void OnEnable()
@@ -48,17 +56,17 @@ namespace UI.Pause
 
         private void OnMasterVolumeChanged(float value)
         {
-            Debug.Log("Master Volume changed: " + value);
+            _audioManager.MasterVolume = value;
         }
         
         private void OnMusicVolumeChanged(float value)
         {
-            Debug.Log("Music Volume changed: " + value);
+            _audioManager.MusicVolume = value;
         }
         
         private void OnSFXVolumeChanged(float value)
         {
-            Debug.Log("SFX Volume changed: " + value);
+            _audioManager.SoundFXVolume = value;
         }
         
         private void OnUIScaleChanged(float value)

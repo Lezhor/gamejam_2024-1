@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace audio
 {
@@ -12,7 +12,29 @@ namespace audio
 
         public AudioManager Instance => _instance;
 
-        public Sound[] sounds;
+        [SerializeField] private AudioMixer audioMixer;
+
+        public float MasterVolume
+        {
+            get => audioMixer.GetFloat("masterVolume", out var value) ? Mathf.Pow(10f, value / 20f) : 1f;
+            set => audioMixer.SetFloat("masterVolume", Mathf.Clamp(Mathf.Log10(value) * 20f, -80f, 0f));
+        }
+        
+        public float MusicVolume
+        {
+            get => audioMixer.GetFloat("musicVolume", out var value) ? Mathf.Pow(10f, value / 20f) : 1f;
+            set => audioMixer.SetFloat("musicVolume", Mathf.Clamp(Mathf.Log10(value) * 20f, -80f, 0f));
+        }
+        
+        public float SoundFXVolume
+        {
+            get => audioMixer.GetFloat("sfxVolume", out var value) ? Mathf.Pow(10f, value / 20f) : 1f;
+            set => audioMixer.SetFloat("sfxVolume", Mathf.Clamp(Mathf.Log10(value) * 20f, -80f, 0f));
+        }
+
+        public SoundGroup[] soundGroups;
+
+        private Sound[] _sounds;
 
         private void Awake()
         {
@@ -27,25 +49,33 @@ namespace audio
             }
             DontDestroyOnLoad(gameObject);
             
-            foreach (Sound s in sounds)
+            List<Sound> soundList = new List<Sound>();
+            
+            foreach (SoundGroup soundGroup in soundGroups)
+            foreach (Sound sound in soundGroup.sounds)
             {
-                s.source = gameObject.AddComponent<AudioSource>();
-                s.source.clip = s.clip;
+                sound.source = gameObject.AddComponent<AudioSource>();
+                sound.source.outputAudioMixerGroup = soundGroup.audioMixerGroup;
+                sound.source.clip = sound.clip;
 
-                s.source.volume = s.volume;
-                s.source.pitch = s.pitch;
-                s.source.loop = s.loop;
+                sound.source.volume = sound.volume;
+                sound.source.pitch = sound.pitch;
+                sound.source.loop = sound.loop;
 
-                if (s.playOnAwake)
+                if (sound.playOnAwake)
                 {
-                    s.source.Play();
+                    sound.source.Play();
                 }
+                
+                soundList.Add(sound);
             }
+
+            _sounds = soundList.ToArray();
         }
 
         public void Play(String sound, float delay)
         {
-            Sound s = Array.Find(sounds, s => s.name == sound);
+            Sound s = Array.Find(_sounds, s => s.name == sound);
             if (s == null)
             {
                 Debug.LogWarning("Tried to play non-existent sound: '" + sound + "'");
@@ -83,6 +113,13 @@ namespace audio
 
             [HideInInspector]
             public AudioSource source;
+        }
+
+        [Serializable]
+        public class SoundGroup
+        {
+            public AudioMixerGroup audioMixerGroup;
+            public Sound[] sounds;
         }
     }
 }

@@ -10823,6 +10823,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3225627304665135061, guid: 3c94935a851243646b588f510247b3cf, type: 3}
+      propertyPath: soundGroups.Array.data[0].sounds.Array.data[0].volume
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 3225627305348180480, guid: 3c94935a851243646b588f510247b3cf, type: 3}
       propertyPath: fog
       value: 
@@ -10855,14 +10859,6 @@ PrefabInstance:
       propertyPath: foreground
       value: 
       objectReference: {fileID: 1709575089}
-    - target: {fileID: 3225627305348180480, guid: 3c94935a851243646b588f510247b3cf, type: 3}
-      propertyPath: overlayOutlines
-      value: 
-      objectReference: {fileID: 1046011462}
-    - target: {fileID: 3225627305348180480, guid: 3c94935a851243646b588f510247b3cf, type: 3}
-      propertyPath: overlayTransparent
-      value: 
-      objectReference: {fileID: 1273572806}
     - target: {fileID: 3225627305348180480, guid: 3c94935a851243646b588f510247b3cf, type: 3}
       propertyPath: _visualPlacementFeedback
       value: 
