@@ -4,6 +4,7 @@ using GameLogic;
 using UI.SpecialTileShop;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace UI
 {
@@ -11,32 +12,61 @@ namespace UI
     {
         public GameObject specialSlotShop;
         private SpecialSlotShop _specialSlotShop;
-        private bool _specialSlotShopActive = false;
+
+        public bool SpecialSlotShopActive
+        {
+            get => specialSlotShop.activeSelf;
+            private set => specialSlotShop.SetActive(value);
+        }
 
         public GameObject winScreen;
-        private bool _winScreenActive = false;
+
+        public bool WinScreenActive
+        {
+            get => winScreen.activeSelf;
+            private set => winScreen.SetActive(value);
+        }
         
         public GameObject gameOverScreen;
-        private bool _gameOverScreenActive = false;
+
+        public bool GameOverScreenActive
+        {
+            get => gameOverScreen.activeSelf;
+            private set => gameOverScreen.SetActive(value);
+        }
+
+        public GameObject pauseMenu;
+
+        public bool PauseMenuActive
+        {
+            get => pauseMenu.activeSelf;
+            private set => pauseMenu.SetActive(value);
+        }
 
         private PlayerController _player;
 
-        public bool GameActive => !_specialSlotShopActive;
+        public bool GameActive => !SpecialSlotShopActive;
 
         private void Start()
         {
             _player = GameManager.Instance.PlayerScript;
             _specialSlotShop = specialSlotShop.GetComponent<SpecialSlotShop>();
-            specialSlotShop.SetActive(false);
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (_specialSlotShopActive)
+                if (SpecialSlotShopActive)
                 {
                     HideSpecialSlotShop();
+                } else if (PauseMenuActive)
+                {
+                    HidePauseMenu();
+                }
+                else
+                {
+                    ShowPauseMenu();
                 }
             }
         }
@@ -49,10 +79,9 @@ namespace UI
 
         public void ShowSpecialSlotShop()
         {
-            if (!_specialSlotShopActive)
+            if (!SpecialSlotShopActive)
             {
-                _specialSlotShopActive = true;
-                specialSlotShop.SetActive(true);
+                SpecialSlotShopActive = true;
                 _specialSlotShop.Init();
                 _player.DisableInput(true, true, true, true, true);
             }
@@ -60,32 +89,47 @@ namespace UI
 
         public void HideSpecialSlotShop()
         {
-            if (_specialSlotShopActive)
+            if (SpecialSlotShopActive)
             {
-                _specialSlotShopActive = false;
-                specialSlotShop.SetActive(false);
+                SpecialSlotShopActive = false;
+                _player.EnableInput(true, true, true, true, true);
+            }
+        }
+
+        public void ShowPauseMenu()
+        {
+            if (!PauseMenuActive)
+            {
+                PauseMenuActive = true;
+                _player.DisableInput(true, true, true, true, true);
+            }
+        }
+
+        public void HidePauseMenu()
+        {
+            if (PauseMenuActive)
+            {
+                PauseMenuActive = false;
                 _player.EnableInput(true, true, true, true, true);
             }
         }
 
         public void ShowWinScreen()
         {
-            if (!_winScreenActive)
+            if (!WinScreenActive)
             {
-                winScreen.SetActive(true);
-                _winScreenActive = true;
+                WinScreenActive = true;
                 _player.DisableInput(true, true, true, true, true);
             }
         }
         public void ShowGameOverScreen()
         {
-            if (!_gameOverScreenActive)
+            if (!GameOverScreenActive)
             {
-                _gameOverScreenActive = true;
                 GameManager.Instance.AudioManager.Play("Game Over");
                 DoAfterDelay(() =>
                 {
-                    gameOverScreen.SetActive(true);
+                    GameOverScreenActive = true;
                     _player.DisableInput(true, true, true, true, true);
                 }, .4f);
             }
