@@ -1,14 +1,13 @@
 ﻿using System;
 using GameLogic;
+using TMPro;
 using UnityEngine;
 
 namespace UI
 {
-    [RequireComponent(typeof(TextAndIconDisplay))]
     public class GoldListener : MonoBehaviour
     {
-
-        private TextAndIconDisplay _goldDisplay;
+        [SerializeField] private TMP_Text goldText;
 
         private float _currentValue;
         private int _displayedCurrentValue;
@@ -20,14 +19,12 @@ namespace UI
 
         private void Start()
         {
-            _goldDisplay = GetComponent<TextAndIconDisplay>();
             GameManager.Instance.PlayerScript.PlayerInventory.OnGoldValueChanged += UpdateGoldValue;
             
             _targetValue = GameManager.Instance.PlayerScript.PlayerInventory.Gold;
             _currentValue = _targetValue;
             
-            _goldDisplay.SetText(FormatInt(_targetValue));
-            
+            goldText.text = FormatInt(_targetValue);
         }
 
         private void Update()
@@ -37,7 +34,7 @@ namespace UI
                 float difference = _targetValue - _currentValue;
                 _currentValue += difference * uiActualizationSpeed * Time.deltaTime;
                 _displayedCurrentValue = Mathf.RoundToInt(_currentValue);
-                _goldDisplay.SetText(FormatInt(_displayedCurrentValue));
+                goldText.text = FormatInt(_displayedCurrentValue);
             }
             else
             {
