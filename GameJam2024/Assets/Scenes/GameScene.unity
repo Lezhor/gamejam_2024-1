@@ -10726,6 +10726,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 297597764}
     m_Modifications:
+    - target: {fileID: 261546285393408475, guid: 6011d0c17524e93449a6e3762d9af1f1, type: 3}
+      propertyPath: foregroundSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1dc79fd8633abd7439a072d928fd58e4, type: 3}
     - target: {fileID: 7413555538547116760, guid: 6011d0c17524e93449a6e3762d9af1f1, type: 3}
       propertyPath: m_Name
       value: Slot (4)
