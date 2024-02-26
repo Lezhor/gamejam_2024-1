@@ -13,11 +13,10 @@ namespace GameLogic.world
         [Header("Tilemap Resources")] 
         public TileBase imageInvis;
         [FormerlySerializedAs("imageSmoke")] public TileBase imageFogInvis;
-        public TileBase imageFloorDark;
         [FormerlySerializedAs("imageFogDark")] public TileBase imageFogPath;
-        public TileBase imageWallsDark;
         public TileBase imageFloor;
         public TileBase imageWalls;
+        public TileBase imagePlaceHint;
     
         [Header("Connections")]
         public bool connectsTop = false;

@@ -42,7 +42,10 @@ namespace GameLogic
         
         public Camera Cam => _camera;
 
-        [Header("Tilemaps")] public Tilemap background;
+        [Header("Tilemaps")]
+        public Tilemap path;
+        public Tilemap placeHints;
+        public Tilemap background;
         [FormerlySerializedAs("smoke")] public Tilemap fog;
         public Tilemap fogPath;
         public Tilemap walls;

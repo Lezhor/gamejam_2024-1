@@ -102,24 +102,28 @@ public class WorldTile
         if (_visible || _gameManager.SpectatorMode)
         {
             _gameManager.fog.SetTile(Pos, null);
+            _gameManager.background.SetTile(Pos, null);
+            _gameManager.path.SetTile(Pos, _tileData.imageFloor);
+            _gameManager.walls.SetTile(Pos, _tileData.imageWalls);
+            
             if (_explored || _gameManager.SpectatorMode)
             {
-                _gameManager.background.SetTile(Pos, _tileData.imageFloor);
-                _gameManager.walls.SetTile(Pos, _tileData.imageWalls);
                 _gameManager.fogPath.SetTile(Pos, null);
+                _gameManager.placeHints.SetTile(Pos, null);
                 TileBase foregroundTile = ActionTileVariant?.GetTile(TileAction != null && TileAction.Executed);
                 _gameManager.foreground.SetTile(Pos, foregroundTile);
             }
             else
             {
-                _gameManager.background.SetTile(Pos, _tileData.imageFloorDark);
-                _gameManager.walls.SetTile(Pos, _tileData.imageWallsDark);
+                _gameManager.placeHints.SetTile(Pos, _tileData.imagePlaceHint);
                 _gameManager.fogPath.SetTile(Pos, _tileData.imageFogPath);
                 _gameManager.foreground.SetTile(Pos, null);
             }
         }
         else
         {
+            _gameManager.path.SetTile(Pos, null);
+            _gameManager.placeHints.SetTile(Pos, null);
             _gameManager.background.SetTile(Pos, _tileData.imageInvis);
             _gameManager.fog.SetTile(Pos, _tileData.imageFogInvis);
             _gameManager.walls.SetTile(Pos, null);
