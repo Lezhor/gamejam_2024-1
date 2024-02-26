@@ -4,7 +4,6 @@ using GameLogic;
 using UI.SpecialTileShop;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 namespace UI
 {
@@ -45,7 +44,7 @@ namespace UI
 
         private PlayerController _player;
 
-        public bool GameActive => !SpecialSlotShopActive;
+        public bool GameActive => !SpecialSlotShopActive && !PauseMenuActive && !WinScreenActive && !GameOverScreenActive;
 
         private void Start()
         {

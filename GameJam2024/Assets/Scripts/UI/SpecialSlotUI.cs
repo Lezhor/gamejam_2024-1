@@ -34,11 +34,15 @@ namespace UI
             }
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        public override void OnPointerClick(PointerEventData eventData)
         {
             if (_uiManager.GameActive && schematicImage.sprite == nullSchematicSprite)
             {
                 _uiManager.ShowSpecialSlotShop();
+            }
+            else
+            {
+                base.OnPointerClick(eventData);
             }
         }
     }

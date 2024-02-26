@@ -615,6 +615,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 297597764}
     m_Modifications:
+    - target: {fileID: 5122141667518284514, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
+      propertyPath: sizeIncreaseWhenMouseHover
+      value: 1.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5122141667518284524, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
       propertyPath: m_Name
       value: Slot (2)
@@ -1359,6 +1363,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 297597764}
     m_Modifications:
+    - target: {fileID: 5122141667518284514, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
+      propertyPath: sizeIncreaseWhenMouseHover
+      value: 1.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5122141667518284524, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
       propertyPath: m_Name
       value: Slot (1)
@@ -10584,6 +10592,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 297597764}
     m_Modifications:
+    - target: {fileID: 5122141667518284514, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
+      propertyPath: sizeIncreaseWhenMouseHover
+      value: 1.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5122141667518284524, guid: 130b25995b65a0b4dbf615bc9c543539, type: 3}
       propertyPath: m_Name
       value: Slot (3)

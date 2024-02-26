@@ -7,31 +7,27 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
-        [Header("Resizing")] 
-        [Range(1f, 2f)]
-        public float sizeIncreaseWhenSelected = 1.1f;
-        [Range(1f, 2f)]
-        public float sizeIncreaseWhenMouseHover = 1.1f;
-        [Header("Schematic")]
-        public Image schematicImage;
+        public event Action OnClicked;
+
+        [Header("Resizing")] [Range(1f, 2f)] public float sizeIncreaseWhenSelected = 1.1f;
+        [Range(1f, 2f)] public float sizeIncreaseWhenMouseHover = 1.1f;
+        [Header("Schematic")] public Image schematicImage;
         public Sprite nullSchematicSprite;
-        [Range(0f, 1f)]
-        public float selectedAlpha = 1f;
-        [Range(0f, 1f)]
-        public float unselectedAlpha = 0.6f;
-        
-        [Header("Frame")]
-        public Image frameImage;
+        [Range(0f, 1f)] public float selectedAlpha = 1f;
+        [Range(0f, 1f)] public float unselectedAlpha = 0.6f;
+
+        [Header("Frame")] public Image frameImage;
         public Sprite frameSelectedSprite;
         public Sprite frameUnselectedSprite;
-        
-        [Header("Text")]
-        public TMP_Text textLabel;
 
-        private bool _mouseHovers = false;
-        private bool _selected = false;
+        [Header("Text")] public TMP_Text textLabel;
+
+        private bool _mouseHovers;
+        private bool _selected;
+
+        private int _index;
 
         public void SetLabel(int number)
         {
@@ -44,10 +40,13 @@ namespace UI
             {
                 schematicImage.sprite = nullSchematicSprite;
                 SetTransparency(schematicImage, 0f);
-            } else {
+            }
+            else
+            {
                 schematicImage.sprite = tile.sprite;
                 SetTransparency(schematicImage, 1f);
             }
+
             Redraw();
         }
 
@@ -60,7 +59,8 @@ namespace UI
         protected virtual void Redraw()
         {
             frameImage.sprite = _selected ? frameSelectedSprite : frameUnselectedSprite;
-            SetTransparency(schematicImage, schematicImage.sprite == null ? 0f : (_selected ? selectedAlpha : unselectedAlpha));
+            SetTransparency(schematicImage,
+                schematicImage.sprite == null ? 0f : (_selected ? selectedAlpha : unselectedAlpha));
             SetSize((_selected ? sizeIncreaseWhenSelected : 1f) * (_mouseHovers ? sizeIncreaseWhenMouseHover : 1f));
         }
 
@@ -88,5 +88,10 @@ namespace UI
             Redraw();
         }
 
+        public virtual void OnPointerClick(PointerEventData eventData)
+        {
+            if (!_selected)
+                OnClicked?.Invoke();
+        }
     }
 }
