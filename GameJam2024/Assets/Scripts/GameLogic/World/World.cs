@@ -51,7 +51,7 @@ namespace GameLogic.world
             ExploreTile(startPos.x, startPos.y);
             foreach (Vector2Int pos in endPos)
             {
-                ExploreTile(pos.x, pos.y);
+                //ExploreTile(pos.x, pos.y);
                 _gameManager.GoalManager.InstantiateForTile(_world[pos.x][pos.y]);
             }
             _player.OnMovedToNewTile += OnPlayerMovedToNewTile;
