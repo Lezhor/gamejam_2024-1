@@ -4,6 +4,7 @@ using GameLogic.world;
 using GameLogic.world.generators;
 using GameLogic.world.tiles.actionTiles;
 using UI;
+using UI.VisualFeedback;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;

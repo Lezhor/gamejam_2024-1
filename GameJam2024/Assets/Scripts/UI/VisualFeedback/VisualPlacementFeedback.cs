@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using GameLogic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
 using TileData = GameLogic.world.TileData;
 
-namespace GameLogic
+namespace UI.VisualFeedback
 {
     public class VisualPlacementFeedback : MonoBehaviour
     {
