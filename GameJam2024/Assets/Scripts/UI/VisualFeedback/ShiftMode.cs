@@ -46,11 +46,13 @@ namespace UI.VisualFeedback
             {
                 _lastPressTime = Time.time;
                 _shiftPressed = true;
+                _player.Crouch = true;
             }
             else if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 _lastPressTime = Time.time;
                 _shiftPressed = false;
+                _player.Crouch = false;
             }
 
             float lastFrameValue = _currentValue;

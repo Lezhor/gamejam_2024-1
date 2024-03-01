@@ -10,24 +10,24 @@ using UnityEngine.Serialization;
 
 public class PlayerController : EntityController
 {
-    
     public event Action<Vector2Int, Vector2Int> OnMovedToNewTile;
     public event Action<Vector2Int> OnActionKeyPressed;
 
     private Vector2Int _tilePosLastFrame;
-    
-    
+
+
     private PlayerInventory _playerInventory;
 
     public PlayerInventory PlayerInventory => _playerInventory;
 
-    [Header("Player Settings")]
-    [SerializeField]
+    public bool Crouch { get; set; } = false;
+
+    [Header("Player Settings")] [SerializeField]
     private float maxDigDistanceHorizontal = 1.5f;
-    [SerializeField]
-    private float maxDigDistanceVertical = 1f;
-    [SerializeField]
-    private int startGold = 300;
+
+    [SerializeField] private float maxDigDistanceVertical = 1f;
+    [SerializeField] private float crouchMultiplier = .3f;
+    [SerializeField] private int startGold = 300;
 
     private Camera _cam;
     private World _world;
@@ -37,9 +37,9 @@ public class PlayerController : EntityController
 
     public bool InputMouseClickEnabled { get; private set; } = true;
     public bool InputMouseMoveEnabled { get; private set; } = true;
-    public bool InputMoveEnabled { get; private set; }  = true;
-    public bool InputActionEnabled { get; private set; }  = true;
-    public bool InputSelectInventoryEnabled { get; private set; }  = true;
+    public bool InputMoveEnabled { get; private set; } = true;
+    public bool InputActionEnabled { get; private set; } = true;
+    public bool InputSelectInventoryEnabled { get; private set; } = true;
 
     public void DisableInput(bool mouseClick, bool mouseMove, bool move, bool action, bool selectInv, float time)
     {
@@ -100,7 +100,7 @@ public class PlayerController : EntityController
         CheckIfMovedToNewTile();
         CheckIfActionKeyPressed();
         CheckForInvSlotChange();
-        
+
         /*
         if (Input.GetKeyDown(KeyCode.U)) _playerInventory.Gold += 20;
         if (Input.GetKeyDown(KeyCode.I)) _playerInventory.Gold += 100;
@@ -113,7 +113,8 @@ public class PlayerController : EntityController
     {
         if (InputMoveEnabled)
         {
-            MoveVector = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            MoveVector = (new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")))
+                * (Crouch ? crouchMultiplier : 1);
         }
         else
         {
@@ -158,7 +159,7 @@ public class PlayerController : EntityController
 
             distanceToTile = new Vector3(distanceToTile.x / maxDigDistanceHorizontal,
                 distanceToTile.y / maxDigDistanceVertical);
-            
+
 
             if (distanceToTile.magnitude > 1)
             {
@@ -179,12 +180,14 @@ public class PlayerController : EntityController
                     _world.PlaceIfPossible(tilePos.x, tilePos.y, _playerInventory.CurrentSlot);
                     _playerInventory.ReplaceCurrentSlot();
                     _playerInventory.Gold -= 10;
-                    _gameManager.MessageManager.InvokeMessage(new Vector2(tileWorldPos.x, tileWorldPos.y), "-10 Gold", false);
+                    _gameManager.MessageManager.InvokeMessage(new Vector2(tileWorldPos.x, tileWorldPos.y), "-10 Gold",
+                        false);
                 }, .9f);
             }
             else if (!_world.IsPath(tilePos))
             {
-                _gameManager.PlaceEvents.InvokePlacementFailed(tilePos, _playerInventory.CurrentSlot, reasonsWhyCantBePlaced);
+                _gameManager.PlaceEvents.InvokePlacementFailed(tilePos, _playerInventory.CurrentSlot,
+                    reasonsWhyCantBePlaced);
             }
         }
     }
@@ -204,16 +207,20 @@ public class PlayerController : EntityController
     {
         if (!InputSelectInventoryEnabled)
         {
-        } else if (Input.GetKeyDown(KeyCode.Alpha1))
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _playerInventory.CurrentSlotIndex = 0;
-        } else if (Input.GetKeyDown(KeyCode.Alpha2))
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             _playerInventory.CurrentSlotIndex = 1;
-        } else if (Input.GetKeyDown(KeyCode.Alpha3))
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             _playerInventory.CurrentSlotIndex = 2;
-        } else if (_playerInventory.Slot(3) != null && Input.GetKeyDown(KeyCode.Alpha4))
+        }
+        else if (_playerInventory.Slot(3) != null && Input.GetKeyDown(KeyCode.Alpha4))
         {
             _playerInventory.CurrentSlotIndex = 3;
         }
@@ -223,7 +230,8 @@ public class PlayerController : EntityController
             if (scrollDelta > 0)
             {
                 _playerInventory.DecrementSlotIndexIfPossible();
-            } else if (scrollDelta < 0)
+            }
+            else if (scrollDelta < 0)
             {
                 _playerInventory.IncrementSlotIndexIfPossible();
             }
@@ -243,5 +251,4 @@ public class PlayerController : EntityController
             _gameManager.UIManager.ShowGameOverScreen();
         }
     }
-
 }
