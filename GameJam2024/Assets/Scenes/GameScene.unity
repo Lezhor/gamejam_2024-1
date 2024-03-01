@@ -9049,6 +9049,7 @@ MonoBehaviour:
   speed: 1000
   maxDigDistanceHorizontal: 1.4
   maxDigDistanceVertical: 1.1
+  crouchMultiplier: 0.3
   startGold: 200
 --- !u!1 &1820400561
 GameObject:
@@ -10261,6 +10262,7 @@ MonoBehaviour:
   fadeTime: 0.01
   darkOverlay: {fileID: 1110488910}
   maxDarkOverlayAlpha: 0.3
+  showPlaceHints: 0
 --- !u!1 &2073159931
 GameObject:
   m_ObjectHideFlags: 0

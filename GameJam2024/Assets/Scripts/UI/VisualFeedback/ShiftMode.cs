@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameLogic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 using TileData = GameLogic.world.TileData;
 
@@ -25,6 +27,30 @@ namespace UI.VisualFeedback
 
         private List<Vector2Int> _currentlyDisplayed = new();
 
+        [SerializeField] private bool showPlaceHints = true;
+        
+        public bool ShowPlaceHints
+        {
+            get => showPlaceHints;
+            set
+            {
+                if (showPlaceHints != value)
+                {
+                    showPlaceHints = value;
+                    canBePlacedTilemap.gameObject.SetActive(showPlaceHints);
+                }
+            }
+        }
+
+        private void OnValidate()
+        {
+            if (Application.isPlaying)
+            {
+                showPlaceHints = !showPlaceHints;
+                ShowPlaceHints = !showPlaceHints;
+            }
+        }
+
         private GameManager _gameManager;
         private UIManager _uiManager;
         private PlayerController _player;
@@ -34,6 +60,8 @@ namespace UI.VisualFeedback
             _gameManager = GameManager.Instance;
             _uiManager = _gameManager.UIManager;
             _player = _gameManager.PlayerScript;
+            showPlaceHints = !showPlaceHints;
+            ShowPlaceHints = !showPlaceHints;
             UpdateEverything(_currentValue);
             _gameManager.PlayerScript.PlayerInventory.OnActiveTileChanged += OnNewTileSelected;
             OnNewTileSelected(_gameManager.PlayerScript.PlayerInventory.CurrentSlot);
