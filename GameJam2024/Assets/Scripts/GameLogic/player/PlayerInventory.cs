@@ -8,11 +8,12 @@ namespace GameLogic.player
     {
         public event Action<int, TileData> OnSlotContentChanged;
         public event Action<int> OnActiveSlotChanged;
+        public event Action<TileData> OnActiveTileChanged; // When a new slot is picked unless its the same tile-type
         public event Action<int, int> OnGoldValueChanged;
 
         public event Action OnGoldRanOut;
-        
-        
+
+
         private int gold = 0;
 
         public int Gold
@@ -50,6 +51,7 @@ namespace GameLogic.player
             {
                 _slots[_selectedSlot] = value;
                 OnSlotContentChanged?.Invoke(_selectedSlot, value);
+                OnActiveTileChanged?.Invoke(value);
             }
         }
 
@@ -73,8 +75,16 @@ namespace GameLogic.player
             {
                 if (value >= 0 && value <= 3)
                 {
-                    _selectedSlot = value;
-                    OnActiveSlotChanged?.Invoke(value);
+                    if (_selectedSlot != value)
+                    {
+                        int oldSlot = _selectedSlot;
+                        _selectedSlot = value;
+                        OnActiveSlotChanged?.Invoke(value);
+                        if (Slot(oldSlot) != Slot(_selectedSlot))
+                        {
+                            OnActiveTileChanged?.Invoke(Slot(_selectedSlot));
+                        }
+                    }
                 }
                 else
                 {
@@ -83,7 +93,9 @@ namespace GameLogic.player
             }
         }
 
-        public void IncrementSlotIndexIfPossible() => CurrentSlotIndex = Math.Min(CurrentSlotIndex + 1, _slots[3] != null ? 3 : 2);
+        public void IncrementSlotIndexIfPossible() =>
+            CurrentSlotIndex = Math.Min(CurrentSlotIndex + 1, _slots[3] != null ? 3 : 2);
+
         public void DecrementSlotIndexIfPossible() => CurrentSlotIndex = Math.Max(CurrentSlotIndex - 1, 0);
 
 
@@ -108,7 +120,7 @@ namespace GameLogic.player
             CurrentSlot = startSlot3;
             _selectedSlot = 3;
             CurrentSlot = startSlot4;
-            _selectedSlot = 0;
+            CurrentSlotIndex = 0;
         }
     }
 }

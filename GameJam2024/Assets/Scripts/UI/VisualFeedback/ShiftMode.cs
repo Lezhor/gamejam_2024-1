@@ -1,15 +1,20 @@
-﻿using GameLogic;
+﻿using System;
+using System.Collections.Generic;
+using GameLogic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
+using TileData = GameLogic.world.TileData;
 
 namespace UI.VisualFeedback
 {
     public class ShiftMode : MonoBehaviour
     {
-        [Header("Scrolling Feedback")] [SerializeField]
+        [Header("Tilemaps")] [SerializeField]
         private Tilemap scrollingFeedbackTilemap;
-
-        [SerializeField] private float maxAlpha = .4f;
+        [SerializeField] private float maxScrollingTilemapAlpha = .4f;
+        [SerializeField] private Tilemap canBePlacedTilemap;
+        [SerializeField] private float maxCanBePlacedTilemapAlpha = .2f;
 
         [Header("Fade")] [SerializeField] private float fadeTime = 1f;
 
@@ -18,12 +23,18 @@ namespace UI.VisualFeedback
 
         private bool _shiftPressed;
 
+        private List<Vector2Int> _currentlyDisplayed = new();
+
+        private GameManager _gameManager;
         private UIManager _uiManager;
 
         private void Start()
         {
-            _uiManager = GameManager.Instance.UIManager;
+            _gameManager = GameManager.Instance;
+            _uiManager = _gameManager.UIManager;
             UpdateEverything(_currentValue);
+            _gameManager.PlayerScript.PlayerInventory.OnActiveTileChanged += OnNewTileSelected;
+            OnNewTileSelected(_gameManager.PlayerScript.PlayerInventory.CurrentSlot);
         }
 
         private void Update()
@@ -53,7 +64,33 @@ namespace UI.VisualFeedback
 
         private void UpdateEverything(float value)
         {
-            SetTransparency(scrollingFeedbackTilemap, Mathf.Lerp(0, maxAlpha, value));
+            SetTransparency(scrollingFeedbackTilemap, Mathf.Lerp(0, maxScrollingTilemapAlpha, value));
+            SetTransparency(canBePlacedTilemap, Mathf.Lerp(0, maxCanBePlacedTilemapAlpha, value));
+        }
+
+        private void OnNewTileSelected(TileData tile)
+        {
+            
+            foreach (Vector2Int pos in _currentlyDisplayed)
+            {
+                Vector3Int pos3D = new(pos.x, pos.y);
+                canBePlacedTilemap.SetTile(pos3D, null);
+            }
+
+            if (tile == null)
+            {
+                _currentlyDisplayed = new();
+            }
+            else
+            {
+                _currentlyDisplayed = _gameManager.World.GetPlacesWhereTileCanBePlacedOn(tile);
+
+                foreach (Vector2Int pos in _currentlyDisplayed)
+                {
+                    Vector3Int pos3D = new(pos.x, pos.y);
+                    canBePlacedTilemap.SetTile(pos3D, tile.imageWalls);
+                }
+            }
         }
 
         private void SetTransparency(Tilemap tilemap, float alpha)

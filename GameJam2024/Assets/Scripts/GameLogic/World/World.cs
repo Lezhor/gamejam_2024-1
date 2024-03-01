@@ -14,6 +14,8 @@ namespace GameLogic.world
         private readonly WorldTile[][] _world;
         public readonly Vector2Int StartPos;
         public readonly Vector2Int[] EndPos;
+
+        private readonly List<Vector2Int> _explored = new();
         
 
         public Vector2Int Size => new Vector2Int(_world.Length, _world.Length == 0 ? 0 : _world[0].Length);
@@ -88,9 +90,10 @@ namespace GameLogic.world
 
         private void ExploreTile(int x, int y)
         {
-            if (InBounds(x, y))
+            if (InBounds(x, y) && !_world[x][y].IsExplored)
             {
                 _world[x][y].SetExplored(true);
+                _explored.Add(new(x, y));
                 foreach (WorldTile tile in GetConnectedNeighbours(x, y))
                 {
                     if (!tile.IsExplored)
@@ -346,6 +349,19 @@ namespace GameLogic.world
         private bool InBounds(int xCell, int yCell)
         {
             return xCell >= 0 && xCell < _world.Length && yCell >= 0 && yCell < _world[xCell].Length;
+        }
+
+        public List<Vector2Int> GetPlacesWhereTileCanBePlacedOn(TileData tile)
+        {
+            List<Vector2Int> candidates = new List<Vector2Int>();
+            foreach (List<WorldTile> sublist in _explored.Select(v => GetNeighbours(v.x, v.y)))
+            foreach (WorldTile t in sublist)
+            {
+                if (!t.IsExplored)
+                    candidates.Add(t.Pos2D);
+            }
+
+            return candidates.Where(v => CanBePlaced(v.x, v.y, tile, new())).ToList();
         }
     }
 }
