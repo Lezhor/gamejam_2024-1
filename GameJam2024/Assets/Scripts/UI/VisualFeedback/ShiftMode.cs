@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameLogic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 using TileData = GameLogic.world.TileData;
 
@@ -17,6 +15,8 @@ namespace UI.VisualFeedback
         [SerializeField] private float maxCanBePlacedTilemapAlpha = .2f;
 
         [Header("Fade")] [SerializeField] private float fadeTime = 1f;
+        [Header("Other")] [SerializeField] private SpriteRenderer darkOverlay;
+        [SerializeField] private float maxDarkOverlayAlpha = .3f;
 
         private float _lastPressTime;
         private float _currentValue;
@@ -27,11 +27,13 @@ namespace UI.VisualFeedback
 
         private GameManager _gameManager;
         private UIManager _uiManager;
+        private PlayerController _player;
 
         private void Start()
         {
             _gameManager = GameManager.Instance;
             _uiManager = _gameManager.UIManager;
+            _player = _gameManager.PlayerScript;
             UpdateEverything(_currentValue);
             _gameManager.PlayerScript.PlayerInventory.OnActiveTileChanged += OnNewTileSelected;
             OnNewTileSelected(_gameManager.PlayerScript.PlayerInventory.CurrentSlot);
@@ -66,6 +68,7 @@ namespace UI.VisualFeedback
         {
             SetTransparency(scrollingFeedbackTilemap, Mathf.Lerp(0, maxScrollingTilemapAlpha, value));
             SetTransparency(canBePlacedTilemap, Mathf.Lerp(0, maxCanBePlacedTilemapAlpha, value));
+            SetTransparency(darkOverlay, Mathf.Lerp(0, maxDarkOverlayAlpha, value));
         }
 
         private void OnNewTileSelected(TileData tile)
@@ -98,6 +101,13 @@ namespace UI.VisualFeedback
             Color c = tilemap.color;
             c.a = alpha;
             tilemap.color = c;
+        }
+        
+        private void SetTransparency(SpriteRenderer sprite, float alpha)
+        {
+            Color c = sprite.color;
+            c.a = alpha;
+            sprite.color = c;
         }
     }
 }
