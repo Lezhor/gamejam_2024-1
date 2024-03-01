@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Starter Hint Tile
   m_EditorClassIdentifier: 
   possibleActions:
-  - {fileID: 11400000, guid: 94ac68980ecb38e4cab3e371b1189e2f, type: 2}
+  - {fileID: 11400000, guid: 56c926a872e8e6c4282189beff1485ce, type: 2}
   possibleTiles:
   - tileBeforeAction: {fileID: 0}
     tileAfterAction: {fileID: 0}
