@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GameLogic.world.tiles;
 using GameLogic.world.tiles.actionTiles;
-using math;
+using General;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
