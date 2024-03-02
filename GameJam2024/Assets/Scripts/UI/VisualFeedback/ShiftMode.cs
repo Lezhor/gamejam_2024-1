@@ -20,6 +20,8 @@ namespace UI.VisualFeedback
         [Header("Fade")] [SerializeField] private float fadeTime = 1f;
         [Header("Other")] [SerializeField] private SpriteRenderer darkOverlay;
         [SerializeField] private float maxDarkOverlayAlpha = .3f;
+        [SerializeField] private bool showPlaceHints = true;
+        
         [Header("Audio")] 
         [Range(0, 22000)]
         [SerializeField] private int lowpassCutoffFreq = 5000;
@@ -33,7 +35,6 @@ namespace UI.VisualFeedback
 
         private List<Vector2Int> _currentlyDisplayed = new();
 
-        [SerializeField] private bool showPlaceHints = true;
         
         public bool ShowPlaceHints
         {
@@ -80,13 +81,13 @@ namespace UI.VisualFeedback
         private void Update()
         {
             // TODO - Can be toggled
-            if (_uiManager.GameActive && Input.GetKeyDown(KeyCode.LeftShift))
+            if (_uiManager.GameActive && !_shiftPressed && Input.GetKey(KeyCode.LeftShift))
             {
                 _lastPressTime = Time.time;
                 _shiftPressed = true;
                 _player.Crouch = true;
             }
-            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            else if (_shiftPressed && !Input.GetKey(KeyCode.LeftShift))
             {
                 _lastPressTime = Time.time;
                 _shiftPressed = false;
