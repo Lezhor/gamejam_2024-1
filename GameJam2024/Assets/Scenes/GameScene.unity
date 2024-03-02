@@ -10259,11 +10259,11 @@ MonoBehaviour:
   maxScrollingTilemapAlpha: 0.7
   canBePlacedTilemap: {fileID: 1831809332}
   maxCanBePlacedTilemapAlpha: 0.3
-  fadeTime: 0.01
+  fadeTime: 0.05
   darkOverlay: {fileID: 1110488910}
   maxDarkOverlayAlpha: 0.3
-  lowpassCutoffFreq: 1500
   showPlaceHints: 0
+  lowpassCutoffFreq: 1500
 --- !u!1 &2073159931
 GameObject:
   m_ObjectHideFlags: 0
