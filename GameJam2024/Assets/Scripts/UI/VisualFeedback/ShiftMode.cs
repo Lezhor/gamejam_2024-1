@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using audio;
 using GameLogic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -19,6 +20,11 @@ namespace UI.VisualFeedback
         [Header("Fade")] [SerializeField] private float fadeTime = 1f;
         [Header("Other")] [SerializeField] private SpriteRenderer darkOverlay;
         [SerializeField] private float maxDarkOverlayAlpha = .3f;
+        [Header("Audio")] 
+        [Range(0, 22000)]
+        [SerializeField] private int lowpassCutoffFreq = 5000;
+
+        private float lowpassCutoffFreqLog;
 
         private float _lastPressTime;
         private float _currentValue;
@@ -44,6 +50,7 @@ namespace UI.VisualFeedback
 
         private void OnValidate()
         {
+            lowpassCutoffFreqLog = Mathf.Log(lowpassCutoffFreq, 2);
             if (Application.isPlaying)
             {
                 showPlaceHints = !showPlaceHints;
@@ -53,12 +60,15 @@ namespace UI.VisualFeedback
 
         private GameManager _gameManager;
         private UIManager _uiManager;
+        private AudioManager _audioManager;
         private PlayerController _player;
 
         private void Start()
         {
+            lowpassCutoffFreqLog = Mathf.Log(lowpassCutoffFreq, 2);
             _gameManager = GameManager.Instance;
             _uiManager = _gameManager.UIManager;
+            _audioManager = _gameManager.AudioManager;
             _player = _gameManager.PlayerScript;
             showPlaceHints = !showPlaceHints;
             ShowPlaceHints = !showPlaceHints;
@@ -96,6 +106,7 @@ namespace UI.VisualFeedback
 
         private void UpdateEverything(float value)
         {
+            _audioManager.MasterHighCutoffFreq = Mathf.Lerp(14.4252159f, lowpassCutoffFreqLog, value);
             SetTransparency(scrollingFeedbackTilemap, Mathf.Lerp(0, maxScrollingTilemapAlpha, value));
             SetTransparency(canBePlacedTilemap, Mathf.Lerp(0, maxCanBePlacedTilemapAlpha, value));
             SetTransparency(darkOverlay, Mathf.Lerp(0, maxDarkOverlayAlpha, value));

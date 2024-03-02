@@ -20,6 +20,12 @@ namespace audio
             set => audioMixer.SetFloat("masterVolume", Mathf.Clamp(Mathf.Log10(value) * 20f, -80f, 0f));
         }
         
+        public float MasterHighCutoffFreq
+        {
+            get => Mathf.Log(audioMixer.GetFloat("masterLowpassCutoffFreq", out var value) ? value : 22000, 2);
+            set => audioMixer.SetFloat("masterLowpassCutoffFreq", Mathf.Pow(2, Mathf.Clamp(value, 0f, 14.4252159f)));
+        }
+
         public float MusicVolume
         {
             get => audioMixer.GetFloat("musicVolume", out var value) ? Mathf.Pow(10f, value / 20f) : 1f;

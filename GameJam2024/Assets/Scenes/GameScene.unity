@@ -10262,6 +10262,7 @@ MonoBehaviour:
   fadeTime: 0.01
   darkOverlay: {fileID: 1110488910}
   maxDarkOverlayAlpha: 0.3
+  lowpassCutoffFreq: 1500
   showPlaceHints: 0
 --- !u!1 &2073159931
 GameObject:
