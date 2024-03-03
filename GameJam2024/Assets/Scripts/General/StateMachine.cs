@@ -21,13 +21,13 @@ namespace General
             SetState(startState);
         }
 
-        public void Tick()
+        public void Tick(float deltaTime)
         {
             var transition = GetTransition();
             if (transition != null)
                 SetState(transition.To);
 
-            _currentState?.Tick();
+            _currentState?.Tick(deltaTime);
         }
 
         private void SetState(IState state)
@@ -72,8 +72,9 @@ namespace General
 
         public interface IState
         {
-            void Tick();
             void OnEnter();
+            void Tick(float deltaTime);
+            bool StateFinished();
             void OnExit();
         }
 
@@ -98,6 +99,12 @@ namespace General
 
                 transitions.Add(new Transition(to, condition));
 
+                return this;
+            }
+
+            public Builder AddOnFinishedTransition(IState from, IState to)
+            {
+                AddTransition(from, to, from.StateFinished);
                 return this;
             }
 
