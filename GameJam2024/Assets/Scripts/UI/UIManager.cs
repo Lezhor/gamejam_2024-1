@@ -113,6 +113,17 @@ namespace UI
             }
         }
 
+        public void OnPauseButtonClicked()
+        {
+            if (PauseMenuActive)
+            {
+                HidePauseMenu();
+            } else if (!PauseMenuActive && GameActive)
+            {
+                ShowPauseMenu();
+            }
+        }
+
         public void ShowWinScreen()
         {
             if (!WinScreenActive)
