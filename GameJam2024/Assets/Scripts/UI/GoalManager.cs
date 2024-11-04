@@ -14,7 +14,14 @@ namespace UI
             if (instantiatingEnabled)
             {
                 Instantiate(goalCircle, tile.Center, Quaternion.identity);
-                Instantiate(goalArrow, tile.Center, Quaternion.identity);
+                if (Camera.main != null)
+                {
+                    Instantiate(goalArrow, tile.Center, Quaternion.identity, Camera.main.transform);
+                }
+                else
+                {
+                    Instantiate(goalArrow, tile.Center, Quaternion.identity);
+                }
             }
         }
     }
