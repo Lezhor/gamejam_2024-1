@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UI.Pause
 {
@@ -42,6 +43,7 @@ namespace UI.Pause
         {
             // TODO
             Debug.Log("Restart");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         
         public void OnSettingsButtonClicked()

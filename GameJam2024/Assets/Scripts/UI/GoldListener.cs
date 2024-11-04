@@ -49,7 +49,17 @@ namespace UI
 
         private String FormatInt(int value)
         {
-            return value == 0 ? "0" : value.ToString("### ### ###");
+            String format = "###";
+            if (value >= 1000)
+            {
+                format = "### ###";
+            }
+
+            if (value >= 1_000_000)
+            {
+                format = "### ### ###";
+            }
+            return value == 0 ? "0" : value.ToString(format);
         }
     }
 }

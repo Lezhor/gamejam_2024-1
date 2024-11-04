@@ -776,9 +776,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Retry
-
-'
+  m_text: Restart
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -983,15 +981,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1 000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0632f7b52e1eb904b8b33eea4d401ded, type: 2}
+  m_sharedMaterial: {fileID: 3942408333719029905, guid: 0632f7b52e1eb904b8b33eea4d401ded, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278245375
-  m_fontColor: {r: 1, g: 0.84313726, b: 0, a: 1}
+    rgba: 4279881982
+  m_fontColor: {r: 0.9960785, g: 0.81568635, b: 0.098039225, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1008,8 +1006,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64
-  m_fontSizeBase: 64
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10473,7 +10471,9 @@ MonoBehaviour:
   fadeTime: 0.05
   darkOverlay: {fileID: 1110488910}
   maxDarkOverlayAlpha: 0.3
-  showPlaceHints: 0
+  scrollFeeedbackTransparicy: 0.6
+  showPlaceHints: 1
+  alwaysShowScrollingFeedback: 1
   lowpassCutoffFreq: 1500
 --- !u!1 &2073159931
 GameObject:

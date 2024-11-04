@@ -13,12 +13,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193626845665823316, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
       propertyPath: m_text
-      value: 'Press E to interact
+      value: '<line-height=60%>Press E to interact
 
         blub
 
         hello'
       objectReference: {fileID: 0}
+    - target: {fileID: 1193626845665823316, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
+      propertyPath: m_fontSize
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193626845665823316, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 1193626845665823316, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
       propertyPath: m_fontStyle
       value: 0
@@ -28,8 +36,20 @@ PrefabInstance:
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1193626845665823316, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193626845665823316, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
       propertyPath: m_VerticalAlignment
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193626845665823316, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
+      propertyPath: m_enableWordWrapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193626845665823316, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1193626845665823318, guid: 7abe40b302627b947a3c368f03066d4a, type: 3}
       propertyPath: m_Pivot.x
@@ -137,3 +157,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 0.5, y: 1.1, z: 0}
   fadeTime: 0.6
+  lineHeightPercent: 70

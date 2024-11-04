@@ -14,6 +14,8 @@ namespace UI
         public Vector3 offset = new(0, 0.5f);
         public float fadeTime = 1f;
 
+        public int lineHeightPercent = 60;
+
         private Vector2Int _startPos;
 
         public Vector2Int StartPos => _startPos;
@@ -22,10 +24,10 @@ namespace UI
         
         public string Text
         {
-            get => _tmp.text;
+            get => _tmp.text.Split("%>")[1];
             set
             {
-                _tmp.text = value;
+                _tmp.text = "<line-height=" + lineHeightPercent + "%>" + value;
                 FadeIn = true;
             }
         }

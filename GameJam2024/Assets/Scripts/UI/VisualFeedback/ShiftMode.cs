@@ -20,7 +20,9 @@ namespace UI.VisualFeedback
         [Header("Fade")] [SerializeField] private float fadeTime = 1f;
         [Header("Other")] [SerializeField] private SpriteRenderer darkOverlay;
         [SerializeField] private float maxDarkOverlayAlpha = .3f;
+        [SerializeField] private float scrollFeeedbackTransparicy = .7f;
         [SerializeField] private bool showPlaceHints = true;
+        [SerializeField] private bool alwaysShowScrollingFeedback = false;
         
         [Header("Audio")] 
         [Range(0, 22000)]
@@ -108,7 +110,7 @@ namespace UI.VisualFeedback
         private void UpdateEverything(float value)
         {
             _audioManager.MasterHighCutoffFreq = Mathf.Lerp(14.4252159f, lowpassCutoffFreqLog, value);
-            SetTransparency(scrollingFeedbackTilemap, Mathf.Lerp(0, maxScrollingTilemapAlpha, value));
+            SetTransparency(scrollingFeedbackTilemap, Mathf.Lerp(0, maxScrollingTilemapAlpha, (alwaysShowScrollingFeedback ? 1 : value) * scrollFeeedbackTransparicy));
             SetTransparency(canBePlacedTilemap, Mathf.Lerp(0, maxCanBePlacedTilemapAlpha, value));
             SetTransparency(darkOverlay, Mathf.Lerp(0, maxDarkOverlayAlpha, value));
         }

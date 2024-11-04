@@ -129,8 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0d7b32836774bbba4f67b6e1480f4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeIncreaseWhenSelected: 1.15
-  sizeIncreaseWhenMouseHover: 1.1
+  sizeIncrease: 1.15
   schematicImage: {fileID: 6855021983132476660}
   selectedAlpha: 1
   unselectedAlpha: 0.6

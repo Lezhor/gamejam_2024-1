@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: StartTile Tutorial 2
   m_EditorClassIdentifier: 
   soundToPlayOnAction: 
-  hint: Choose Tile with scrolling<br>Click to dig
+  hint: Scroll to choose tile.<br>Click to dig.<br>Shift for hints.
